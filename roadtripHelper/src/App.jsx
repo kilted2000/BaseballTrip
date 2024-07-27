@@ -3,7 +3,10 @@ import './App.css'
 
 function App() {
   const [click, setClick] = useState(0)
-
+  const [name, setName] = useState('')
+  const [team, setTeam] = useState('')
+  const [schedule, setSchedule] = useState('')
+  
   const stadiums = 
     [
       {
