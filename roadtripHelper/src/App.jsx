@@ -6,7 +6,7 @@ function App() {
   const [name, setName] = useState('')
   const [team, setTeam] = useState('')
   const [schedule, setSchedule] = useState('')
-  
+
   const stadiums = 
     [
       {
@@ -39,7 +39,7 @@ function App() {
       <input></input>
       <input></input>
       <input></input>
-      <button>Press if you Dare!</button>
+      <button>Press If You Dare!</button>
       </form>
     </>
   )
