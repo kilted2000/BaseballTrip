@@ -2,7 +2,6 @@ import { useState } from 'react'
 import './App.css'
 
 function App() {
-  const [click, setClick] = useState(0)
   const [name, setName] = useState('')
   const [team, setTeam] = useState('')
   const [schedule, setSchedule] = useState('')
@@ -39,10 +38,56 @@ function App() {
       <input></input>
       <input></input>
       <input></input>
-      <button>Press If You Dare!</button>
+      <button type='submit'>Press If You Dare!</button>
       </form>
     </>
   )
 }
 
 export default App
+// const ProfileForm = () => {
+//   const { isAuthenticated } = useAuth0();
+//   const [firstName, setFirstName] = useState('');
+//   const [lastName, setLastName] = useState('');
+//   const [email, setEmail] = useState('');
+//   const [dogName, setDogName] = useState('');
+//   const [breed, setBreed] = useState('');
+//   const [personality, setPersonality] = useState('');
+
+// //   function handlePhotoUpload(result) {
+// //     console.log(result);
+// //   }
+//   const handleSubmit = event => {
+//     event.preventDefault();
+//     const newUser = { firstName, lastName, email, dogName, breed, personality };
+//     console.log(newUser)
+//     fetch("http://localhost:8080/api/users/", {
+//       method: 'POST',
+//       headers: {
+//         'Content-Type': 'application/json'
+//       },
+//       body: JSON.stringify(newUser)
+      
+//     })
+   
+//       .then(response => response.json())
+//       .then(data => console.log(data))
+//       .catch(error => console.error(error));
+//   };
+
+//   return (
+//     isAuthenticated && (
+//      (
+//     <form onSubmit={handleSubmit}>
+//       <label>
+//         First Name:
+//         <input type="text" value={firstName} onChange={e => setFirstName(e.target.value)} />
+//       </label>
+//       <label>
+//         Last Name:
+//         <input type="text" value={lastName} onChange={e => setLastName(e.target.value)} />
+//       </label>
+//       <label>
+//         Email:
+//         <input type="text" value={email} onChange={e => setEmail(e.target.value)} />
+//       </label>
