@@ -2,9 +2,12 @@ import { useState } from 'react'
 import './App.css'
 
 function App() {
-  const [name, setName] = useState('')
-  const [team, setTeam] = useState('')
-  const [schedule, setSchedule] = useState('')
+  const [teamOne, setTeamOne] = useState('')
+  const [teamTwo, setTeamTwo] = useState('')
+  const [teamThree, setTeamThree] = useState('')
+  const [teamFour, setTeamFour] = useState('')
+  const [dateOne, setDateOne] = useState('')
+  const [dateTwo, setDateTwo] = useState('')
 
   const stadiums = 
     [
@@ -29,15 +32,16 @@ function App() {
           schedule: ['june 15', 'june 16', 'july 17', 'july 18', 'july 19']
       },]
   
+      const handleSubmit = () => {}
 
   return (
     <>
-    <form>
-      <input></input>
-      <input></input>
-      <input></input>
-      <input></input>
-      <input></input>
+    <form onSubmit={ handleSubmit }>
+      <label>Team One:<input type='text' value={teamOne} onChange={e => setTeamOne(e.target.value)}></input></label>
+      <label>Team Two:<input type='text' value={teamTwo} onChange={e => setTeamTwo(e.target.value)}></input></label>
+      <label>Team Three:<input type='text' value={teamThree} onChange={e => setTeamThree(e.target.value)}></input></label>
+      <label>Team Four:<input type='text' value={teamFour} onChange={e => setTeamFour(e.target.value)}></input></label>
+      <label>Dates:<input type='date' value={dateOne} onChange={e => setDateOne(e.target.value)}></input>-<input  type='date' value={dateTwo} onChange={e => setDateTwo(e.target.value)}></input></label>
       <button type='submit'>Press If You Dare!</button>
       </form>
     </>
@@ -78,10 +82,12 @@ export default App
 //   return (
 //     isAuthenticated && (
 //      (
+//         <input type="text" value={firstName}  />
 //     <form onSubmit={handleSubmit}>
 //       <label>
 //         First Name:
-//         <input type="text" value={firstName} onChange={e => setFirstName(e.target.value)} />
+//         <input type="text" value={firstName}  />
+//         <input type="text" value={firstName}  />
 //       </label>
 //       <label>
 //         Last Name:
