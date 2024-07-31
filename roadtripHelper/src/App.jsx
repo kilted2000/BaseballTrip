@@ -39,8 +39,8 @@ function App() {
 
   const handleSubmit = event => {
     event.preventDefault();
-    for(let i = 0;i <= stadiums.length;i ++){
-      
+    for(let i = 0;i <= stadiums.length;i++){
+
     }
   };
 
