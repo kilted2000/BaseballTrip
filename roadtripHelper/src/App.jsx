@@ -31,6 +31,11 @@ function App() {
       schedule: ["june 15", "june 16", "july 17", "july 18", "july 19"],
     },
   ];
+//user enters team names and dates
+//user clicks submit
+//stadium obj is checked
+//schedule key is checked by team name
+//matching dates are returned under team names
 
   const handleSubmit = event => {
     event.preventDefault();
@@ -92,51 +97,5 @@ function App() {
 }
 
 export default App;
-// const ProfileForm = () => {
-//   const { isAuthenticated } = useAuth0();
-//   const [firstName, setFirstName] = useState('');
-//   const [lastName, setLastName] = useState('');
-//   const [email, setEmail] = useState('');
-//   const [dogName, setDogName] = useState('');
-//   const [breed, setBreed] = useState('');
-//   const [personality, setPersonality] = useState('');
 
-// //   function handlePhotoUpload(result) {
-// //     console.log(result);
-// //   }
-//   const handleSubmit = event => {
-//     event.preventDefault();
-//     const newUser = { firstName, lastName, email, dogName, breed, personality };
-//     console.log(newUser)
-//     fetch("http://localhost:8080/api/users/", {
-//       method: 'POST',
-//       headers: {
-//         'Content-Type': 'application/json'
-//       },
-//       body: JSON.stringify(newUser)
 
-//     })
-
-//       .then(response => response.json())
-//       .then(data => console.log(data))
-//       .catch(error => console.error(error));
-//   };
-
-//   return (
-//     isAuthenticated && (
-//      (
-//         <input type="text" value={firstName}  />
-//     <form onSubmit={handleSubmit}>
-//       <label>
-//         First Name:
-//         <input type="text" value={firstName}  />
-//         <input type="text" value={firstName}  />
-//       </label>
-//       <label>
-//         Last Name:
-//         <input type="text" value={lastName} onChange={e => setLastName(e.target.value)} />
-//       </label>
-//       <label>
-//         Email:
-//         <input type="text" value={email} onChange={e => setEmail(e.target.value)} />
-//       </label>
