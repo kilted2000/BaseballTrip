@@ -79,13 +79,13 @@ function App() {
         <label>
           Dates:
           <input
-            type="date"
+            type="text"
             value={dateOne}
             onChange={(e) => setDateOne(e.target.value)}
           ></input>
           -
           <input
-            type="date"
+            type="text"
             value={dateTwo}
             onChange={(e) => setDateTwo(e.target.value)}
           ></input>
