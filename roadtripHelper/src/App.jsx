@@ -39,9 +39,12 @@ function App() {
 
   const handleSubmit = event => {
     event.preventDefault();
-    for(let i = 0;i <= stadiums.length;i++){
-
-    }
+    let results = '';
+    stadiums.forEach(stadium => {
+      results += `${stadium.name} , ${stadium.team} , ${stadium.schedule.join(', ')}\n`;
+    });
+    
+    document.getElementById('result').innerText = results;
   };
 
   return (
@@ -95,6 +98,7 @@ function App() {
         </label>
         <button type="submit">Press If You Dare!</button>
       </form>
+      <div id='result'></div>
     </>
   );
 }
