@@ -33,18 +33,22 @@ function App() {
   ];
 //user enters team names and dates
 //user clicks submit
-//stadium obj is checked
+//stadium array of obj is checked
 //schedule key is checked by team name
 //matching dates are returned under team names
 
   const handleSubmit = event => {
     event.preventDefault();
-    let results = '';
-    stadiums.forEach(stadium => {
-      results += `${stadium.name} , ${stadium.team} , ${stadium.schedule.join(', ')}\n`;
-    });
+    let matched = [];
+    for(let i = 0;i < stadiums.schedule.length; i++){
+      
+    }
+    // let results = '';
+    // stadiums.forEach(stadium => {
+    //   results += `${stadium.name} , ${stadium.team} , ${stadium.schedule.join(', ')}\n`;
+    // });
     
-    document.getElementById('result').innerText = results;
+    // document.getElementById('result').innerText = results;
   };
 
   return (
