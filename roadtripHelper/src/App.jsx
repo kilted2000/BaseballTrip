@@ -37,11 +37,14 @@ function App() {
 //schedule key is checked by team name
 //matching dates are returned under team names
 
+//iterate through each schedule array
+//check for matching dates between two or more arrays
+//display all matching dates under respective team names
+
   const handleSubmit = event => {
     event.preventDefault();
-    let matched = [];
-    for(let i = 0;i < stadiums.schedule.length; i++){
-      
+    for(let i = 0;i < stadiums.length; i++){
+
     }
     // let results = '';
     // stadiums.forEach(stadium => {
