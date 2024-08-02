@@ -165,10 +165,12 @@ function App() {
   ];
 
   const handleSubmit = (event) => {
+    //prevents default behavior of page refreshing
     event.preventDefault();
+    //create array with teams and filter to remove falsy values
     const teams = [teamOne, teamTwo, teamThree, teamFour].filter(Boolean);
-    const dateRange = [dateOne, dateTwo];
-
+    //const dateRange = [dateOne, dateTwo];
+//initialize matchingDates variable
     const matchingDates = stadiums
       .filter((stadium) => teams.includes(stadium.team))
       .reduce((acc, stadium) => {
@@ -185,7 +187,8 @@ function App() {
       }, []);
 
     setResults(matchingDates);
-    document.getElementById('result').innerText = matchingDates;
+    console.log(results);
+    //document.getElementById('result').innerText = matchingDates;
   };
 
   return (
@@ -223,7 +226,7 @@ function App() {
             onChange={(e) => setTeamFour(e.target.value)}
           />
         </label>
-        <label>
+        {/* <label>
           Dates:
           <input
             type="text"
@@ -236,7 +239,7 @@ function App() {
             value={dateTwo}
             onChange={(e) => setDateTwo(e.target.value)}
           />
-        </label>
+        </label> */}
         <button type="submit">Press If You Dare!</button>
       </form>
       <div id='result'>
