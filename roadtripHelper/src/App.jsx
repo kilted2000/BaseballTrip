@@ -43,7 +43,7 @@ function App() {
         team: stadium.team,
         dates: stadium.schedule,
       }));
-      console.log("Matching Dates:", matchingDates);
+    console.log("Matching Dates:", matchingDates);
     setResults(matchingDates);
   };
 
