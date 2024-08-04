@@ -1,6 +1,11 @@
+
+
 body{
   background-color: slategrey;
 }
 input{
   margin: 15px;
+}
+button{
+  margin-left: 30rem;
 }

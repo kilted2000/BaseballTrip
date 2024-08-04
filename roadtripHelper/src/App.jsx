@@ -50,7 +50,7 @@ function App() {
   return (
     <>
       <form onSubmit={handleSubmit}>
-        <label>
+        <label className="bg-emerald-500">
           Team One:
           <input
             type="text"
