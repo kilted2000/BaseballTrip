@@ -49,8 +49,8 @@ function App() {
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
-        <label className="bg-emerald-500">
+      <form onSubmit={handleSubmit} className="rounded-lg bg-green-700 w-96">
+        <label>
           Team One:
           <input
             type="text"
