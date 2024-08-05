@@ -2,7 +2,7 @@
 
 body{
   background-color: slategrey;
-  background-image: url(./assets/stadium.jpg);
+  /* background-image: url(./assets/stadium.jpg); */
 }
 input{
   margin: 15px;

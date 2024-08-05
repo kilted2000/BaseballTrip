@@ -48,8 +48,8 @@ function App() {
   };
 
   return (
-    <>
-      <form onSubmit={handleSubmit} className="rounded-lg bg-green-700 w-96">
+    <div className="bg-[url('./assets/stadium.jpg')] bg-cover bg-no-repeat h-dvh flex justify-center justify-items-center items-center">
+      <form onSubmit={handleSubmit} className="rounded-lg bg-green-700 w-96 bg-no-repeat ">
         <label>
           Team One:
           <input
@@ -96,7 +96,7 @@ function App() {
             onChange={(e) => setDateTwo(e.target.value)}
           />
         </label> */}
-        <button type="submit">Press If You Dare!</button>
+        <button type="submit" className="border-neutral-50">Press If You Dare!</button>
       </form>
       <div id='result'>
         {results.length > 0 && results.map(result => (
@@ -106,7 +106,7 @@ function App() {
           </div>
         ))}
       </div>
-    </>
+    </div>
   );
 }
 
