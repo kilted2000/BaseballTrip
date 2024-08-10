@@ -48,9 +48,9 @@ function App() {
   };
 
   return (
-    <div className="bg-[url('./assets/stadium.jpg')] bg-cover bg-no-repeat h-dvh flex justify-center justify-items-center items-center">
-      <form onSubmit={handleSubmit} className="rounded-lg bg-green-700 w-96 bg-no-repeat ">
-        <label>
+    <div className="bg-[url('./assets/stadium.jpg')] bg-cover bg-no-repeat h-dvh flex justify-center justify-items-center items-center  ">
+      <form onSubmit={handleSubmit} className="rounded-lg bg-green-700  bg-no-repeat p-9 shadow-2xl space-y-4 grid grid-rows-2">
+        <label className="w-1/2">
           Team One:
           <input
             type="text"
@@ -58,7 +58,7 @@ function App() {
             onChange={(e) => setTeamOne(e.target.value)}
           />
         </label>
-        <label>
+        <label className="w-1/2">
           Team Two:
           <input
             type="text"
@@ -66,7 +66,7 @@ function App() {
             onChange={(e) => setTeamTwo(e.target.value)}
           />
         </label>
-        <label>
+        <label className="w-1/2">
           Team Three:
           <input
             type="text"
@@ -74,7 +74,7 @@ function App() {
             onChange={(e) => setTeamThree(e.target.value)}
           />
         </label>
-        <label>
+        <label className="w-1/2">
           Team Four:
           <input
             type="text"
@@ -96,7 +96,7 @@ function App() {
             onChange={(e) => setDateTwo(e.target.value)}
           />
         </label> */}
-        <button type="submit" className="border-neutral-50">Press If You Dare!</button>
+        <button type="submit" className="border-8 border-red-500 ">Press If You Dare!</button>
       </form>
       <div id='result'>
         {results.length > 0 && results.map(result => (

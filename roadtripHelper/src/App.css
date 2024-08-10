@@ -4,9 +4,9 @@ body{
   background-color: slategrey;
   /* background-image: url(./assets/stadium.jpg); */
 }
-input{
+ input{
   margin: 15px;
-}
+} 
 button{
   margin-left: 30rem;
 }
