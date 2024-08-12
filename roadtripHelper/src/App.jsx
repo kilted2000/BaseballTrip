@@ -48,8 +48,9 @@ function App() {
   };
 
   return (
-    <div className="bg-[url('./assets/stadium.jpg')] bg-cover bg-no-repeat h-dvh flex justify-center justify-items-center items-center  ">
-      <form onSubmit={handleSubmit} className="rounded-lg bg-green-700  bg-no-repeat p-9 shadow-2xl space-y-4 grid grid-rows-2">
+    <div className="bg-[url('./assets/stadium.jpg')] bg-cover bg-no-repeat h-dvh justify-center justify-items-center items-center flex ">
+      <form onSubmit={handleSubmit} className="rounded-lg bg-gradient-to-r from-emerald-700 via-teal-700 to-cyan-600 bg-no-repeat p-9 shadow-2xl shadow-green-900 space-y-4 flex flex-col">
+        <div>
         <label className="w-1/2">
           Team One:
           <input
@@ -66,6 +67,8 @@ function App() {
             onChange={(e) => setTeamTwo(e.target.value)}
           />
         </label>
+        </div>
+        <div>
         <label className="w-1/2">
           Team Three:
           <input
@@ -82,6 +85,7 @@ function App() {
             onChange={(e) => setTeamFour(e.target.value)}
           />
         </label>
+        </div>
         {/* <label>
           Dates:
           <input
@@ -96,7 +100,7 @@ function App() {
             onChange={(e) => setDateTwo(e.target.value)}
           />
         </label> */}
-        <button type="submit" className="border-8 border-red-500 ">Press If You Dare!</button>
+        <button type="submit" className="bg-blue-700 w-1/4 self-center">Press If You Dare!</button>
       </form>
       <div id='result'>
         {results.length > 0 && results.map(result => (
