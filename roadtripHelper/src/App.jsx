@@ -48,11 +48,11 @@ function App() {
   };
 
   return (
-    <div className="bg-[url('./assets/stadium.jpg')] bg-cover bg-no-repeat h-dvh justify-center justify-items-center items-center flex ">
-      <form onSubmit={handleSubmit} className="rounded-lg bg-gradient-to-r from-emerald-700 via-teal-700 to-cyan-600 bg-no-repeat p-9 shadow-2xl shadow-green-900 space-y-4 flex flex-col">
+    <div className="bg-[url('./assets/stadium.jpg')] bg-cover bg-no-repeat h-dvh justify-center justify-items-center items-center flex flex-col">
+      <form onSubmit={handleSubmit} className="rounded-lg bg-gradient-to-r from-emerald-700 via-teal-700 to-cyan-600 bg-no-repeat p-9 shadow-2xl shadow-green-900 space-y-4 flex flex-col gap-4">
         <div>
         <label className="w-1/2">
-          Team One:
+          Team:
           <input
             type="text"
             value={teamOne}
@@ -60,7 +60,7 @@ function App() {
           />
         </label>
         <label className="w-1/2">
-          Team Two:
+          Team:
           <input
             type="text"
             value={teamTwo}
@@ -70,7 +70,7 @@ function App() {
         </div>
         <div>
         <label className="w-1/2">
-          Team Three:
+          Team:
           <input
             type="text"
             value={teamThree}
@@ -78,7 +78,7 @@ function App() {
           />
         </label>
         <label className="w-1/2">
-          Team Four:
+          Team:
           <input
             type="text"
             value={teamFour}
@@ -100,9 +100,9 @@ function App() {
             onChange={(e) => setDateTwo(e.target.value)}
           />
         </label> */}
-        <button type="submit" className="bg-blue-700 w-1/4 self-center">Press If You Dare!</button>
+        <button type="submit" className="bg-blue-700 w-1/3 self-center cursor-crosshair rounded-full p-1 pt-1 text-stone-100">Press If You Dare!</button>
       </form>
-      <div id='result'>
+      <div id='result' className="bg-emerald-900 text-slate-200 p-3 rounded-lg">
         {results.length > 0 && results.map(result => (
           <div key={result.team}>
             <h3>{result.team}</h3>
