@@ -60,6 +60,7 @@ function App() {
         <label className="w-1/2">
           Team:
           <input
+          {...register("teamOne")}
             type="text"
             value={teamOne}
             onChange={(e) => setTeamOne(e.target.value)}
