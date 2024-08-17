@@ -40,11 +40,11 @@ function App() {
   ];
 
   const onSubmit = (event) => {
-    event.preventDefault();
+    //event.preventDefault();
     const teams = [teamOne, teamTwo, teamThree, teamFour].filter(Boolean);
 
     const matchingDates = stadiums
-      .filter((stadium) => teams.includes(stadium.team))
+      .filter((stadium) => teams.map(team => team.toLowerCase()).includes(stadium.team.toLowerCase()))
       .map((stadium) => ({
         team: stadium.team,
         dates: stadium.schedule,
@@ -60,7 +60,7 @@ function App() {
         <label className="w-1/2">
           Team:
           <input
-          {...register("teamOne")}
+          {...register("teamOne", { pattern: /^[a-z]+$/i })}
             type="text"
             value={teamOne}
             onChange={(e) => setTeamOne(e.target.value)}
@@ -69,6 +69,7 @@ function App() {
         <label className="w-1/2">
           Team:
           <input
+          {...register("teamTwo")}
             type="text"
             value={teamTwo}
             onChange={(e) => setTeamTwo(e.target.value)}
@@ -79,6 +80,7 @@ function App() {
         <label className="w-1/2">
           Team:
           <input
+          {...register("teamThree")}
             type="text"
             value={teamThree}
             onChange={(e) => setTeamThree(e.target.value)}
@@ -87,6 +89,7 @@ function App() {
         <label className="w-1/2">
           Team:
           <input
+          {...register("teamFour")}
             type="text"
             value={teamFour}
             onChange={(e) => setTeamFour(e.target.value)}
