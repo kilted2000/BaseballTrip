@@ -69,7 +69,7 @@ function App() {
         <label className="w-1/2">
           Team:
           <input
-          {...register("teamTwo", { pattern: /^[a-z]+$/i })}
+          {...register("teamTwo", {pattern: /^[a-z]+$/i })}
             type="text"
             value={teamTwo}
             onChange={(e) => setTeamTwo(e.target.value)}
@@ -80,7 +80,7 @@ function App() {
         <label className="w-1/2">
           Team:
           <input
-          {...register("teamThree, { pattern: /^[a-z]+$/i }")}
+          {...register("teamThree", {pattern: /^[a-z]+$/i })}
             type="text"
             value={teamThree}
             onChange={(e) => setTeamThree(e.target.value)}
@@ -89,7 +89,7 @@ function App() {
         <label className="w-1/2">
           Team:
           <input
-          {...register("teamFour, { pattern: /^[a-z]+$/i }")}
+          {...register("teamFour", {pattern: /^[a-z]+$/i })}
             type="text"
             value={teamFour}
             onChange={(e) => setTeamFour(e.target.value)}
