@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./App.css";
 import { useForm } from "react-hook-form"
 function App() {
@@ -12,6 +12,7 @@ function App() {
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors },
   } = useForm()
   
