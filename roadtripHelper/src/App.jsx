@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import "./App.css";
-import axios from "axios";
 import { useForm } from "react-hook-form"
 function App() {
   const [teamOne, setTeamOne] = useState("");
@@ -10,11 +9,6 @@ function App() {
   // const [dateOne, setDateOne] = useState("");
   // const [dateTwo, setDateTwo] = useState("");
   const [results, setResults] = useState([]);
-
-  const client = axios.create({
-    baseURL: "https://api.sportsdata.io/v3/mlb/scores/json/SchedulesBasic/" ,
-    key: "process.env.sportsDataAPI_key"
- });
 
   const {
     register,
