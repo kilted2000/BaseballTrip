@@ -6,8 +6,8 @@ function App() {
   const [teamTwo, setTeamTwo] = useState("");
   const [teamThree, setTeamThree] = useState("");
   const [teamFour, setTeamFour] = useState("");
-  // const [dateOne, setDateOne] = useState("");
-  // const [dateTwo, setDateTwo] = useState("");
+  const [dateOne, setDateOne] = useState("");
+  const [dateTwo, setDateTwo] = useState("");
   const [results, setResults] = useState([]);
 
   const {
@@ -98,7 +98,7 @@ function App() {
           />
         </label>
         </div>
-        {/* <label>
+         <label className="w-full mx-0.5">
           Dates:
           <input
             type="text"
@@ -111,7 +111,7 @@ function App() {
             value={dateTwo}
             onChange={(e) => setDateTwo(e.target.value)}
           />
-        </label> */}
+        </label> 
         <button type="submit" className="bg-blue-700 w-1/3 self-center cursor-crosshair rounded-full p-1 pt-1 text-stone-100">Press If You Dare!</button>
       </form>
       <div id='result' className="bg-emerald-900 text-slate-200 p-3 rounded-lg">
