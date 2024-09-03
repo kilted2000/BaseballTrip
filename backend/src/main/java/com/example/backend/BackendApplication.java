@@ -3,6 +3,8 @@ package com.example.backend;
 
 
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
@@ -21,7 +23,6 @@ import org.springframework.web.client.RestTemplate;
 import com.example.backend.games.Game;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import java.util.List;
 
 @SpringBootApplication(exclude = {DataSourceAutoConfiguration.class })
 public class BackendApplication {
@@ -43,11 +44,8 @@ public class BackendApplication {
         return args -> {
             String apiKey = "5c5c0dea75d342ddbf81180756001c06";  
 
-            // Set up the headers, including the API key
             HttpHeaders headers = new HttpHeaders();
             headers.set("Authorization", "Bearer " + apiKey);
-            
-            // You can also use headers.set("x-api-key", apiKey) or other methods depending on the API requirements
 
             HttpEntity<String> entity = new HttpEntity<>(headers);
 
