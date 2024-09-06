@@ -14,7 +14,6 @@ function App() {
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm()
   
@@ -43,20 +42,20 @@ function App() {
   //     schedule: ["june 15", "june 16", "july 17", "july 18", "july 19"],
   //   },
   // ];
-
+  const fetchGames = async () => {
+    try {
+        const data = await getGames();
+        setResults(data);
+        console.log(data);
+    } catch (error) {
+        console.error('Failed to fetch games.Tha mi Dulich', error);
+    }
+};
   const onSubmit = (event) => {
     //event.preventDefault();
     const teams = [teamOne, teamTwo, teamThree, teamFour].filter(Boolean);
+    console.log("Selected Teams:", teams);
 
-    const fetchGames = async () => {
-      try {
-          const data = await getGames();
-          setResults(data);
-          console.log(data);
-      } catch (error) {
-          console.error('Failed to fetch games.Tha mi Dulich', error);
-      }
-  };
     // const matchingDates = stadiums
     //   .filter((stadium) => teams.map(team => team.toLowerCase()).includes(stadium.team.toLowerCase()))
     //   .map((stadium) => ({
@@ -127,8 +126,8 @@ function App() {
         <button type="submit" className="bg-blue-700 w-1/3 self-center cursor-crosshair rounded-full p-1 pt-1 text-stone-100">Press If You Dare!</button>
       </form>
       <div id='result' className="bg-emerald-900 text-slate-200 p-3 rounded-lg">
-        {results.length > 0 && results.map(result => (
-          <div key={result.team}>
+        {results.length > 0 && results.map(result, index => (
+          <div key={index}>
             <h3>{result.team}</h3>
             <p>{result.dates.join(', ')}</p>
           </div>
