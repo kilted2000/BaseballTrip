@@ -3,7 +3,7 @@ const API_URL = 'http://localhost:8080';
 
 export const getGames = async () => {
     try {
-        const response = await fetch(`${API_URL}`, {
+        const response = await fetch(`${API_URL}/games`, {
             method: 'GET',
             headers: {
                 "Content-Type": "application/json",

@@ -18,7 +18,9 @@ function App() {
     formState: { errors },
   } = useForm()
   
-  
+  useEffect(() => {
+    fetchGames();
+}, []);
   // const stadiums = [
   //   {
   //     name: "Busch",
@@ -46,14 +48,23 @@ function App() {
     //event.preventDefault();
     const teams = [teamOne, teamTwo, teamThree, teamFour].filter(Boolean);
 
-    const matchingDates = stadiums
-      .filter((stadium) => teams.map(team => team.toLowerCase()).includes(stadium.team.toLowerCase()))
-      .map((stadium) => ({
-        team: stadium.team,
-        dates: stadium.schedule,
-      }));
-    console.log("Matching Dates:", matchingDates);
-    setResults(matchingDates);
+    const fetchGames = async () => {
+      try {
+          const data = await getGames();
+          setResults(data);
+          console.log(data);
+      } catch (error) {
+          console.error('Failed to fetch games.Tha mi Dulich', error);
+      }
+  };
+    // const matchingDates = stadiums
+    //   .filter((stadium) => teams.map(team => team.toLowerCase()).includes(stadium.team.toLowerCase()))
+    //   .map((stadium) => ({
+    //     team: stadium.team,
+    //     dates: stadium.schedule,
+    //   }));
+    // console.log("Matching Dates:", matchingDates);
+    // setResults(matchingDates);
   };
 
   return (
