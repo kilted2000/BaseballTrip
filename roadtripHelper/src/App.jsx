@@ -52,7 +52,7 @@ function App() {
     }
 };
   const onSubmit = (event) => {
-    //event.preventDefault();
+    event.preventDefault();
     const teams = [teamOne, teamTwo, teamThree, teamFour].filter(Boolean);
     console.log("Selected Teams:", teams);
 
