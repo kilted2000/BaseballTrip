@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import "./App.css";
 import { useForm } from "react-hook-form"
 import { getGames } from "./api/apiService";
+import { DatePicker } from "./components/DatePicker";
 function App() {
   const [teamOne, setTeamOne] = useState("");
   const [teamTwo, setTeamTwo] = useState("");
@@ -56,14 +57,6 @@ function App() {
     const teams = [teamOne, teamTwo, teamThree, teamFour].filter(Boolean);
     console.log("Selected Teams:", teams);
 
-    // const matchingDates = stadiums
-    //   .filter((stadium) => teams.map(team => team.toLowerCase()).includes(stadium.team.toLowerCase()))
-    //   .map((stadium) => ({
-    //     team: stadium.team,
-    //     dates: stadium.schedule,
-    //   }));
-    // console.log("Matching Dates:", matchingDates);
-    // setResults(matchingDates);
   };
 
   return (
@@ -111,7 +104,8 @@ function App() {
         </div>
          <label className="w-full mx-0.5">
           Dates:
-          <input
+          < DatePicker />
+          {/* <input
             type="text"
             value={dateOne}
             onChange={(e) => setDateOne(e.target.value)}
@@ -121,7 +115,7 @@ function App() {
             type="text"
             value={dateTwo}
             onChange={(e) => setDateTwo(e.target.value)}
-          />
+          /> */}
         </label> 
         <button type="submit" className="bg-blue-700 w-1/3 self-center cursor-crosshair rounded-full p-1 pt-1 text-stone-100">Press If You Dare!</button>
       </form>

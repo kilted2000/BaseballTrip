@@ -40,7 +40,7 @@ public class GameService {
             try {
                 games = mapper.readValue(jsonResponse, new TypeReference<List<Game>>() {});
             } catch (JsonProcessingException e) {
-                //e.printStackTrace();
+                
             }
         }
         return games;
