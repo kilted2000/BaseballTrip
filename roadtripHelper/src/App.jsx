@@ -8,8 +8,8 @@ function App() {
   const [teamTwo, setTeamTwo] = useState("");
   const [teamThree, setTeamThree] = useState("");
   const [teamFour, setTeamFour] = useState("");
-  const [dateOne, setDateOne] = useState("");
-  const [dateTwo, setDateTwo] = useState("");
+  // const [dateOne, setDateOne] = useState("");
+  // const [dateTwo, setDateTwo] = useState("");
   const [results, setResults] = useState([]);
 
   const {
@@ -18,9 +18,9 @@ function App() {
     formState: { errors },
   } = useForm()
   
-  useEffect(() => {
-    fetchGames();
-}, []);
+//   useEffect(() => {
+//     fetchGames();
+// }, []);
   // const stadiums = [
   //   {
   //     name: "Busch",
@@ -43,21 +43,37 @@ function App() {
   //     schedule: ["june 15", "june 16", "july 17", "july 18", "july 19"],
   //   },
   // ];
-  const fetchGames = async () => {
+  const fetchGames = async (teams) => {
     try {
-        const data = await getGames();
-        setResults(data);
-        console.log(data);
+      const data = await getGames();
+      const filteredResults = data.filter(game => 
+        teams.includes(game.HomeTeam)
+      );
+      setResults(filteredResults);
     } catch (error) {
-        console.error('Failed to fetch games.Tha mi Dulich', error);
+      console.error('Failed to fetch games.', error);
     }
-};
-  const onSubmit = (event) => {
-    event.preventDefault();
-    const teams = [teamOne, teamTwo, teamThree, teamFour].filter(Boolean);
-    console.log("Selected Teams:", teams);
-
   };
+
+  const onSubmit = () => {
+    const teams = [teamOne, teamTwo, teamThree, teamFour].filter(Boolean);
+    fetchGames(teams);
+    console.log("Selected Teams:", teams);
+  };
+//     try {
+//         const data = await getGames();
+//         setResults(data);
+//         console.log(data);
+//     } catch (error) {
+//         console.error('Failed to fetch games.Tha mi Dulich', error);
+//     }
+// };
+//   const onSubmit = (event) => {
+//     event.preventDefault();
+//     const teams = [teamOne, teamTwo, teamThree, teamFour].filter(Boolean);
+//     console.log("Selected Teams:", teams);
+
+ // };
 
   return (
     <div className="bg-[url('./assets/stadium.jpg')] bg-cover bg-no-repeat h-dvh justify-center justify-items-center items-center flex flex-col">
@@ -105,7 +121,7 @@ function App() {
          <label className="w-full mx-0.5">
           Dates:
           < DatePicker />
-          {/* <input
+          {/* /* <input
             type="text"
             value={dateOne}
             onChange={(e) => setDateOne(e.target.value)}
@@ -115,21 +131,4 @@ function App() {
             type="text"
             value={dateTwo}
             onChange={(e) => setDateTwo(e.target.value)}
-          /> */}
-        </label> 
-        <button type="submit" className="bg-blue-700 w-1/3 self-center cursor-crosshair rounded-full p-1 pt-1 text-stone-100">Press If You Dare!</button>
-      </form>
-      <div id='result' className="bg-emerald-900 text-slate-200 p-3 rounded-lg">
-        {results.length > 0 && results.map(result, index => (
-          <div key={index}>
-            <h3>{result.team}</h3>
-            <p>{result.dates.join(', ')}</p>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-export default App;
-
+          /> *
