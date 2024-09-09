@@ -18,9 +18,6 @@ function App() {
     formState: { errors },
   } = useForm()
   
-//   useEffect(() => {
-//     fetchGames();
-// }, []);
   // const stadiums = [
   //   {
   //     name: "Busch",
@@ -131,4 +128,21 @@ function App() {
             type="text"
             value={dateTwo}
             onChange={(e) => setDateTwo(e.target.value)}
-          /> *
+          /> */}
+        </label> 
+        <button type="submit" className="bg-blue-700 w-1/3 self-center cursor-crosshair rounded-full p-1 pt-1 text-stone-100">Press If You Dare!</button>
+      </form>
+      <div id='result' className="bg-emerald-900 text-slate-200 p-3 rounded-lg table-auto">
+      {results.length > 0 && results.map((result, index) => (
+  <div key={index} >
+    <h3>{result.HomeTeam}</h3>
+    <p>{result.dayInCustomFormat || result.Day}</p> 
+  </div>
+))}
+      </div>
+    </div>
+  );
+}
+
+export default App;
+
