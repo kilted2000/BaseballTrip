@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import "./App.css";
 import { useForm } from "react-hook-form"
 import { getGames } from "./api/apiService";
@@ -40,6 +40,7 @@ function App() {
   //     schedule: ["june 15", "june 16", "july 17", "july 18", "july 19"],
   //   },
   // ];
+  //should I pass day as well as teams?
   const fetchGames = async (teams) => {
     try {
       const data = await getGames();
