@@ -33,6 +33,8 @@ public class GameService {
         HttpEntity<String> entity = new HttpEntity<>(headers);
         ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET, entity, String.class);
 
+        System.out.println("API Response: " + response.getBody());
+
         List<Game> games = new ArrayList<>();
         String jsonResponse = response.getBody();
         if (jsonResponse != null) {
@@ -40,7 +42,7 @@ public class GameService {
             try {
                 games = mapper.readValue(jsonResponse, new TypeReference<List<Game>>() {});
             } catch (JsonProcessingException e) {
-                
+                e.printStackTrace();
             }
         }
         return games;

@@ -10,6 +10,7 @@ export const getGames = async () => {
                 //"Access-Control-Allow-Origin": "*", 
             },
             mode: 'cors', 
+            credentials: 'include',
         });
 
         if (!response.ok) {
