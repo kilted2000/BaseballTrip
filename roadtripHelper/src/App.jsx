@@ -47,10 +47,11 @@ function App() {
       const data = await getGames();
       console.log("Fetched games data:", data);
       const filteredResults = data.filter(game => 
-        teams.includes(game.HomeTeam)
+        teams.includes(game.HomeTeam),
+        setResults(filteredResults)
       );
       console.log("Filtered Results:", filteredResults);
-      setResults(filteredResults);
+      //setResults(filteredResults);
     } catch (error) {
       console.error('Failed to fetch games.', error);
     }
