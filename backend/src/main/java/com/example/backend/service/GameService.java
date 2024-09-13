@@ -33,7 +33,7 @@ public class GameService {
         HttpEntity<String> entity = new HttpEntity<>(headers);
         ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET, entity, String.class);
 
-        System.out.println("API Response: " + response.getBody());
+        System.out.println("Tha mi gle gle sgith: " + response.getBody());
 
         List<Game> games = new ArrayList<>();
         String jsonResponse = response.getBody();

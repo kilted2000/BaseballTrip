@@ -42,15 +42,15 @@ function App() {
   // ];
   //should I pass day as well as teams?
   const fetchGames = async (teams) => {
-    console.log("Fetching games for teams:", teams);
+    console.log("Fetching games for teams:1", teams);
     try {
       const data = await getGames();
-      console.log("Fetched games data:", data);
+      console.log("Fetched games data:2", data);
       const filteredResults = data.filter(game => 
         teams.includes(game.HomeTeam),
         setResults(filteredResults)
       );
-      console.log("Filtered Results:", filteredResults);
+      console.log("Filtered Results:3", filteredResults);
       //setResults(filteredResults);
     } catch (error) {
       console.error('Failed to fetch games.', error);
@@ -59,10 +59,10 @@ function App() {
 
   const onSubmit = (event) => {
     event.preventDefault();
-    console.log('Form submitted');
+    console.log('Form submitted4');
     const teams = [teamOne, teamTwo, teamThree, teamFour].filter(Boolean);
     //fetchGames(teams);
-    console.log("Selected Teams:", teams);
+    console.log("Selected Teams:5", teams);
     fetchGames(teams);
   };
 //     try {
@@ -118,10 +118,21 @@ function App() {
           onChange={(e) => setTeamFour(e.target.value)}
         />
       </label>
+      <label>
+      Dates:
+      < DatePicker />
+      </label>
     </div>
     <button type="submit" className="bg-blue-700 w-1/3 self-center cursor-crosshair rounded-full p-1 pt-1 text-stone-100">Press If You Dare!</button>
   </form>
-
+  <div id='result' className="bg-emerald-900 text-slate-200 p-3 rounded-lg table-auto">
+      {results.length > 0 && results.map((result, index) => ( 
+   <div key={index} >
+    <h3>{result.HomeTeam}</h3>
+    <p>{result.dayInCustomFormat || result.Day}</p> 
+    </div>
+    ))}
+</div>
       {/* <form onSubmit={handleSubmit(onSubmit)} className="rounded-lg bg-gradient-to-r from-emerald-700 via-teal-700 to-cyan-600 bg-no-repeat p-9 shadow-2xl shadow-green-900 space-y-4 flex flex-col gap-4">
         <div>
         <label className="w-1/2">
@@ -188,7 +199,7 @@ function App() {
 //   </div> */}
 {/* // ))} */}
       {/* </div> */}
-    </div>
+   // </div>
   );
 }
 
