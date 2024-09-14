@@ -121,17 +121,6 @@ const GameFinder = () =>{
          <label className="w-full mx-0.5">
           Dates:
           < DatePicker />
-           <input
-            type="text"
-            value={dateOne}
-            onChange={(e) => setDateOne(e.target.value)}
-          />
-          -
-          <input
-            type="text"
-            value={dateTwo}
-            onChange={(e) => setDateTwo(e.target.value)}
-          /> 
         </label> 
         <button type="submit" className="bg-blue-700 w-1/3 self-center cursor-crosshair rounded-full p-1 pt-1 text-stone-100">Press If You Dare!</button>
       </form>  
