@@ -7,10 +7,11 @@ export const getGames = async () => {
             method: 'GET',
             headers: {
                 "Content-Type": "application/json",
-                //"Access-Control-Allow-Origin": "*", 
+                "Access-Control-Allow-Origin": "*", 
             },
             mode: 'cors', 
             credentials: 'include',
+            body: JSON.stringify({ content }),
         });
 
         if (!response.ok) {
