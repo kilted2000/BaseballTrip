@@ -1,79 +1,28 @@
 import { useState } from "react";
-import "./App.css";
 import { useForm } from "react-hook-form"
 import { getGames } from "../api/apiService";
-import { DatePicker } from "DatePicker";
+//import { DatePicker } from "DatePicker";
 const GameFinder = () =>{
-  const [teamOne, setTeamOne] = useState("");
-  const [teamTwo, setTeamTwo] = useState("");
-  const [teamThree, setTeamThree] = useState("");
-  const [teamFour, setTeamFour] = useState("");
   const [results, setResults] = useState([]);
+  const { register, handleSubmit, formState: { errors } } = useForm();
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm()
-  
-  // const stadiums = [
-  //   {
-  //     name: "Busch",
-  //     team: "Cardinals",
-  //     schedule: ["june 15", "june 16", "july 16", "july 17", "july 18"],
-  //   },
-  //   {
-  //     name: "Truist",
-  //     team: "Braves",
-  //     schedule: ["june 15", "june 16", "july 16", "july 7", "july 8"],
-  //   },
-  //   {
-  //     name: "Wrigley",
-  //     team: "Cubs",
-  //     schedule: ["june 15", "june 16", "july 16", "july 1", "july 2"],
-  //   },
-  //   {
-  //     name: "GR",
-  //     team: "White Sox",
-  //     schedule: ["june 15", "june 16", "july 17", "july 18", "july 19"],
-  //   },
-  // ];
   
   const fetchGames = async (teams) => {
     try {
       const data = await getGames();
       const filteredResults = data.filter(game => 
         teams.includes(game.HomeTeam)
-
       );
       setResults(filteredResults);
-      console.log("Filtered Results:3", filteredResults);
-      //setResults(filteredResults);
     } catch (error) {
       console.error('Failed to fetch games.', error);
     }
   };
 
-  const onSubmit = (event) => {
-    event.preventDefault()
+  const onSubmit = ({ teamOne, teamTwo, teamThree, teamFour }) => {
     const teams = [teamOne, teamTwo, teamThree, teamFour].filter(Boolean);
-    //fetchGames(teams);
     fetchGames(teams);
   };
-//     try {
-//         const data = await getGames();
-//         setResults(data);
-//         console.log(data);
-//     } catch (error) {
-//         console.error('Failed to fetch games.Tha mi Dulich', error);
-//     }
-// };
-//   const onSubmit = (event) => {
-//     event.preventDefault();
-//     const teams = [teamOne, teamTwo, teamThree, teamFour].filter(Boolean);
-//     console.log("Selected Teams:", teams);
-
- // };
 
   return (
     <div className="bg-[url('./assets/stadium.jpg')] bg-cover bg-no-repeat h-dvh justify-center justify-items-center items-center flex flex-col">
@@ -84,8 +33,7 @@ const GameFinder = () =>{
           <input
           {...register("teamOne", { pattern: /^[a-z]+$/i })}
             type="text"
-            value={teamOne}
-            onChange={(e) =>{ console.log("Team One:", e.target.value);setTeamOne(e.target.value)}}
+            placeholder="Enter Team Name"
           />
         </label>
         <label className="w-1/2">
@@ -93,8 +41,7 @@ const GameFinder = () =>{
           <input
           {...register("teamTwo", {pattern: /^[a-z]+$/i })}
             type="text"
-            value={teamTwo}
-            onChange={(e) => setTeamTwo(e.target.value)}
+            placeholder="Enter Team Name"
           />
         </label>
         </div>
@@ -104,8 +51,7 @@ const GameFinder = () =>{
           <input
           {...register("teamThree", {pattern: /^[a-z]+$/i })}
             type="text"
-            value={teamThree}
-            onChange={(e) => setTeamThree(e.target.value)}
+            placeholder="Enter Team Name"
           />
         </label>
         <label className="w-1/2">
@@ -113,15 +59,14 @@ const GameFinder = () =>{
           <input
           {...register("teamFour", {pattern: /^[a-z]+$/i })}
             type="text"
-            value={teamFour}
-            onChange={(e) => setTeamFour(e.target.value)}
+            placeholder="Enter Team Name"
           />
         </label>
         </div>
-         <label className="w-full mx-0.5">
+         {/* <label className="w-full mx-0.5">
           Dates:
           < DatePicker />
-        </label> 
+        </label>  */}
         <button type="submit" className="bg-blue-700 w-1/3 self-center cursor-crosshair rounded-full p-1 pt-1 text-stone-100">Press If You Dare!</button>
       </form>  
       <div id='result' className="bg-emerald-900 text-slate-200 p-3 rounded-lg table-auto">

@@ -1,7 +1,7 @@
 
 import React from 'react';
 import './App.css'
-import GameFinder from '../components/GameFinder';
+import GameFinder from './components/GameFinder';
 function App() {
   return (
       <div className="App">
