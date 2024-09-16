@@ -6,12 +6,16 @@ const GameFinder = () =>{
   const [results, setResults] = useState([]);
   const { register, handleSubmit, formState: { errors } } = useForm();
 
+  const formatDate = (dateString) => {
+    const options = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' };
+    return new Date(dateString).toLocaleDateString('en-US', options);
+  };
   
   const fetchGames = async (teams) => {
     try {
       const data = await getGames();
       const filteredResults = data.filter(game => 
-        teams.includes(game.HomeTeam)
+        teams.includes(game.team)
       );
       setResults(filteredResults);
     } catch (error) {
@@ -72,8 +76,8 @@ const GameFinder = () =>{
       <div id='result' className="bg-emerald-900 text-slate-200 p-3 rounded-lg table-auto">
       {results.length > 0 && results.map((result, index) => ( 
   <div key={index} >
-   <h3>{result.HomeTeam}</h3>
-   <p>{result.dayInCustomFormat || result.Day}</p> 
+   <h3>{result.team}</h3>
+   <p>{formatDate(result.date)}</p> 
   </div>))}
   </div>
       
