@@ -1,5 +1,4 @@
 package com.example.backend.model;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -38,11 +37,4 @@ public class GameModel {
         this.team = team;
     }
 
-    public String getDate() {
-        return date;
-    }
-    public void setDate(String date) {
-        this.date = date;
-    }
-}
-
+    public 

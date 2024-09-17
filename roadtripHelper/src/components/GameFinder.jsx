@@ -1,9 +1,13 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form"
 import { getGames } from "../api/apiService";
-//import { DatePicker } from "DatePicker";
+import { DatePicker } from "./DatePicker";
 const GameFinder = () =>{
   const [results, setResults] = useState([]);
+  const [dateRange, setDateRange] = useState({
+    startDate: new Date(),
+    endDate: new Date(),
+  });
   const { register, handleSubmit, formState: { errors } } = useForm();
 
   const formatDate = (dateString) => {
@@ -11,12 +15,18 @@ const GameFinder = () =>{
     return new Date(dateString).toLocaleDateString('en-US', options);
   };
   
+  const isWithinDateRange = (date, startDate, endDate) => {
+    const gameDate = new Date(date);
+    return gameDate >= startDate && gameDate <= endDate;
+  };
+
   const fetchGames = async (teams) => {
     try {
       const data = await getGames();
       const filteredResults = data.filter(game => 
         teams.includes(game.team)
-      );
+      ).filter(game => 
+        isWithinDateRange(game.Day, dateRange.startDate, dateRange.endDate));
       setResults(filteredResults);
     } catch (error) {
       console.error('Failed to fetch games.', error);
@@ -67,10 +77,10 @@ const GameFinder = () =>{
           />
         </label>
         </div>
-         {/* <label className="w-full mx-0.5">
+          <label className="w-full mx-0.5">
           Dates:
-          < DatePicker />
-        </label>  */}
+          < DatePicker onChange={(range) => setDateRange(range.selection)}/>
+        </label>  
         <button type="submit" className="bg-blue-700 w-1/3 self-center cursor-crosshair rounded-full p-1 pt-1 text-stone-100">Press If You Dare!</button>
       </form>  
       <div id='result' className="bg-emerald-900 text-slate-200 p-3 rounded-lg table-auto">

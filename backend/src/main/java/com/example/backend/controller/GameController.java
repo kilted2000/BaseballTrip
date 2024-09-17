@@ -18,5 +18,8 @@ public class GameController {
     public List<Game> getGames() {
         return gameService.fetchGamesFromApi();
     }
+
 }
+
+
 

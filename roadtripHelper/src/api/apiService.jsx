@@ -3,6 +3,7 @@ const API_URL = 'http://localhost:8080';
 
 export const getGames = async () => {
     try {
+        console.log("Fetching games...");
         const response = await fetch(`${API_URL}/games`, {
             method: 'GET',
             headers: {
@@ -19,6 +20,7 @@ export const getGames = async () => {
         }
 
         const data = await response.json();
+        console.log("Data fetched: ", data);
         return data;
     } catch (error) {
         console.error('Error fetching games:', error);
