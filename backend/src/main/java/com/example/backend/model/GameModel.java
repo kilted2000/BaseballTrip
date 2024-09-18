@@ -34,4 +34,14 @@ public class GameModel {
     }
 
     public void setHomeTeam(String HomeTeam) {
-        this
+        this.HomeTeam = HomeTeam;
+    }
+
+    public String getDate() {
+        return date;
+    }
+    public void setDate(String date) {
+        this.date = date;
+    }
+}
+
