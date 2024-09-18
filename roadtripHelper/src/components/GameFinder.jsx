@@ -29,11 +29,11 @@ const GameFinder = () => {
     return gameDate >= startDate && gameDate <= endDate;
   };
 
-  const fetchGames = async (teams) => {
+  const fetchGames = async (HomeTeams) => {
     try {
       const data = await getGames();
       const filteredResults = data
-        .filter((game) => teams.includes(game.team))
+        .filter((game) => HomeTeams.includes(game.HomeTeam))
         .filter((game) =>
           isWithinDateRange(game.Day, dateRange.startDate, dateRange.endDate)
         );
@@ -44,8 +44,8 @@ const GameFinder = () => {
   };
 
   const onSubmit = ({ teamOne, teamTwo, teamThree, teamFour }) => {
-    const teams = [teamOne, teamTwo, teamThree, teamFour].filter(Boolean);
-    fetchGames(teams);
+    const HomeTeams = [teamOne, teamTwo, teamThree, teamFour].filter(Boolean);
+    fetchGames(HomeTeams);
   };
 
   return (
@@ -108,7 +108,7 @@ const GameFinder = () => {
         <ul>
           {results.map((result, index) => (
             <li key={index}>
-              <h3>{result.team}</h3>
+              <h3>{result.HomeTeam}</h3>
               <p>{formatDate(result.date)}</p>
             </li>
           ))}
