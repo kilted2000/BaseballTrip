@@ -92,4 +92,30 @@ const GameFinder = () => {
         </div>
         <label className="w-full mx-0.5">
           Dates:
-          <DatePic
+          <DatePicker onChange={(range) => setDateRange(range.selection)} />
+        </label>
+        <button
+          type="submit"
+          className="bg-blue-700 w-1/3 self-center cursor-crosshair rounded-full p-1 pt-1 text-stone-100"
+        >
+          Press If You Dare!
+        </button>
+      </form>
+      <div
+        id="result"
+        className="bg-emerald-900 text-slate-200 p-3 rounded-lg table-auto"
+      >
+        <ul>
+          {results.map((result, index) => (
+            <li key={index}>
+              <h3>{result.team}</h3>
+              <p>{formatDate(result.date)}</p>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  );
+};
+
+export default GameFinder;

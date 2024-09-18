@@ -22,4 +22,8 @@ export const getGames = async () => {
         const data = await response.json();
         console.log("Data fetched: ", data);
         return data;
-    } catch (error) 
+    } catch (error) {
+        console.error('Error fetching games:', error);
+        throw error;
+    }
+};
