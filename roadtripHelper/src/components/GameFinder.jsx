@@ -1,13 +1,15 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { getGames } from "../api/apiService";
 import { DatePicker } from "./DatePicker";
+
 const GameFinder = () => {
   const [results, setResults] = useState([]);
   const [dateRange, setDateRange] = useState({
     startDate: new Date(),
-    endDate: new Date(),
+    endDate: new Date(new Date().setDate(new Date().getDate() + 7)),
   });
+  const [HomeTeams, setHomeTeams] = useState([]);
   const {
     register,
     handleSubmit,
@@ -28,25 +30,54 @@ const GameFinder = () => {
     const gameDate = new Date(date);
     return gameDate >= startDate && gameDate <= endDate;
   };
+ 
 
-  const fetchGames = async (HomeTeams) => {
-    try {
-      const data = await getGames();
-      const filteredResults = data
-        .filter((game) => HomeTeams.includes(game.HomeTeam))
-        .filter((game) =>
-          isWithinDateRange(game.Day, dateRange.startDate, dateRange.endDate)
-        );
-      setResults(filteredResults);
-    } catch (error) {
-      console.error("Failed to fetch games.", error);
-    }
-  };
+  useEffect(() => {
+    const fetchGames = async () => {
+      if (HomeTeams.length > 0 && dateRange.startDate && dateRange.endDate) {
+        
+        try {
+          const data = await getGames(); // Call to your backend
+          const filteredResults = data
+            .filter((game) => HomeTeams.includes(game.HomeTeam.toLowerCase()))
+            .filter((game) =>
+              isWithinDateRange(game.Day, dateRange.startDate, dateRange.endDate)
+            );
+            console.log(filteredResults);
+          setResults(filteredResults);
+        } catch (error) {
+          console.error("Failed to fetch games.", error);
+        }
+      }
+    };
+
+    fetchGames();
+  }, [HomeTeams, dateRange]); // Re-fetch games when HomeTeams or dateRange changes
 
   const onSubmit = ({ teamOne, teamTwo, teamThree, teamFour }) => {
-    const HomeTeams = [teamOne, teamTwo, teamThree, teamFour].filter(Boolean);
-    fetchGames(HomeTeams);
+    const enteredTeams = [teamOne, teamTwo, teamThree, teamFour].filter(Boolean)
+    .map(team => team.toLowerCase());
+    setHomeTeams(enteredTeams);
   };
+
+  // const fetchGames = async (HomeTeams) => {
+  //   try {
+  //     const data = await getGames();
+  //     const filteredResults = data
+  //       .filter((game) => HomeTeams.includes(game.HomeTeam))
+  //       .filter((game) =>
+  //         isWithinDateRange(game.Day, dateRange.startDate, dateRange.endDate)
+  //       );
+  //     setResults(filteredResults);
+  //   } catch (error) {
+  //     console.error("Failed to fetch games.", error);
+  //   }
+  // };
+
+  // const onSubmit = ({ teamOne, teamTwo, teamThree, teamFour }) => {
+  //   const HomeTeams = [teamOne, teamTwo, teamThree, teamFour].filter(Boolean);
+  //   fetchGames(HomeTeams);
+  // };
 
   return (
     <div className="bg-[url('./assets/stadium.jpg')] bg-cover bg-no-repeat h-dvh justify-center justify-items-center items-center flex flex-col">
@@ -109,7 +140,7 @@ const GameFinder = () => {
           {results.map((result, index) => (
             <li key={index}>
               <h3>{result.HomeTeam}</h3>
-              <p>{formatDate(result.date)}</p>
+              <p>{formatDate(result.Day)}</p>
             </li>
           ))}
         </ul>
