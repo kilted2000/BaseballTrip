@@ -1,0 +1,35 @@
+[
+    [
+        { "name": "Houston Astros", "abbreviation": "HOU", "city": "Houston", "nickname": "Astros" },
+        { "name": "New York Yankees", "abbreviation": "NYY", "city": "New York", "nickname": "Yankees" },
+        { "name": "Boston Red Sox", "abbreviation": "BOS", "city": "Boston", "nickname": "Red Sox" },
+        { "name": "Toronto Blue Jays", "abbreviation": "TOR", "city": "Toronto", "nickname": "Blue Jays" },
+        { "name": "Tampa Bay Rays", "abbreviation": "TB", "city": "Tampa Bay", "nickname": "Rays" },
+        { "name": "Baltimore Orioles", "abbreviation": "BAL", "city": "Baltimore", "nickname": "Orioles" },
+        { "name": "Cleveland Guardians", "abbreviation": "CLE", "city": "Cleveland", "nickname": "Guardians" },
+        { "name": "Chicago White Sox", "abbreviation": "CHW", "city": "Chicago", "nickname": "White Sox" },
+        { "name": "Detroit Tigers", "abbreviation": "DET", "city": "Detroit", "nickname": "Tigers" },
+        { "name": "Kansas City Royals", "abbreviation": "KC", "city": "Kansas City", "nickname": "Royals" },
+        { "name": "Minnesota Twins", "abbreviation": "MIN", "city": "Minneapolis", "nickname": "Twins" },
+        { "name": "Los Angeles Angels", "abbreviation": "LAA", "city": "Los Angeles", "nickname": "Angels" },
+        { "name": "Oakland Athletics", "abbreviation": "OAK", "city": "Oakland", "nickname": "Athletics" },
+        { "name": "Seattle Mariners", "abbreviation": "SEA", "city": "Seattle", "nickname": "Mariners" },
+        { "name": "Texas Rangers", "abbreviation": "TEX", "city": "Arlington", "nickname": "Rangers" },
+        { "name": "Atlanta Braves", "abbreviation": "ATL", "city": "Atlanta", "nickname": "Braves" },
+        { "name": "Miami Marlins", "abbreviation": "MIA", "city": "Miami", "nickname": "Marlins" },
+        { "name": "New York Mets", "abbreviation": "NYM", "city": "New York", "nickname": "Mets" },
+        { "name": "Philadelphia Phillies", "abbreviation": "PHI", "city": "Philadelphia", "nickname": "Phillies" },
+        { "name": "Washington Nationals", "abbreviation": "WSH", "city": "Washington", "nickname": "Nationals" },
+        { "name": "Chicago Cubs", "abbreviation": "CHC", "city": "Chicago", "nickname": "Cubs" },
+        { "name": "Cincinnati Reds", "abbreviation": "CIN", "city": "Cincinnati", "nickname": "Reds" },
+        { "name": "Milwaukee Brewers", "abbreviation": "MIL", "city": "Milwaukee", "nickname": "Brewers" },
+        { "name": "Pittsburgh Pirates", "abbreviation": "PIT", "city": "Pittsburgh", "nickname": "Pirates" },
+        { "name": "St. Louis Cardinals", "abbreviation": "STL", "city": "St. Louis", "nickname": "Cardinals" },
+        { "name": "Arizona Diamondbacks", "abbreviation": "ARI", "city": "Phoenix", "nickname": "Diamondbacks" },
+        { "name": "Colorado Rockies", "abbreviation": "COL", "city": "Denver", "nickname": "Rockies" },
+        { "name": "Los Angeles Dodgers", "abbreviation": "LAD", "city": "Los Angeles", "nickname": "Dodgers" },
+        { "name": "San Diego Padres", "abbreviation": "SD", "city": "San Diego", "nickname": "Padres" },
+        { "name": "San Francisco Giants", "abbreviation": "SF", "city": "San Francisco", "nickname": "Giants" }
+      ]
+      
+]
