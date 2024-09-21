@@ -15,9 +15,9 @@ export const DatePicker = ({ onChange }) => {
   const handleSelect = (ranges) => {
     const { selection } = ranges;
     setState([selection]);
-    onChange(selection); 
+    onChange(ranges); 
   };
-  //console.log(ranges.selection.startDate, ranges.selection.endDate);
+ 
 
   return (
     <DateRange
@@ -26,12 +26,5 @@ export const DatePicker = ({ onChange }) => {
       moveRangeOnFirstSelection={false}
       ranges={state}
     />
-    //   return(
-    // <DateRange
-    //   editableDateInputs={true}
-    //   onChange={item => setState([item.selection])}
-    //   moveRangeOnFirstSelection={false}
-    //   ranges={state}
-    // />
       )
 }
