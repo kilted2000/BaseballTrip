@@ -111,7 +111,7 @@ const GameFinder = () => {
       .map((team) => team.toLowerCase());
     setHomeTeams(enteredTeams);
   };
-
+//is using tolowercase on submit not allowing a match to me made ex.STL?
   return (
     <div className="bg-[url('./assets/stadium.jpg')] bg-cover bg-no-repeat h-dvh justify-center justify-items-center items-center flex flex-col">
       <form
