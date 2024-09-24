@@ -288,7 +288,7 @@ const GameFinder = () => {
   };
 
   return (
-    <div className="bg-[url('./assets/stadium.jpg')] bg-cover bg-no-repeat h-dvh justify-center justify-items-center items-center flex flex-col">
+    <div className="bg-[url('./assets/stadium.jpg')] bg-cover bg-repeat-y h-dvh justify-center justify-items-center items-center flex flex-col">
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="rounded-lg bg-gradient-to-r from-emerald-700 via-teal-700 to-cyan-600 bg-no-repeat p-9 shadow-2xl shadow-green-900 space-y-4 flex flex-col gap-4"
@@ -351,22 +351,24 @@ const GameFinder = () => {
         id="result"
         className="bg-emerald-900 text-slate-200 p-3 rounded-lg table-auto"
       >
-        <table className="table-auto">
-        <thead>
-    <tr>
-      <th>Team</th>
-      <th>Day Played</th>
-    </tr>
-  </thead>
+
           {results.map((result, index) => (
-            <tbody>
-            <tr key={index}>
-             <td><h3>{result.HomeTeam}</h3></td> 
-              <td><p>{formatDate(result.Day)}</p></td>
+                    <table className="table-auto border-spacing-1 border-separate border border-lime-900">
+                    <thead>
+                <tr>
+                  <th>Team</th>
+                  <th>Day Played</th>
+                </tr>
+              </thead>
+            <tbody >
+            <tr key={index} className=" border border-sky-400 border-double border-spacing-y-0.5">
+             <td className="border"><h3>{result.HomeTeam}</h3></td> 
+              <td className="border"><p>{formatDate(result.Day)}</p></td>
               </tr>
             </tbody>
+            </table>
           ))}
-        </table>
+       
       </div>
     </div>
   );

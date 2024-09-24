@@ -2,6 +2,7 @@
 
 package com.example.backend.service;
 
+import java.time.Year;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,7 +28,8 @@ public class GameService {
     private final String apiKey = "5c5c0dea75d342ddbf81180756001c06";
 
     public List<Game> fetchGamesFromApi() {
-        String url = "https://api.sportsdata.io/v3/mlb/scores/json/Games/2024?key=" + apiKey;
+        int currentSeason = Year.now().getValue();
+        String url = "https://api.sportsdata.io/v3/mlb/scores/json/Games/" + currentSeason + "?key=" + apiKey;
 
         HttpHeaders headers = new HttpHeaders();
         headers.set("Authorization", "Bearer " + apiKey);
