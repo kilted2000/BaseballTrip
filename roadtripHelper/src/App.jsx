@@ -11,19 +11,19 @@ import {
 function App() {
   return (
     <>
-      <header>
-        <SignedOut>
-          <SignInButton />
-        </SignedOut>
-        <SignedIn>
-          <UserButton />
-        </SignedIn>
-      </header>
-      <div className="App">
+      <SignedOut>
+        <SignInButton />
+        <LandingPage />
+      </SignedOut>
+
+      <SignedIn>
+        <UserButton />
+        <div className="App">
           <header className="App-header">
-              <GameFinder />
+            <GameFinder />
           </header>
-      </div> 
+        </div>
+      </SignedIn>
     </>
   );
 }
