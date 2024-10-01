@@ -1,6 +1,7 @@
 import React from "react";
 import "./App.css";
 import GameFinder from "./components/GameFinder";
+import LandingPage from "./components/LandingPage";
 import {
   SignedIn,
   SignedOut,
