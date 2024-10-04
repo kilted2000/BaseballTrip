@@ -28,4 +28,4 @@ function App() {
   );
 }
 
-export defau
+export default App;
