@@ -12,7 +12,6 @@ function App() {
   return (
     <>
       <SignedOut>
-        {/* <SignInButton /> */}
         <LandingPage />
       </SignedOut>
 
