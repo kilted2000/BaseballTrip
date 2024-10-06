@@ -36,3 +36,4 @@ export const Results = ({ results }) => {
     </div>
   );
 };
+//change how data is sorted then redo results table
