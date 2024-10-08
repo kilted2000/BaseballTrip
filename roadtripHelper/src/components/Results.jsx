@@ -1,3 +1,5 @@
+import { UserButton } from "@clerk/clerk-react";
+
 export const Results = ({ results }) => {
   const formatDate = (dateString) => {
     const options = {
@@ -13,6 +15,10 @@ export const Results = ({ results }) => {
       id="result"
       className="bg-emerald-900 text-slate-200 p-3 rounded-lg table-auto w-5/6"
     >
+        <div class="navbar bg-base-300">
+        <a class="btn btn-ghost text-xl ">Baseball Bucketlist</a>
+        <UserButton className="absolute top-0 right-0 mt-4 mr-4 text-sky-500" />
+      </div>
       {results.map((result, index) => (
         <table key={index} className="table-auto table table-zebra">
           <thead>

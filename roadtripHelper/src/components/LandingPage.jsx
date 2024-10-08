@@ -1,4 +1,4 @@
-import { SignedOut, SignInButton } from "@clerk/clerk-react";
+import { SignInButton } from "@clerk/clerk-react";
 
 const LandingPage = () => {
   return (

@@ -4,7 +4,8 @@ import { getGames } from "../api/apiService";
 import teams from "../TeamList.json";
 import { DatePicker } from "./DatePicker";
 import { Results } from "./Results";
-import  Spinner  from "./Spinner"
+import  Spinner  from "./Spinner";
+import { UserButton } from "@clerk/clerk-react";
 const GameFinder = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [results, setResults] = useState([]);
@@ -93,6 +94,10 @@ const GameFinder = () => {
 
   return (
     <div className="bg-[url('./assets/stadium.jpg')] bg-cover bg-repeat-y h-full object-cover justify-center items-center flex flex-col h-dvh">
+        <div class="navbar bg-base-300">
+        <a class="btn btn-ghost text-xl ">Baseball Bucketlist</a>
+        <UserButton className="absolute top-0 right-0 mt-4 mr-4 text-sky-500" />
+      </div>
       {!showResults ? (
         <form
           onSubmit={handleSubmit(onSubmit)}
