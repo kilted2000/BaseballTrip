@@ -4,7 +4,9 @@ import { getGames } from "../api/apiService";
 import teams from "../TeamList.json";
 import { DatePicker } from "./DatePicker";
 import { Results } from "./Results";
+import  Spinner  from "./Spinner"
 const GameFinder = () => {
+  const [isLoading, setIsLoading] = useState(false);
   const [results, setResults] = useState([]);
   const [showResults, setShowResults] = useState(false);
   const [dateRange, setDateRange] = useState({
@@ -50,6 +52,7 @@ const GameFinder = () => {
         return;
       }
       if (homeTeams.length > 0 && dateRange.startDate && dateRange.endDate) {
+        setIsLoading(true);
         try {
           const data = await getGames();
           const filteredResults = data.filter((game) => {
@@ -66,11 +69,12 @@ const GameFinder = () => {
               )
             );
           });
-
-          console.log(filteredResults);
           setResults(filteredResults);
         } catch (error) {
           console.error("Failed to fetch games.", error);
+        }finally {
+          setIsLoading(false); 
+          //setShowResults(true); 
         }
       }
     };
@@ -149,7 +153,7 @@ const GameFinder = () => {
           </button>
         </form>
       ) : (
-        <Results results={results} />
+        isLoading ? < Spinner /> : <Results results={results} />
       )}
     </div>
   );

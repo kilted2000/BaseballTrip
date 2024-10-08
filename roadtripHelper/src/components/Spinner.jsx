@@ -1,5 +1,14 @@
 const Spinner = () => {
-
+    return (
+        <img 
+          src="/spinner.gif" 
+          alt="Loading..." 
+          style={{ 
+            margin: "0 auto", 
+            display: "block" 
+          }} 
+        />
+      );
 }
 
 export default Spinner;
