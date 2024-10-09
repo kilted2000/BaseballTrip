@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { getGames } from "../api/apiService";
 import teams from "../TeamList.json";
 import { DatePicker } from "./DatePicker";
-import { Results } from "./Results";
+import {Results }from "./Results";
 import  Spinner  from "./Spinner";
 import { UserButton } from "@clerk/clerk-react";
 const GameFinder = () => {

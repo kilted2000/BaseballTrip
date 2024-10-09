@@ -1,6 +1,6 @@
 import { UserButton } from "@clerk/clerk-react";
 
-export const Results = ({ results }) => {
+ export const Results = ({ results }) => {
   const formatDate = (dateString) => {
     const options = {
       weekday: "short",
@@ -18,6 +18,7 @@ export const Results = ({ results }) => {
         <div class="navbar bg-base-300">
         <a class="btn btn-ghost text-xl ">Baseball Bucketlist</a>
         <UserButton className="absolute top-0 right-0 mt-4 mr-4 text-sky-500" />
+        <a href="/GameFinder.jsx">Back</a>
       </div>
       {results.map((result, index) => (
         <table key={index} className="table-auto table table-zebra">

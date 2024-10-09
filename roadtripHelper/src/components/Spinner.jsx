@@ -1,20 +1,17 @@
 const Spinner = () => {
     return (
+      <div style={{backgroundColor:"white", height:"100%"}}>
         <img 
           src="/spinner.gif" 
           alt="Loading..." 
           style={{ 
             margin: "0 auto", 
-            display: "block" 
+            display: "block"
           }} 
         />
+        </div>
       );
 }
 
 export default Spinner;
 
-//import spinner to gamefinder
-//moniter state of loading in gamefinder-isLoading, setIsLoading
-//if true then display spinner
-//else show results
-//button clicked && isLoading == true ? <Spinner /> : <Results />
