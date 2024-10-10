@@ -1,26 +1,18 @@
+
 import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { getGames } from "../api/apiService";
 import teams from "../TeamList.json";
 import { DatePicker } from "./DatePicker";
-import {Results }from "./Results";
-import  Spinner  from "./Spinner";
 import { UserButton } from "@clerk/clerk-react";
-const GameFinder = () => {
-  const [isLoading, setIsLoading] = useState(false);
-  const [results, setResults] = useState([]);
-  const [showResults, setShowResults] = useState(false);
+const GameFinder = ({ setIsLoading, setResults, setShowForm }) => {
   const [dateRange, setDateRange] = useState({
     startDate: new Date(),
     endDate: new Date(new Date().setDate(new Date().getDate() + 7)),
   });
   const [homeTeams, setHomeTeams] = useState([]);
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
+  const { register, handleSubmit } = useForm();
 
   const getTeamAbbreviation = (teamInput) => {
     if (!teamInput || typeof teamInput !== "string") {
@@ -28,16 +20,13 @@ const GameFinder = () => {
       return null;
     }
     const lowerInput = teamInput.toLowerCase();
-
     const flatTeams = teams[0];
-
     const team = flatTeams.find(
       (t) =>
         t.name.toLowerCase().includes(lowerInput) ||
         t.city.toLowerCase().includes(lowerInput) ||
         t.nickname.toLowerCase().includes(lowerInput)
     );
-
     return team ? team.abbreviation : null;
   };
 
@@ -53,7 +42,7 @@ const GameFinder = () => {
         return;
       }
       if (homeTeams.length > 0 && dateRange.startDate && dateRange.endDate) {
-        setIsLoading(true);
+        
         try {
           const data = await getGames();
           const filteredResults = data.filter((game) => {
@@ -70,37 +59,40 @@ const GameFinder = () => {
               )
             );
           });
+          console.log("Filtered Results:", filteredResults);
           setResults(filteredResults);
         } catch (error) {
           console.error("Failed to fetch games.", error);
-        }finally {
+        } finally {
           setIsLoading(false); 
-          //setShowResults(true); 
         }
       }
     };
-
     fetchGames();
   }, [homeTeams, dateRange]);
 
   const onSubmit = ({ teamOne, teamTwo, teamThree, teamFour }) => {
+    setIsLoading(true); 
+    setShowForm(false);
     const enteredTeams = [teamOne, teamTwo, teamThree, teamFour]
       .filter(Boolean)
       .map((team) => team.trim().toLowerCase());
-
+      console.log("Entered Teams:", enteredTeams);
     setHomeTeams(enteredTeams);
-    setShowResults(true);
   };
 
   return (
     <div className="bg-[url('./assets/stadium.jpg')] bg-cover bg-repeat-y h-full object-cover justify-center items-center flex flex-col h-dvh">
-        <div class="navbar bg-base-300">
-        <a class="btn btn-ghost text-xl ">Baseball Bucketlist</a>
-        <UserButton className="absolute top-0 right-0 mt-4 mr-4 text-sky-500" />
-      </div>
-      {!showResults ? (
+     
+    
+      <div className="navbar bg-base-300">
+       <a className="btn btn-ghost text-xl ">Baseball Bucketlist</a>
+       <UserButton className="absolute top-0 right-0 mt-4 mr-4 text-sky-500" />
+     </div>
+     
         <form
-          onSubmit={handleSubmit(onSubmit)}
+          onSubmit={(e) => {console.log("Form submission triggered.");
+            handleSubmit(onSubmit)(e);}}
           className="rounded-lg bg-gradient-to-r from-emerald-700 via-teal-700 to-cyan-600 bg-no-repeat p-9 shadow-2xl shadow-green-900 space-y-4 flex flex-col gap-4"
         >
           <div>
@@ -157,9 +149,7 @@ const GameFinder = () => {
             Press If You Dare!
           </button>
         </form>
-      ) : (
-        isLoading ? < Spinner /> : <Results results={results} />
-      )}
+      
     </div>
   );
 };
