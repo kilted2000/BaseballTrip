@@ -34,52 +34,107 @@ const GameFinder = ({ setIsLoading, setResults, setShowForm }) => {
     const gameDate = new Date(date);
     return gameDate >= startDate && gameDate <= endDate;
   };
-
   useEffect(() => {
+    if (homeTeams.length === 0 || !dateRange.startDate || !dateRange.endDate) {
+      console.warn("No teams or date range entered.");
+      return;
+    }
+  
     const fetchGames = async () => {
-      if (homeTeams.length === 0) {
-        console.warn("No teams entered.");
-        return;
-      }
-      if (homeTeams.length > 0 && dateRange.startDate && dateRange.endDate) {
-        
-        try {
-          const data = await getGames();
-          const filteredResults = data.filter((game) => {
-            const homeTeam = game.HomeTeam || null;
-            return (
-              homeTeams.some((teamInput) => {
-                const teamAbbreviation = getTeamAbbreviation(teamInput);
-                return teamAbbreviation && homeTeam.includes(teamAbbreviation);
-              }) &&
-              isWithinDateRange(
-                game.Day,
-                dateRange.startDate,
-                dateRange.endDate
-              )
-            );
-          });
-          console.log("Filtered Results:", filteredResults);
-          setResults(filteredResults);
-        } catch (error) {
-          console.error("Failed to fetch games.", error);
-        } finally {
-          setIsLoading(false); 
-        }
+      try {
+        const data = await getGames();
+        const filteredResults = data.filter((game) => {
+          const homeTeam = game.HomeTeam || null;
+          return (
+            homeTeams.some((teamInput) => {
+              const teamAbbreviation = getTeamAbbreviation(teamInput);
+              return teamAbbreviation && homeTeam.includes(teamAbbreviation);
+            }) &&
+            isWithinDateRange(
+              game.Day,
+              dateRange.startDate,
+              dateRange.endDate
+            )
+          );
+        });
+        console.log("Filtered Results:", filteredResults);
+        setResults(filteredResults);
+      } catch (error) {
+        console.error("Failed to fetch games.", error);
+      } finally {
+        setIsLoading(false); 
       }
     };
+  
     fetchGames();
   }, [homeTeams, dateRange]);
-
+  
+  // useEffect(() => {
+  //   const fetchGames = async () => {
+  //     console.log("homeTeams updated:", homeTeams);
+  //     if (homeTeams.length === 0) {
+  //       console.warn("No teams entered.");
+  //       return;
+  //     }
+  //     if (homeTeams.length > 0 && dateRange.startDate && dateRange.endDate) {
+        
+  //       try {
+  //         const data = await getGames();
+  //         const filteredResults = data.filter((game) => {
+  //           const homeTeam = game.HomeTeam || null;
+  //           return (
+  //             homeTeams.some((teamInput) => {
+  //               const teamAbbreviation = getTeamAbbreviation(teamInput);
+  //               return teamAbbreviation && homeTeam.includes(teamAbbreviation);
+  //             }) &&
+  //             isWithinDateRange(
+  //               game.Day,
+  //               dateRange.startDate,
+  //               dateRange.endDate
+  //             )
+  //           );
+  //         });
+  //         console.log("Filtered Results One:", filteredResults);
+  //         setResults(filteredResults);
+  //       } catch (error) {
+  //         console.error("Failed to fetch games.", error);
+  //       } finally {
+  //         setIsLoading(false); 
+  //         console.log("Filtered Results Two:", filteredResults);
+  //       }
+  //     }
+  //   };
+  //   fetchGames();
+  // }, [homeTeams, dateRange]);
   const onSubmit = ({ teamOne, teamTwo, teamThree, teamFour }) => {
-    setIsLoading(true); 
+    setIsLoading(true);
     setShowForm(false);
+    
     const enteredTeams = [teamOne, teamTwo, teamThree, teamFour]
       .filter(Boolean)
       .map((team) => team.trim().toLowerCase());
-      console.log("Entered Teams:", enteredTeams);
-    setHomeTeams(enteredTeams);
+  
+    console.log("Entered Teams:", enteredTeams);
+    
+    setHomeTeams(() => {
+      console.log("Setting homeTeams to:", enteredTeams);
+      return enteredTeams;
+    });
   };
+  
+
+        
+  
+  // const onSubmit = ({ teamOne, teamTwo, teamThree, teamFour }) => {
+  //   setIsLoading(true); 
+  //   setShowForm(false);
+  //   const enteredTeams = [teamOne, teamTwo, teamThree, teamFour]
+  //     .filter(Boolean)
+  //     .map((team) => team.trim().toLowerCase());
+  //     console.log("Entered Teams:", enteredTeams);
+  //   setHomeTeams(enteredTeams);
+  //   console.log("Updated homeTeams:", homeTeams);
+  // };
 
   return (
     <div className="bg-[url('./assets/stadium.jpg')] bg-cover bg-repeat-y h-full object-cover justify-center items-center flex flex-col h-dvh">

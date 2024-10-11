@@ -12,7 +12,7 @@ const LandingPage = () => {
       </div>
       <div className={styles.header}>
        <h1>Baseball-Trip Helper</h1>
-       <div className={styles.main-title}>
+       <div className={styles.mainTitle}>
         <h2>Simplify your road-trip planning!</h2>
        </div>
        

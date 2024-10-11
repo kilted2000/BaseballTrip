@@ -18,4 +18,29 @@ function App() {
     <>
       <SignedOut>
         <LandingPage />
-      
+      </SignedOut>
+
+      <SignedIn>
+        <div className="App">
+          <header className="App-header">
+          {showForm ? (
+              <GameFinder 
+                setIsLoading={setIsLoading} 
+                setResults={setResults} 
+                setShowForm={setShowForm} 
+              />
+            ) : isLoading ? (
+              <Spinner />
+            ) : (
+              <Results results={results} />
+            )}
+           
+          </header>
+        </div>
+      </SignedIn>
+    </>
+  );
+}
+
+export default App;
+//continue debugging results not showing issue
