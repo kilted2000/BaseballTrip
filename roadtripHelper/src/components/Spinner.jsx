@@ -1,13 +1,10 @@
 const Spinner = () => {
     return (
-      <div style={{backgroundColor:"white", height:"100%"}}>
+      <div className=" flex bg-white bg-cover h-screen w-screen">
         <img 
           src="/spinner.gif" 
           alt="Loading..." 
-          style={{ 
-            margin: "0 auto", 
-            display: "block"
-          }} 
+          className="flex m-auto"
         />
         </div>
       );

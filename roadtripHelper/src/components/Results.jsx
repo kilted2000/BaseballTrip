@@ -21,7 +21,7 @@ import { UserButton } from "@clerk/clerk-react";
         <a href="/GameFinder.jsx">Back</a>
       </div>
       {results.map((result, index) => (
-        <table key={index} className="table-auto table table-zebra">
+        <table key={index} className="table-auto table">
           <thead>
             <tr>
               <th>Team</th>
@@ -29,7 +29,7 @@ import { UserButton } from "@clerk/clerk-react";
             </tr>
           </thead>
           <tbody>
-            <tr className=" border  border-8 border-b-sky-400 border-double border-spacing-y-0.5 border-t-transparent border-r-transparent border-l-transparent">
+            <tr className="hover border  border-8 border-b-sky-400 border-double border-spacing-y-0.5 border-t-transparent border-r-transparent border-l-transparent">
               <td>
                 <h3>{result.HomeTeam}</h3>
               </td>
