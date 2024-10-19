@@ -31,4 +31,13 @@ const LandingPage = () => {
             <p>Sign Up or Sign In Now!</p>
         </div>
         <a>Facebook</a>
-        <
+        <a>Twitter</a>
+        <a>Instagram</a>
+        <a>GitHub</a>
+    </div>
+    </div>
+    </div>
+  );
+};
+
+export default LandingPage;
