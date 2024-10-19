@@ -84,7 +84,7 @@ const GameFinder = ({ setIsLoading, setResults, setShowForm }) => {
         }}
         className="rounded-lg bg-gradient-to-r from-emerald-700 via-teal-700 to-cyan-600 bg-no-repeat p-9 shadow-2xl shadow-green-900 space-y-4 flex flex-col gap-4"
       >
-        <div>
+  <div>
           <label className="w-1/2">
             Team:
             <input
