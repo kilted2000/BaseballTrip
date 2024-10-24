@@ -71,7 +71,8 @@ const GameFinder = ({ setIsLoading, setResults, setShowForm }) => {
   };
 
   return (
-    <div className="bg-[url('./assets/stadium.jpg')] bg-cover bg-repeat-y h-full object-cover justify-center items-center flex flex-col h-dvh">
+    <div className="m-0">
+    <div className="bg-[url('./assets/stadium.jpg')] bg-no-repeat bg-contain w-full object-cover justify-center items-center flex flex-col">
       <div className="navbar bg-base-300">
         <a className="btn btn-ghost text-xl ">Baseball Bucketlist</a>
         <UserButton className="absolute top-0 right-0 mt-4 mr-4 text-sky-500" />
@@ -138,6 +139,7 @@ const GameFinder = ({ setIsLoading, setResults, setShowForm }) => {
           Press If You Dare!
         </button>
       </form>
+    </div>
     </div>
   );
 };
