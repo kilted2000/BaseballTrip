@@ -69,11 +69,19 @@ const GameFinder = ({ setIsLoading, setResults, setShowForm }) => {
       setIsLoading(false);
     }
   };
+  // And as you remember, we set our Hero Image margin-top: -56px; , because that's the height of the Navbar on large screens.
 
+  // So we need to make sure that on other screen sizes the height of the Navbar stays the same, which is 56px.
+  
+  // This is the perfect opportunity to use arbitrary values.
+  
+  // Add min-h-[56px] to Navbar.
+  
+  // The min-h- class defines the minimum height for a given element, and [56px] is the height given in the form of arbitrary values that we want to maintain on all screens.
   return (
-    <div className="m-0">
-    <div className="bg-[url('./assets/stadium.jpg')] bg-no-repeat bg-contain w-full object-cover justify-center items-center flex flex-col">
-      <div className="navbar bg-base-300">
+    <div className="max-h-screen">
+    <div className="bg-[url('./assets/stadium.jpg')] bg-repeat-y bg-cover  object-cover justify-center items-center flex flex-col h-screen mt-auto">
+      <div className="navbar bg-base-300 min-h-[56px]">
         <a className="btn btn-ghost text-xl ">Baseball Bucketlist</a>
         <UserButton className="absolute top-0 right-0 mt-4 mr-4 text-sky-500" />
       </div>
