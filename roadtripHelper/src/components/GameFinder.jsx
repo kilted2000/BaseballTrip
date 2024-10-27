@@ -80,10 +80,10 @@ const GameFinder = ({ setIsLoading, setResults, setShowForm }) => {
   // The min-h- class defines the minimum height for a given element, and [56px] is the height given in the form of arbitrary values that we want to maintain on all screens.
   return (
     <div className="max-h-screen">
-    <div className="bg-[url('./assets/stadium.jpg')] bg-repeat-y bg-cover  object-cover justify-center items-center flex flex-col h-screen mt-auto">
-      <div className="navbar bg-base-300 min-h-[56px]">
-        <a className="btn btn-ghost text-xl ">Baseball Bucketlist</a>
-        <UserButton className="absolute top-0 right-0 mt-4 mr-4 text-sky-500" />
+    <div className="bg-[url('./assets/stadium.jpg')] bg-repeat-y bg-cover  object-cover justify-center items-center flex flex-col h-screen ">
+      <div className="navbar bg-base-300 min-h-[106px] " style={{marginTop: "-36px"}}>
+        <a className="btn btn-ghost text-xl">Baseball Bucketlist</a>
+        <UserButton className="absolute top-0 right-0 mt-4 mr-4 text-sky-500 ml-auto" />
       </div>
 
       <form
