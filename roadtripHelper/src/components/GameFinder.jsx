@@ -79,11 +79,13 @@ const GameFinder = ({ setIsLoading, setResults, setShowForm }) => {
   
   // The min-h- class defines the minimum height for a given element, and [56px] is the height given in the form of arbitrary values that we want to maintain on all screens.
   return (
-    <div className="max-h-screen">
-    <div className="bg-[url('./assets/stadium.jpg')] bg-repeat-y bg-cover  object-cover justify-center items-center flex flex-col h-screen ">
-      <div className="navbar bg-base-300 min-h-[106px] " style={{marginTop: "-36px"}}>
-        <a className="btn btn-ghost text-xl">Baseball Bucketlist</a>
-        <UserButton className="absolute top-0 right-0 mt-4 mr-4 text-sky-500 ml-auto" />
+    <div>
+    <div className="bg-[url('./assets/stadium.jpg')] bg-repeat bg-cover items-center flex flex-col max-h-screen">
+    <div class="navbar bg-base-300">
+        <a class="btn btn-ghost text-xl">Baseball Bucketlist</a>
+        <div className="ml-auto">
+        <UserButton className="absolute top-0 right-0 mt-4 mx-4 text-sky-500" />
+      </div>
       </div>
 
       <form
@@ -91,46 +93,55 @@ const GameFinder = ({ setIsLoading, setResults, setShowForm }) => {
           console.log("Form submission triggered.");
           handleSubmit(onSubmit)(e);
         }}
-        className="rounded-lg bg-gradient-to-r from-emerald-700 via-teal-700 to-cyan-600 bg-no-repeat p-9 shadow-2xl shadow-green-900 space-y-4 flex flex-col gap-4"
+        className="rounded-lg bg-gradient-to-r from-emerald-700 via-teal-700 to-cyan-600 bg-no-repeat p-9 shadow-2xl shadow-green-900 space-y-4 flex flex-col gap-4 m-4"
       >
   <div>
-          <label className="w-1/2">
+          <label className="w-1/2 mr-1">
             Team:
+            </label>
             <input
               {...register("teamOne", { pattern: /^[a-z|\s]+$/i })}
               type="text"
               placeholder="Enter Team Name"
+              className="pl-2"
             />
-          </label>
-          <label className="w-1/2">
+          <label className="w-1/2 mx-1">
             Team:
+            </label>
             <input
               {...register("teamTwo", { pattern: /^[a-z\s]+$/i })}
               type="text"
               placeholder="Enter Team Name"
+              className="pl-2"
             />
-          </label>
+          
         </div>
         <div>
-          <label className="w-1/2">
+          <label className="w-1/2 mr-1">
             Team:
+            </label>
             <input
               {...register("teamThree", { pattern: /^[a-z\s]+$/i })}
               type="text"
               placeholder="Enter Team Name"
+              className="pl-2"
             />
-          </label>
-          <label className="w-1/2">
+          
+          <label className="w-1/2 mx-1">
             Team:
+            </label>
             <input
               {...register("teamFour", { pattern: /^[a-z\s]+$/i })}
               type="text"
               placeholder="Enter Team Name"
+              className="pl-2"
             />
-          </label>
+          
         </div>
-        <label className="w-full mx-0.5">
+        <div className="w-full mr-2">
+        <label className="mr-5">
           Dates:
+          </label>
           <DatePicker
             onChange={(ranges) =>
               setDateRange({
@@ -139,7 +150,7 @@ const GameFinder = ({ setIsLoading, setResults, setShowForm }) => {
               })
             }
           />
-        </label>
+        </div>
         <button
           type="submit"
           className="bg-blue-700 w-1/3 self-center cursor-crosshair rounded-full p-1 pt-1 text-stone-100"
