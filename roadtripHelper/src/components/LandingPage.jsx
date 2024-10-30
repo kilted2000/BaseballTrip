@@ -1,6 +1,7 @@
 import { SignInButton } from "@clerk/clerk-react";
 import styles from "./landingPage.module.css"
 const LandingPage = () => {
+  //style = {{ backgroundImage: url('../src/assets/stadium.jpg')}}
   return (
     <div
       className="bg-emerald-900 bg-gradient-to-r from-indigo-800 to-emerald-900
