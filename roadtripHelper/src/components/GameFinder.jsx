@@ -69,11 +69,14 @@ const GameFinder = ({ setIsLoading, setResults, setShowForm }) => {
       setIsLoading(false);
     }
   };
+  //"rounded-1g bg-gradient-to-r from-emerald-700 via-teal-700 to-cyan-600 bg-no-repeat p-9 shadow-2xl shadow-green-900 space-y-4 flex flex-col gap-4"
+
+  //" bg-no-repeat bg-cover bg-center bg-fixed h-screen content-center"
   return (
     <div>
-    <div style = {{ backgroundImage: "url('../stadium.jpg')"}} className=" bg-no-repeat bg-cover bg-center bg-fixed h-screen content-center">
-    <div class="navbar bg-base-300 mt-0 ">
-        <a class="btn btn-ghost text-xl">Baseball Bucketlist</a>
+    <div style = {{ backgroundImage: "url('../stadium.jpg')"}} className="rounded-1g bg-gradient-to-r from-emerald-700 via-teal-700 to-cyan-600 bg-no-repeat p-9 shadow-2xl shadow-green-900 space-y-4 flex flex-col gap-4 bg-cover h-auto">
+    <div className="navbar bg-base-300 mt-0 rounded-lg ">
+        <a className="btn btn-ghost text-xl">Baseball Bucketlist</a>
         <div className="ml-auto">
         <UserButton className="absolute top-0 right-0 mt-4 mx-4 text-sky-500" />
       </div>
