@@ -152,4 +152,26 @@ const GameFinder = ({ setIsLoading, setResults, setShowForm }) => {
           Dates:
           </label>
           <DatePicker
-            onChange=
+            onChange={(ranges) =>
+              setDateRange({
+                startDate: ranges.selection.startDate,
+                endDate: ranges.selection.endDate,
+              })
+            }
+          />
+        <div className="card-actions">
+        {/* w-1/5 md:w-1/3  */}
+        <button
+          type="submit"
+          className=" bg-blue-700 hover:bg-blue-900 self-center cursor-pointer rounded-full text-stone-100 px-3 pb-2"
+        >
+          Press If You Dare!
+        </button>
+        </div>
+      </form>
+    </div>
+    </div>
+  );
+};
+
+export default GameFinder;
