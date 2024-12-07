@@ -69,13 +69,13 @@ const GameFinder = ({ setIsLoading, setResults, setShowForm }) => {
       setIsLoading(false);
     }
   };
-  //"rounded-1g bg-gradient-to-r from-emerald-700 via-teal-700 to-cyan-600 bg-no-repeat p-9 shadow-2xl shadow-green-900 space-y-4 flex flex-col gap-4"
-
-  //" bg-no-repeat bg-cover bg-center bg-fixed h-screen content-center"
+  
+  //bg-[url('/stadium.jpg')] bg-no-repeat bg-cover bg-center bg-fixed min-h-screen flex flex-col justify-center items-center  md:rounded-lg card lg:card-side
+  
   return (
     <div>
-    <div style = {{ backgroundImage: "url('../stadium.jpg')"}} className="bg-no-repeat bg-cover bg-center bg-fixed min-h-screen flex flex-col justify-center items-center">
-    <div className="navbar bg-base-300 mt-0 rounded-lg ">
+    <div className="bg-[url('/stadium.jpg')] bg-cover bg-repeat-y  object-cover justify-center items-center flex flex-col h-dvh">
+    <div className="navbar navbar-center bg-base-300 mt-12 md:mt-0">
         <a className="btn btn-ghost text-xl">Baseball Bucketlist</a>
         <div className="ml-auto">
         <UserButton className="absolute top-0 right-0 mt-4 mx-4 text-sky-500" />
@@ -84,56 +84,71 @@ const GameFinder = ({ setIsLoading, setResults, setShowForm }) => {
 
       <form
         onSubmit={(e) => {
-          console.log("Form submission triggered.");
           handleSubmit(onSubmit)(e);
         }}
-        className="rounded-lg bg-gradient-to-r from-emerald-700 via-teal-700 to-cyan-600 bg-no-repeat p-4 shadow-2xl shadow-green-900 space-y-4 flex flex-col gap-4 m-4 w-2/5 mx-auto"
+    //bg-no-repeat p-4 shadow-2xl shadow-green-900 w-full space-y-4 flex flex-col gap-4 m-4 w-2/5 mx-auto md:p-9 md:rounded-lg space-y-4 flex flex-col grid grid-cols-1 md:gap-4 md:w-2/5 md:mx-auto 
+        className=" bg-gradient-to-r from-emerald-700 via-teal-700 to-cyan-600 bg-no-repeat shadow-2xl shadow-green-900  place-items-center card-body"
       >
-  <div>
-          <label className="w-1/2 mr-1">
+  
+    {/* <div className="mx-auto"> */}
+       <div className="grid md:grid-cols-2 md:gap-4"> 
+        {/* mr-1 */}
+        <div>
+          <label className="w-full mr-1 flex">
             Team:
             </label>
             <input
               {...register("teamOne", { pattern: /^[a-z|\s]+$/i })}
               type="text"
               placeholder="Enter Team Name"
-              className="pl-2"
+              // pl-2
+              className="rounded-lg pl-2"
             />
-          <label className="w-1/2 mx-1">
+           {/* mx-1 */}
+          <label className="w-full ml-1 flex">
             Team:
             </label>
             <input
               {...register("teamTwo", { pattern: /^[a-z\s]+$/i })}
               type="text"
               placeholder="Enter Team Name"
-              className="pl-2"
+              // pl-2
+              className="rounded-lg pl-2"
             />
-          
-        </div>
-        <div>
-          <label className="w-1/2 mr-1">
+          </div>
+          <div>
+       
+          {/* mr-1 */}
+          <label className="w-1/2 mr-1 flex">
             Team:
             </label>
             <input
               {...register("teamThree", { pattern: /^[a-z\s]+$/i })}
               type="text"
               placeholder="Enter Team Name"
-              className="pl-2"
+              //pl-2
+              className="rounded-lg pl-2"
             />
-          
-          <label className="w-1/2 mx-1">
+         {/* mx-1 */}
+          <label className="w-1/2 ml-1 flex">
             Team:
             </label>
             <input
               {...register("teamFour", { pattern: /^[a-z\s]+$/i })}
               type="text"
               placeholder="Enter Team Name"
-              className="pl-2"
+              //pl-2
+              className="rounded-lg pl-2"
             />
-          
-        </div>
-        <div className="w-full mr-2">
-        <label className="mr-5">
+            </div>
+            {/* </div> */}
+            {/* </div> */}
+          {/* pl-2 */}
+        </div> 
+        
+        {/* <div className="w-full mr-2 mx-0.5"> */}
+        {/* mr-5 */}
+        <label className="w-full mr-5">
           Dates:
           </label>
           <DatePicker
@@ -144,13 +159,15 @@ const GameFinder = ({ setIsLoading, setResults, setShowForm }) => {
               })
             }
           />
-        </div>
+        <div className="card-actions">
+        {/* w-1/5 md:w-1/3  */}
         <button
           type="submit"
-          className="bg-blue-700 w-1/3 self-center cursor-crosshair rounded-full p-1 pt-1 text-stone-100"
+          className=" bg-blue-700 hover:bg-blue-900 self-center cursor-pointer rounded-full text-stone-100 px-3 pb-2"
         >
           Press If You Dare!
         </button>
+        </div>
       </form>
     </div>
     </div>
