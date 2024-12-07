@@ -32,38 +32,4 @@ const LandingPage = () => {
     <div className="hero bg-slate-200 h-72 w-screen">
       <div className="hero-content">
      <h3>How Baseball-Trip Helper will simplify your life"</h3>
-     <p>Enter up to four teams to see their schedules. Baseball Roadtrip Helper brings every teams schedules together in one place?</p>
-<img src="cards.svg" alt="Cardinals Logo" />
-<img src="phillies.svg" alt="Phillies Logo" />
-<img src="cubs.svg" alt="Cubs Logo" />
-<img src="braves.svg" alt="Braves Logo" />
-<img src="mariners.svg" alt="Mariners Logo" />
-
-     </div>
-     </div>
-    <div className={styles.footer}>
-        <div className={styles.data}>
-          <div className="hero bg-slate-700 h-48 w-screen">
-            <div className="hero-content text-center">
-        
-            <h3 className="card-title">Sign Up or Sign In Now!</h3>
-            <div className="card-actions">
-            <SignInButton className="btn btn-primary"/>
-            </div>
-            
-        </div>
-        </div>
-        <div className="menu menu-lg bg-base-200 w-screen">
-        <a>Facebook</a>
-        <a>Twitter</a>
-        <a>Instagram</a>
-        <a>GitHub</a>
-        <p>&copy; 2024 Whittington Not At All Evil Industries</p>
-        </div>
-    </div>
-    </div>
-    </div>
-  );
-};
-
-export default LandingPage;
+     <p>Enter up to four teams to see their schedules. Ba
