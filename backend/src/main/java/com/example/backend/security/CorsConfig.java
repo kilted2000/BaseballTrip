@@ -15,7 +15,7 @@ public class CorsConfig {
             @Override
             public void addCorsMappings( @SuppressWarnings("null") CorsRegistry registry) {
                 registry.addMapping("/**") 
-                        .allowedOrigins("http://localhost:5173") 
+                        .allowedOrigins("http://localhost:5173", "https://roadtriphelper.netlify.app") 
                         .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS") 
                         .allowedHeaders("*") 
                         .allowCredentials(true); 
