@@ -18,4 +18,8 @@ public class CorsConfig {
                         .allowedOrigins("http://localhost:5173", "https://roadtriphelper.netlify.app") 
                         .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS") 
                         .allowedHeaders("*") 
-                        .allowCredentials(tru
+                        .allowCredentials(true); 
+            }
+        };
+    }
+}
