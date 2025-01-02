@@ -12,7 +12,6 @@ const LandingPage = () => {
         <SignInButton className="absolute top-0 right-0 mt-4 mr-4 text-sky-500" />
       </div>
       <div className={styles.header}>
-       <h1>Baseball-Trip Helper</h1>
        <div className={styles.mainTitle}>
         <h2>Simplify your road-trip planning!</h2>
        </div>
@@ -20,7 +19,7 @@ const LandingPage = () => {
     </div>
     <div className={styles.media}>
     {/* <h4>As Seen On:</h4> */}
-    <div className="flex flex-row justify-between ml-2">
+    <div className="hero flex flex-row w-screen">
     <h4>As Seen On:</h4>
       <img src="bbc.jpeg" alt="bbc logo" />
       <img src="cnn.jpeg" alt="cnn logo"/>
