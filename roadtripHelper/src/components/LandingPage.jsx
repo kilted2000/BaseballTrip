@@ -5,27 +5,27 @@ const LandingPage = () => {
   return (
     <div
       className="bg-emerald-900 bg-gradient-to-r from-indigo-800 to-emerald-900
-    bg-contain h-dvh bg-center h-full"
+     h-dvh bg-center h-full m-0"
     >
       <div className="navbar bg-base-300">
-        <a className="btn btn-ghost text-xl ">Baseball Bucketlist</a>
+        <a className="btn btn-ghost font-bold ">Baseball Bucketlist</a>
         <SignInButton className="absolute top-0 right-0 mt-4 mr-4 text-sky-500" />
       </div>
-      <div className={styles.header}>
-       <div className={styles.mainTitle}>
+      <div className="hero min-h-screen" style={{backgroundImage:"url(chasefield.jpg)",}}>
+       <div className="hero-content text-neutral-content text-center text-6xl text-white">
         <h2>Simplify your road-trip planning!</h2>
        </div>
        
     </div>
-    <div className={styles.media}>
+    <div className="">
     {/* <h4>As Seen On:</h4> */}
-    <div className="hero flex flex-row w-screen">
+    <div className="hero flex flex-row w-screen ">
     <h4>As Seen On:</h4>
-      <img src="bbc.jpeg" alt="bbc logo" />
-      <img src="cnn.jpeg" alt="cnn logo"/>
-      <img src="mlb.png" alt="mlb logo" />
-      <img src="nytimes.png" alt="new york times logo" />
-      <img src="rte.jpeg" alt="rte logo" />
+      <img src="bbc.jpeg" alt="bbc logo" className="card bg-base-100 size-20 md:size-48 lg:size-64"/>
+      <img src="cnn.jpeg" alt="cnn logo" className="card bg-base-100 size-20 md:size-48 lg:size-64"/>
+      <img src="mlb.png" alt="mlb logo" className="card bg-base-100 size-20 md:size-48"/>
+      <img src="nytimes.png" alt="new york times logo" className="card bg-base-100 size-20 md:size-48"/>
+      <img src="rte.jpeg" alt="rte logo" className="card bg-base-100 size-20 md:size-48"/>
     </div>
     </div>
     <div className="hero bg-slate-200 h-72 w-screen">
