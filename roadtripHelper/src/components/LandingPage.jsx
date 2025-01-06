@@ -44,4 +44,28 @@ const LandingPage = () => {
     <div className={styles.footer}>
         <div className={styles.data}>
           <div className="hero bg-slate-700 h-48 w-screen">
-       
+            <div className="hero-content text-center">
+        
+            <h3 className="card-title">Sign Up or Sign In Now!</h3>
+            <div className="card-actions">
+            <SignInButton className="btn btn-primary"/>
+            </div>
+            
+        </div>
+        </div>
+        <div className="menu menu-lg bg-base-200 w-screen mb-0">
+          <div className="flex flex-col md:flex-row justify-around text-lg mb-0">
+        <a>Facebook</a>
+        <a>Twitter</a>
+        <a>Instagram</a>
+        <a>GitHub</a>
+        </div>
+        <p className="mt-2 text-center">&copy; 2025 Whittington Not At All Evil Industries</p>
+        </div>
+    </div>
+    </div>
+    </div>
+  );
+};
+
+export default LandingPage;
