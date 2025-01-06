@@ -19,7 +19,7 @@ const LandingPage = () => {
     </div>
     <div className="">
     {/* <h4>As Seen On:</h4> */}
-    <div className="hero flex flex-row w-screen ">
+    <div className="hero flex flex-row w-screen place-content-evenly">
     <h4>As Seen On:</h4>
       <img src="bbc.jpeg" alt="bbc logo" className="card bg-base-100 size-20 lg:size-48 xl:size-54"/>
       <img src="cnn.jpeg" alt="cnn logo" className="card bg-base-100 size-20 lg:size-48 xl:size-54"/>
