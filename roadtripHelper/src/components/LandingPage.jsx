@@ -21,11 +21,11 @@ const LandingPage = () => {
     {/* <h4>As Seen On:</h4> */}
     <div className="hero flex flex-row w-screen ">
     <h4>As Seen On:</h4>
-      <img src="bbc.jpeg" alt="bbc logo" className="card bg-base-100 size-20 md:size-48 lg:size-64"/>
-      <img src="cnn.jpeg" alt="cnn logo" className="card bg-base-100 size-20 md:size-48 lg:size-64"/>
-      <img src="mlb.png" alt="mlb logo" className="card bg-base-100 size-20 md:size-48"/>
-      <img src="nytimes.png" alt="new york times logo" className="card bg-base-100 size-20 md:size-48"/>
-      <img src="rte.jpeg" alt="rte logo" className="card bg-base-100 size-20 md:size-48"/>
+      <img src="bbc.jpeg" alt="bbc logo" className="card bg-base-100 size-20 lg:size-48 xl:size-54"/>
+      <img src="cnn.jpeg" alt="cnn logo" className="card bg-base-100 size-20 lg:size-48 xl:size-54"/>
+      <img src="mlb.png" alt="mlb logo" className="card bg-base-100 size-20 md:size-48 lg:size-54"/>
+      <img src="nytimes.png" alt="new york times logo" className="card bg-base-100 size-20 md:size-48 lg:size-54"/>
+      <img src="rte.jpeg" alt="rte logo" className="card bg-base-100 size-20 md:size-48 lg:size-54"/>
     </div>
     </div>
     <div className="hero bg-slate-200 h-72 w-screen">
