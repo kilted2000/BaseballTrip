@@ -1,5 +1,5 @@
 
-const API_URL = 'process.env.REACT_APP_BACKEND_URL';
+const API_URL = process.env.REACT_APP_BACKEND_URL;
 
 export const getGames = async () => {
     try {
@@ -8,7 +8,7 @@ export const getGames = async () => {
             method: 'GET',
             headers: {
                 "Content-Type": "application/json",
-                "Access-Control-Allow-Origin": "*", 
+                // "Access-Control-Allow-Origin": "*", 
             },
             mode: 'cors', 
             credentials: 'include',
