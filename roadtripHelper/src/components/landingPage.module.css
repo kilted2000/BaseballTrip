@@ -1,0 +1,38 @@
+
+.header{
+    background-image: url(chasefield.jpg);
+    background-repeat: no-repeat;
+    height: 700px;
+    color: aliceblue;
+    font-family: sans-serif;
+}
+
+
+.footer{
+    display: flex;
+    flex-direction: row;
+    background-color: darkolivegreen;
+    height: 300px;
+    width: 100%;
+    
+}
+.mainTitle{
+    color: white;
+    font-weight: 900;
+    font-size: 56px;
+    text-align: center;
+    padding-left: 450px;
+    padding-top: 200px;
+    text-shadow: 2px 2px black;
+}
+h2{
+    font-size: 65px;
+    width: 500px;
+}
+.data{
+    display: block;
+}
+.cta{
+    background-color: lightslategrey;
+  
+}
