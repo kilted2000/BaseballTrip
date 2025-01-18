@@ -1,4 +1,6 @@
 package com.example.backend.model;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -10,7 +12,9 @@ public class GameModel {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+     @JsonProperty("HomeTeam")
     private String HomeTeam;
+    @JsonProperty("Date")
     private String date;
 
     public GameModel() {

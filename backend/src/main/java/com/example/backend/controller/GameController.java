@@ -6,10 +6,10 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.backend.games.Game;
+import com.example.backend.model.GameModel;
 import com.example.backend.service.GameService;
 
-@CrossOrigin(origins = "http://localhost:5173")
+@CrossOrigin(origins = {"http://localhost:5173", "https://roadtriphelper.netlify.app"})
 @RestController
 public class GameController {
 
@@ -17,7 +17,7 @@ public class GameController {
     private GameService gameService;
 
     @GetMapping("/games")
-    public List<Game> getGames() {
+    public List<GameModel> getGames() {
         return gameService.fetchGamesFromApi();
     }
 

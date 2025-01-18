@@ -12,7 +12,7 @@ export const getGames = async () => {
             },
             mode: 'cors', 
             credentials: 'include',
-            body: JSON.stringify({ content }),
+            // body: JSON.stringify({ content }),
         });
 
         if (!response.ok) {
