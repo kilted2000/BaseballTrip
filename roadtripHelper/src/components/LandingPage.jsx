@@ -46,7 +46,7 @@ const LandingPage = () => {
           <div className="hero bg-slate-700 h-48 w-screen">
             <div className="hero-content text-center">
         
-            <h3 className="card-title">Sign Up or Sign In Now!</h3>
+            <h3 className="card-title">Sign Up or Sign In!</h3>
             <div className="card-actions">
             <SignInButton className="btn btn-primary"/>
             </div>
