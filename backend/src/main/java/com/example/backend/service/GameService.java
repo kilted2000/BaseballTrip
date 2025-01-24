@@ -1,14 +1,15 @@
 
 
 package com.example.backend.service;
+import java.util.List;
 import java.time.Year;
 import java.util.ArrayList;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpHeaders;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -74,7 +75,7 @@ public class GameService {
         System.err.println("Error fetching games from API: " + e.getMessage());
     }
 
-    return new ArrayList<>(); 
+    return new ArrayList<>(); // Return an empty list if the API call fails
 }
 
 }
