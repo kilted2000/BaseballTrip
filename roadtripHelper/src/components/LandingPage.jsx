@@ -31,7 +31,7 @@ const LandingPage = () => {
     <div className="hero bg-slate-200 h-72 w-screen">
       <div className="hero-content">
      <h3 className="text-xs md:text-lg">How Baseball-Trip Helper will simplify your life</h3>
-     <p className="text-xs md:text-lg">Enter up to four teams to see their schedules. Baseball Roadtrip Helper brings every team's schedule together in one place.</p>
+     <p className="text-xs md:text-lg">Enter up to four teams to see their schedules. Baseball Roadtrip Helper brings every team's schedule together in one place, allowing you to coordinate easily.</p>
      
 <img src="cards.svg" alt="Cardinals Logo" className="size-12 md:size-20 lg:size-28"/>
 <img src="phillies.svg" alt="Phillies Logo" className="size-12 md:size-20 lg:size-28" />
