@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
-public class CorsConfig {
+public class CorsConfig implements WebMvcConfigurer{
 
     @Bean
     public WebMvcConfigurer corsConfigurer() {
@@ -18,5 +18,4 @@ public class CorsConfig {
                         .allowedOrigins("http://localhost:5173", "https://roadtriphelper.netlify.app", "https://roadtriphelper.com") 
                         .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS") 
                         .allowedHeaders("*") 
-                        .allowCredentials(true); 
-   
+                        .a
