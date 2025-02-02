@@ -18,8 +18,4 @@ public class CorsConfig implements WebMvcConfigurer{
                         .allowedOrigins("http://localhost:5173", "https://roadtriphelper.netlify.app", "https://roadtriphelper.com") 
                         .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS") 
                         .allowedHeaders("*") 
-                        .allowCredentials(true); 
-            }
-        };
-    }
-}
+                        .a

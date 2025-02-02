@@ -13,6 +13,6 @@ RUN mvn clean package -DskipTests
 # Runtime stage
 FROM eclipse-temurin:17
 WORKDIR /app
-COPY --from=build /app/target/backend-0.0.1-SNAPSHOT.jar app.jar
+COPY --from=build /app/target/backend-0.0.1-SNAPSHOT.jar backend.jar
 EXPOSE 8080
-ENTRYPOINT ["java", "-jar", "back
+ENTRYPOINT ["java", "-jar", "backend.jar"]
