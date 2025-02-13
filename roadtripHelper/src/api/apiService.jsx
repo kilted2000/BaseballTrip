@@ -1,6 +1,6 @@
 
 const API_URL = process.env.VITE_BACKEND_URL;
-
+console.log(API_URL);
 export const getGames = async () => {
     try {
         console.log("Fetching games...");
@@ -24,6 +24,4 @@ export const getGames = async () => {
         return data;
     } catch (error) {
         console.error('Error fetching games:', error);
-        throw error;
-    }
-};
+        t
