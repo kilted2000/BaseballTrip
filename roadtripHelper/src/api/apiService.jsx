@@ -24,4 +24,6 @@ export const getGames = async () => {
         return data;
     } catch (error) {
         console.error('Error fetching games:', error);
-        t
+        throw error;
+    }
+};
