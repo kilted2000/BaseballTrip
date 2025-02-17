@@ -1,6 +1,8 @@
 
 const API_URL = import.meta.env.VITE_BACKEND_URL;
 console.log(API_URL);
+console.log(import.meta.env.VITE_BACKEND_URL);
+
 export const getGames = async () => {
     try {
         console.log("Fetching games...");
