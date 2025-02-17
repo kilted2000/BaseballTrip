@@ -14,8 +14,7 @@ public WebMvcConfigurer corsConfigurer(){
         @Override
         public void addCorsMappings(CorsRegistry registry){
             registry.addMapping("/**")
-            .allowedOrigins("*")
-                    // .allowedOrigins("http://localhost:5173", "https://roadtriphelper.netlify.app", "https://roadtriphelper.com", "https://roadtriphelper.com/GameFinder.jsx")
+                     .allowedOrigins("http://localhost:5173", "https://roadtriphelper.netlify.app", "https://roadtriphelper.com")
                     .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                     .allowedHeaders("Content-Type", "Authorization")
                     .exposedHeaders("Authorization")
