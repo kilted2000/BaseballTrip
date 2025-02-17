@@ -17,5 +17,10 @@ public WebMvcConfigurer corsConfigurer(){
                      .allowedOrigins("http://localhost:5173", "https://roadtriphelper.netlify.app", "http://roadtriphelper.com")
                     .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                     .allowedHeaders("Content-Type", "Authorization")
-                    .exposedHeaders("Authorization")
-                    .allowCredential
+                    .allowCredentials(true);
+        }
+    };
+}
+
+    
+}
