@@ -28,11 +28,13 @@ const GameFinder = ({ setIsLoading, setResults, setShowForm }) => {
     );
     return team ? team.abbreviation : null;
   };
+  console.log("Checking date:", dateString, "against", startDate, endDate);
 
-  const isWithinDateRange = (date, startDate, endDate) => {
-    const gameDate = new Date(date);
+  const isWithinDateRange = (dateString, startDate, endDate) => {
+    if (!dateString) return false;
+    const gameDate = new Date(dateString);
     return gameDate >= startDate && gameDate <= endDate;
-  };
+};
 
   const onSubmit = async ({ teamOne, teamTwo, teamThree, teamFour }) => {
     setIsLoading(true);
@@ -61,6 +63,8 @@ const GameFinder = ({ setIsLoading, setResults, setShowForm }) => {
           isWithinDateRange(game.Day, dateRange.startDate, dateRange.endDate)
         );
       });
+      console.log("Comparing Home Team:", homeTeam, "with User Input Abbreviation:", teamAbbreviation);
+
       console.log("Filtered Results:", filteredResults);
       setResults(filteredResults);
     } catch (error) {
