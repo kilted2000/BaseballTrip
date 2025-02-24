@@ -4,8 +4,10 @@ import java.util.List;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.web.DefaultSecurityFilterChain;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
@@ -14,16 +16,17 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 public class SecurityConfig {
 
     // This method configures the security settings using the new Lambda-style syntax
+    @Primary
     @Bean
-    public HttpSecurity securityFilterChain(HttpSecurity http) throws Exception {
+    public DefaultSecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-            .cors(cors -> cors.configurationSource(corsConfigurationSource()))  // Apply CORS configuration
-            .csrf(csrf -> csrf.disable())  // Disable CSRF for now (adjust if necessary)
-            .authorizeHttpRequests(auth -> auth
-                .anyRequest().permitAll()  // Allow all requests (adjust as needed)
-            );
+        .cors(cors -> cors.configurationSource(corsConfigurationSource()))  // Apply CORS configuration
+        .csrf(csrf -> csrf.disable())  // Disable CSRF for now (adjust if necessary)
+        .authorizeHttpRequests(auth -> auth
+            .anyRequest().permitAll()  // Allow all requests (adjust as needed)
+        );
 
-        return http;
+    return http.build();
     }
 
     // This method defines the CORS configuration
