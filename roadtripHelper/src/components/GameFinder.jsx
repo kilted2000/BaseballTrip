@@ -28,7 +28,7 @@ const GameFinder = ({ setIsLoading, setResults, setShowForm }) => {
     );
     return team ? team.abbreviation : null;
   };
-  console.log( "against", startDate, endDate);
+  
 
   // const isWithinDateRange = (date, startDate, endDate) => {
   //   const gameDate = new Date(date);
@@ -68,7 +68,7 @@ const GameFinder = ({ setIsLoading, setResults, setShowForm }) => {
           isWithinDateRange(game.Day, dateRange.startDate, dateRange.endDate)
         );
       });
-      console.log("Comparing Home Team:", homeTeam, "with User Input Abbreviation:", teamAbbreviation);
+    
 
       console.log("Filtered Results:", filteredResults);
       setResults(filteredResults);
