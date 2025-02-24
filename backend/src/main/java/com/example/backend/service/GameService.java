@@ -53,6 +53,7 @@ public class GameService {
 
     public List<GameModel> fetchGamesFromApi() {
     int currentSeason = Year.now().getValue();
+    System.out.println(currentSeason);
     String url = "https://api.sportsdata.io/v3/mlb/scores/json/Games/" + currentSeason + "?key=" + apiKey;
 
     HttpHeaders headers = new HttpHeaders();
