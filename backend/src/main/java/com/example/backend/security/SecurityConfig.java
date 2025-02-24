@@ -15,28 +15,29 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 @EnableWebSecurity
 public class SecurityConfig {
 
-    // This method configures the security settings using the new Lambda-style syntax
+   
     @Primary
     @Bean
     public DefaultSecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-        .cors(cors -> cors.configurationSource(corsConfigurationSource()))  // Apply CORS configuration
-        .csrf(csrf -> csrf.disable())  // Disable CSRF for now (adjust if necessary)
+        .cors(cors -> cors.configurationSource(corsConfigurationSource()))  
+        .csrf(csrf -> csrf.disable())  
         .authorizeHttpRequests(auth -> auth
-            .anyRequest().permitAll()  // Allow all requests (adjust as needed)
-        );
-
+            .anyRequest().permitAll()  
+        )
+        .httpBasic(httpBasic -> httpBasic.disable())  
+        .formLogin(form -> form.disable());
     return http.build();
     }
 
-    // This method defines the CORS configuration
+    
     @Bean
     public UrlBasedCorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowedOrigins(List.of(
-            "http://localhost:5173",          // Local dev URL
-            "https://roadtriphelper.netlify.app",  // Netlify dev URL
-            "https://roadtriphelper.com"         // Production frontend URL
+            "http://localhost:5173",          
+            "https://roadtriphelper.netlify.app",  
+            "https://roadtriphelper.com"         
         ));
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(List.of("*"));
