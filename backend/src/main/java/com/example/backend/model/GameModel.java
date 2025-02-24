@@ -49,4 +49,18 @@ public class GameModel {
     }
 
     public String getHomeTeam() {
-        retu
+        return HomeTeam;
+    }
+
+    public void setHomeTeam(String HomeTeam) {
+        this.HomeTeam = HomeTeam;
+    }
+
+    public String getDate() {
+        return date;
+    }
+    public void setDate(String date) {
+        this.date = date;
+    }
+}
+

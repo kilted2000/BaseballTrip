@@ -28,13 +28,18 @@ const GameFinder = ({ setIsLoading, setResults, setShowForm }) => {
     );
     return team ? team.abbreviation : null;
   };
-  console.log("Checking date:", dateString, "against", startDate, endDate);
+  console.log( "against", startDate, endDate);
 
+  // const isWithinDateRange = (date, startDate, endDate) => {
+  //   const gameDate = new Date(date);
+  //   return gameDate >= startDate && gameDate <= endDate;
+  // };
   const isWithinDateRange = (dateString, startDate, endDate) => {
     if (!dateString) return false;
-    const gameDate = new Date(dateString);
+    const gameDate = new Date(dateString);  // Ensure this is an ISO 8601 string
     return gameDate >= startDate && gameDate <= endDate;
 };
+
 
   const onSubmit = async ({ teamOne, teamTwo, teamThree, teamFour }) => {
     setIsLoading(true);
