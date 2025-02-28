@@ -49,7 +49,7 @@ const GameFinder = ({ setIsLoading, setResults, setShowForm }) => {
       .filter(Boolean)
       .map((team) => team.trim().toLowerCase());
 
-    console.log("Entered Teams:", enteredTeams);
+   
     setHomeTeams(enteredTeams);
 
     await fetchGames(enteredTeams);
@@ -69,9 +69,7 @@ const GameFinder = ({ setIsLoading, setResults, setShowForm }) => {
          
         );
       });
-      console.log(startDate, endDate);
-
-      console.log("Filtered Results:", filteredResults);
+    
       setResults(filteredResults);
     } catch (error) {
       console.error("Failed to fetch games.", error);

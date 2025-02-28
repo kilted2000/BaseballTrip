@@ -1,8 +1,7 @@
 
 const API_URL = import.meta.env.VITE_BACKEND_URL;
-console.log(API_URL);
-console.log('H Rulesssss');
-console.log(import.meta.env.VITE_BACKEND_URL);
+
+
 
 export const getGames = async () => {
     try {

@@ -13,7 +13,7 @@ function App() {
   const [results, setResults] = useState([]);
   const [showForm, setShowForm] = useState(true);
 
-  console.log("Results updated:", results);
+  
   return (
     <>
       <SignedOut>
