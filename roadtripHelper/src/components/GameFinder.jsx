@@ -66,9 +66,10 @@ const GameFinder = ({ setIsLoading, setResults, setShowForm }) => {
             return teamAbbreviation && homeTeam.includes(teamAbbreviation);
           }) &&
           isWithinDateRange(game.Day, dateRange.startDate, dateRange.endDate)
+         
         );
       });
-    
+      console.log(startDate, endDate);
 
       console.log("Filtered Results:", filteredResults);
       setResults(filteredResults);
@@ -165,7 +166,9 @@ const GameFinder = ({ setIsLoading, setResults, setShowForm }) => {
               setDateRange({
                 startDate: ranges.selection.startDate,
                 endDate: ranges.selection.endDate,
+                
               })
+              
             }
           />
         <div className="card-actions">
