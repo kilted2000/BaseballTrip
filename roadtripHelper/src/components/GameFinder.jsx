@@ -40,7 +40,9 @@ const GameFinder = ({ setIsLoading, setResults, setShowForm }) => {
   // };
   const isWithinDateRange = (dateString, startDate, endDate) => {
     if (!dateString) return false;
-    const gameDate = new Date(dateString);  // Ensure this is an ISO 8601 string
+    const gameDate = new Date(dateString); 
+    console.log(`Game date: ${game.Day}, Start: ${dateRange.startDate}, End: ${dateRange.endDate}`);
+ 
     return gameDate >= startDate && gameDate <= endDate;
 };
 
@@ -54,7 +56,8 @@ const GameFinder = ({ setIsLoading, setResults, setShowForm }) => {
       .map((team) => team.trim().toLowerCase());
       console.log("Entered teams:", enteredTeams); // ✅ Moved inside onSubmit
       enteredTeams.forEach(team => {
-          console.log(`Abbreviation for ${team}:`, getTeamAbbreviation(team));
+        const abbreviation = getTeamAbbreviation(team);
+          console.log(`Abbreviation for ${team}:`, abbreviation);
       });
    
     setHomeTeams(enteredTeams);
@@ -66,6 +69,7 @@ const GameFinder = ({ setIsLoading, setResults, setShowForm }) => {
     try {
       console.log("Fetching games...");
       const data = await getGames();
+      console.log("Fetched data:", JSON.stringify(data, null, 2));
       const filteredResults = data.filter((game) => {
         console.log("Raw data from API:", data); 
         
@@ -80,6 +84,8 @@ const GameFinder = ({ setIsLoading, setResults, setShowForm }) => {
             const teamAbbreviation = getTeamAbbreviation(teamInput);
             console.log(`Checking if ${homeTeam} includes ${teamAbbreviation}`);
             return teamAbbreviation && homeTeam.includes(teamAbbreviation);
+            
+
         });
     
         const isDateMatch = isWithinDateRange(game.Day, dateRange.startDate, dateRange.endDate);
@@ -162,57 +168,4 @@ const GameFinder = ({ setIsLoading, setResults, setShowForm }) => {
             Team:
             </label>
             <input
-              {...register("teamThree", { pattern: /^[a-z\s]+$/i })}
-              type="text"
-              placeholder="Enter Team Name"
-              //pl-2
-              className="rounded-lg pl-2"
-            />
-         {/* mx-1 */}
-          <label className="w-1/2 ml-1 flex">
-            Team:
-            </label>
-            <input
-              {...register("teamFour", { pattern: /^[a-z\s]+$/i })}
-              type="text"
-              placeholder="Enter Team Name"
-              //pl-2
-              className="rounded-lg pl-2"
-            />
-            </div>
-            {/* </div> */}
-            {/* </div> */}
-          {/* pl-2 */}
-        </div> 
-        
-        {/* <div className="w-full mr-2 mx-0.5"> */}
-        {/* mr-5 */}
-        <label className="w-full mr-5">
-          Dates:
-          </label>
-          <DatePicker
-            onChange={(ranges) =>
-              setDateRange({
-                startDate: ranges.selection.startDate,
-                endDate: ranges.selection.endDate,
-                
-              })
-              
-            }
-          />
-        <div className="card-actions">
-        {/* w-1/5 md:w-1/3  */}
-        <button
-          type="submit"
-          className=" bg-blue-700 hover:bg-blue-900 self-center cursor-pointer rounded-full text-stone-100 px-3 pb-2"
-        >
-          Press If You Dare!
-        </button>
-        </div>
-      </form>
-    </div>
-    </div>
-  );
-};
-
-export default GameFinder;
+              {...register("t
