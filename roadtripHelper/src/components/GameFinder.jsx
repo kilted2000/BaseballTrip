@@ -38,7 +38,7 @@ const GameFinder = ({ setIsLoading, setResults, setShowForm }) => {
   // };
   const isWithinDateRange = (dateString, startDate, endDate) => {
     if (!dateString) return false;
-    const gameDate = new Date.parse(dateString);  // Ensure this is an ISO 8601 string
+    const gameDate = new Date(dateString);  // Ensure this is an ISO 8601 string
     return gameDate >= startDate && gameDate <= endDate;
 };
 
@@ -68,7 +68,7 @@ const GameFinder = ({ setIsLoading, setResults, setShowForm }) => {
             const teamAbbreviation = getTeamAbbreviation(teamInput);
             return teamAbbreviation && homeTeam.includes(teamAbbreviation);
           }) &&
-          isWithinDateRange(game.Day, dateRange.startDate, dateRange.endDate)
+          isWithinDateRange(game.Date, dateRange.startDate, dateRange.endDate)
          
         );
       });
