@@ -1,6 +1,9 @@
 package com.example.backend.model;
 
 
+import java.time.LocalDateTime;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -19,16 +22,16 @@ public class GameModel {
     @JsonProperty("GameID")
     private Long gameId; 
      @JsonProperty("HomeTeam")
-    private String HomeTeam;
+    private String homeTeam;
     @JsonProperty("Date")
-    private String date;
+      @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
+    private LocalDateTime date;
 
-    public GameModel() {
-    }
+ 
 
-    public GameModel(Long gameId, String HomeTeam, String date) {
+    public GameModel(Long gameId, String homeTeam, LocalDateTime date) {
         this.gameId = gameId;
-        this.HomeTeam = HomeTeam;
+        this.homeTeam = homeTeam;
         this.date = date;
     }
 
@@ -49,18 +52,19 @@ public class GameModel {
     }
 
     public String getHomeTeam() {
-        return HomeTeam;
+        return homeTeam;
     }
 
-    public void setHomeTeam(String HomeTeam) {
-        this.HomeTeam = HomeTeam;
+    public void setHomeTeam(String homeTeam) {
+        this.homeTeam = homeTeam;
     }
 
-    public String getDate() {
-        return date;
+    public LocalDateTime getDate() { 
+        return date; 
     }
-    public void setDate(String date) {
-        this.date = date;
+
+    public void setDate(LocalDateTime date) { 
+        this.date = date; 
     }
 }
 

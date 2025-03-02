@@ -19,7 +19,9 @@ const GameFinder = ({ setIsLoading, setResults, setShowForm }) => {
       return null;
     }
     const lowerInput = teamInput.toLowerCase();
-    const flatTeams = teams[0];
+    //const flatTeams = teams[0];
+    const flatTeams = Array.isArray(teams) ? teams.flat() : [];
+
     const team = flatTeams.find(
       (t) =>
         t.name.toLowerCase().includes(lowerInput) ||
@@ -36,7 +38,7 @@ const GameFinder = ({ setIsLoading, setResults, setShowForm }) => {
   // };
   const isWithinDateRange = (dateString, startDate, endDate) => {
     if (!dateString) return false;
-    const gameDate = new Date(dateString);  // Ensure this is an ISO 8601 string
+    const gameDate = new Date.parse(dateString);  // Ensure this is an ISO 8601 string
     return gameDate >= startDate && gameDate <= endDate;
 };
 
@@ -59,7 +61,8 @@ const GameFinder = ({ setIsLoading, setResults, setShowForm }) => {
     try {
       const data = await getGames();
       const filteredResults = data.filter((game) => {
-        const homeTeam = game.HomeTeam || null;
+        //const homeTeam = game.HomeTeam || null;
+        const homeTeam = game.HomeTeam ? game.HomeTeam.toLowerCase() : "";
         return (
           enteredTeams.some((teamInput) => {
             const teamAbbreviation = getTeamAbbreviation(teamInput);

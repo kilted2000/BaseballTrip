@@ -1,19 +1,33 @@
 package com.example.backend.games;
 
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+
+
+
 @JsonIgnoreProperties(ignoreUnknown = true)
-//  public record Game(String Day, String HomeTeam) { 
-//     public String getDayInCustomFormat() {
-//         DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
-//         DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("EEE, d MMM", Locale.ENGLISH);
+ public record Game(String Day, String HomeTeam) { 
+    public String getDayInCustomFormat() {
+        DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
+        DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("EEE, d MMM", Locale.ENGLISH);
         
-//         LocalDateTime dateTime = LocalDateTime.parse(Day, inputFormatter);
-//         return dateTime.format(outputFormatter);
-//     }
-//  }
-public record Game(String Day, String HomeTeam) {
-    public String getDay() { 
-        return Day; // Keep original ISO format (e.g., "2024-03-15T18:30:00") 
+        LocalDateTime dateTime = LocalDateTime.parse(Day, inputFormatter);
+        return dateTime.format(outputFormatter);
     }
-}
+ }
+
+
+// import com.fasterxml.jackson.annotation.JsonFormat;
+// import java.time.LocalDateTime;
+
+// public record Game(
+//     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
+//     LocalDateTime day,
+//     String homeTeam
+// ) {}
+

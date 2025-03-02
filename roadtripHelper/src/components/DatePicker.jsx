@@ -14,17 +14,16 @@ export const DatePicker = ({ onChange }) => {
 
   const handleSelect = (ranges) => {
     const { selection } = ranges;
-    setState([selection]);
+    setStates([selection]);
     onChange(ranges); 
   };
  
-
   return (
     <DateRange
       editableDateInputs={true}
       onChange={handleSelect}
       moveRangeOnFirstSelection={false}
-      ranges={state}
+      ranges={dates}
     />
       )
 }

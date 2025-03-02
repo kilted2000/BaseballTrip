@@ -2,14 +2,27 @@ import { UserButton } from "@clerk/clerk-react";
 
  export const Results = ({ results }) => {
   const formatDate = (dateString) => {
-    const options = {
-      weekday: "short",
-      year: "numeric",
-      month: "short",
-      day: "numeric",
-    };
-    return new Date(dateString).toLocaleDateString("en-US", options);
-  };
+    if (!dateString) return "Invalid Date";
+    const date = new Date(dateString);
+    return isNaN(date.getTime())
+        ? "Invalid Date"
+        : date.toLocaleDateString("en-US", {
+              weekday: "short",
+              year: "numeric",
+              month: "short",
+              day: "numeric",
+          });
+};
+
+  // const formatDate = (dateString) => {
+  //   const options = {
+  //     weekday: "short",
+  //     year: "numeric",
+  //     month: "short",
+  //     day: "numeric",
+  //   };
+  //   return new Date(dateString).toLocaleDateString("en-US", options);
+  // };
   return (
     <div
       id="result"
