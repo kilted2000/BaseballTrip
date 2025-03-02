@@ -42,20 +42,4 @@ import { UserButton } from "@clerk/clerk-react";
               <th>Team</th>
               <th>Day Played</th>
             </tr>
-          </thead>
-          <tbody>
-            <tr className="hover">
-              <td>
-                <h3>{result.HomeTeam}</h3>
-              </td>
-              <td className=" text-2xl">
-                <p>{formatDate(result.Day)}</p>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      ))}
-    </div>
-  );
-};
-//change how data is sorted then redo results table
+    

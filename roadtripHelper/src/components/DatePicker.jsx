@@ -4,7 +4,7 @@ import 'react-date-range/dist/theme/default.css';
 import { DateRange } from 'react-date-range';
 
 export const DatePicker = ({ onChange }) => {
-    const [state, setState] = useState([
+    const [dates, setDates] = useState([
         {
           startDate: new Date(),
           endDate: new Date(new Date().setDate(new Date().getDate() + 7)),
@@ -14,7 +14,7 @@ export const DatePicker = ({ onChange }) => {
 
   const handleSelect = (ranges) => {
     const { selection } = ranges;
-    setState([selection]);
+    setDates([selection]);
     onChange(ranges); 
   };
  
@@ -23,7 +23,7 @@ export const DatePicker = ({ onChange }) => {
       editableDateInputs={true}
       onChange={handleSelect}
       moveRangeOnFirstSelection={false}
-      ranges={date}
+      ranges={dates}
     />
       )
 }
