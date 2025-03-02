@@ -29,9 +29,15 @@ const GameFinder = ({ setIsLoading, setResults, setShowForm }) => {
         t.nickname.toLowerCase().includes(lowerInput)
     );
     return team ? team.abbreviation : null;
+
+
   };
   
-
+  console.log("Entered teams:", enteredTeams);
+  enteredTeams.forEach(team => {
+      console.log(`Abbreviation for ${team}:`, getTeamAbbreviation(team));
+  });
+  
   // const isWithinDateRange = (date, startDate, endDate) => {
   //   const gameDate = new Date(date);
   //   return gameDate >= startDate && gameDate <= endDate;
@@ -61,17 +67,33 @@ const GameFinder = ({ setIsLoading, setResults, setShowForm }) => {
     try {
       const data = await getGames();
       const filteredResults = data.filter((game) => {
-        //const homeTeam = game.HomeTeam || null;
+        console.log("Checking game:", game);
+        
         const homeTeam = game.HomeTeam ? game.HomeTeam.toLowerCase() : "";
-        return (
-          enteredTeams.some((teamInput) => {
+        const isTeamMatch = enteredTeams.some((teamInput) => {
             const teamAbbreviation = getTeamAbbreviation(teamInput);
+            console.log(`Checking if ${homeTeam} includes ${teamAbbreviation}`);
             return teamAbbreviation && homeTeam.includes(teamAbbreviation);
-          }) &&
-          isWithinDateRange(game.Date, dateRange.startDate, dateRange.endDate)
+        });
+    
+        const isDateMatch = isWithinDateRange(game.Day, dateRange.startDate, dateRange.endDate);
+        console.log(`Date match? ${isDateMatch}`);
+    
+        return isTeamMatch && isDateMatch;
+    });
+    
+      // const filteredResults = data.filter((game) => {
+      //   //const homeTeam = game.HomeTeam || null;
+      //   const homeTeam = game.HomeTeam ? game.HomeTeam.toLowerCase() : "";
+      //   return (
+      //     enteredTeams.some((teamInput) => {
+      //       const teamAbbreviation = getTeamAbbreviation(teamInput);
+      //       return teamAbbreviation && homeTeam.includes(teamAbbreviation);
+      //     }) &&
+      //     isWithinDateRange(game.Date, dateRange.startDate, dateRange.endDate)
          
-        );
-      });
+      //   );
+      // });
     
       setResults(filteredResults);
     } catch (error) {
