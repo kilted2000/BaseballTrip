@@ -33,10 +33,6 @@ const GameFinder = ({ setIsLoading, setResults, setShowForm }) => {
 
   };
   
-  console.log("Entered teams:", enteredTeams);
-  enteredTeams.forEach(team => {
-      console.log(`Abbreviation for ${team}:`, getTeamAbbreviation(team));
-  });
   
   // const isWithinDateRange = (date, startDate, endDate) => {
   //   const gameDate = new Date(date);
@@ -56,7 +52,10 @@ const GameFinder = ({ setIsLoading, setResults, setShowForm }) => {
     const enteredTeams = [teamOne, teamTwo, teamThree, teamFour]
       .filter(Boolean)
       .map((team) => team.trim().toLowerCase());
-
+      console.log("Entered teams:", enteredTeams); // ✅ Moved inside onSubmit
+      enteredTeams.forEach(team => {
+          console.log(`Abbreviation for ${team}:`, getTeamAbbreviation(team));
+      });
    
     setHomeTeams(enteredTeams);
 
