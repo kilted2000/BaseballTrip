@@ -64,9 +64,16 @@ const GameFinder = ({ setIsLoading, setResults, setShowForm }) => {
 
   const fetchGames = async (enteredTeams) => {
     try {
+      console.log("Fetching games...");
       const data = await getGames();
       const filteredResults = data.filter((game) => {
-        console.log("Checking game:", game);
+        console.log("Raw data from API:", data); 
+        
+        if (!Array.isArray(data) || data.length === 0) {
+            console.warn("No games returned from API.");
+            setResults([]);
+            return;
+        }
         
         const homeTeam = game.HomeTeam ? game.HomeTeam.toLowerCase() : "";
         const isTeamMatch = enteredTeams.some((teamInput) => {
