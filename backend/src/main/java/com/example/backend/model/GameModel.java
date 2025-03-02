@@ -56,15 +56,4 @@ public class GameModel {
     }
 
     public void setHomeTeam(String homeTeam) {
-        this.homeTeam = homeTeam;
-    }
-
-    public LocalDateTime getDate() { 
-        return date; 
-    }
-
-    public void setDate(LocalDateTime date) { 
-        this.date = date; 
-    }
-}
-
+        this.hom

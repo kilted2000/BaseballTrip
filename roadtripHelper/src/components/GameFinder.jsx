@@ -179,4 +179,12 @@ const GameFinder = ({ setIsLoading, setResults, setShowForm }) => {
           className=" bg-blue-700 hover:bg-blue-900 self-center cursor-pointer rounded-full text-stone-100 px-3 pb-2"
         >
           Press If You Dare!
-        </butto
+        </button>
+        </div>
+      </form>
+    </div>
+    </div>
+  );
+};
+
+export default GameFinder;
