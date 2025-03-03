@@ -1,6 +1,7 @@
 package com.example.backend.model;
 
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -66,5 +67,10 @@ public class GameModel {
     public void setDate(LocalDateTime date) { 
         this.date = date; 
     }
+
+    public LocalDate getGameDateOnly() {
+        return date.toLocalDate();
+    }
+    
 }
 
