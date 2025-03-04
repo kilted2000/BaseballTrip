@@ -14,7 +14,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import com.example.backend.model.GameModel;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Service
@@ -25,57 +27,52 @@ public class GameService {
 
     private final String apiKey = "5c5c0dea75d342ddbf81180756001c06";
 
-    // public List<GameModel> fetchGamesFromApi() {
-    //     int currentSeason = Year.now().getValue();
+    public <T> List<GameModel> fetchGamesFromApi() throws JsonMappingException, JsonProcessingException {
+        int currentSeason = Year.now().getValue();
         
-    //     String url = "https://api.sportsdata.io/v3/mlb/scores/json/Games/" + currentSeason + "?key=" + apiKey;
+        String url = "https://api.sportsdata.io/v3/mlb/scores/json/Games/" + currentSeason + "?key=" + apiKey;
 
-    //     HttpHeaders headers = new HttpHeaders();
-    //     headers.set("Authorization", "Bearer " + apiKey);
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Authorization", "Bearer " + apiKey);
 
-    //     HttpEntity<String> entity = new HttpEntity<>(headers);
-    //     ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET, entity, String.class);
-
-
-    //     List<Game> games = new ArrayList<>();
-    //     String jsonResponse = response.getBody();
-    //     if (jsonResponse != null) {
-    //         ObjectMapper mapper = new ObjectMapper();
-    //         try {
-    //             games = mapper.readValue(jsonResponse, new TypeReference<List<Game>>() {});
-    //         } catch (JsonProcessingException e) {
-                
-                
-    //         }
-    //     }
-    //     return games;
-    // }
-
-    public List<GameModel> fetchGamesFromApi() {
-    int currentSeason = Year.now().getValue();
-    System.out.println(currentSeason);
-    String url = "https://api.sportsdata.io/v3/mlb/scores/json/Games/" + currentSeason + "?key=" + apiKey;
-
-    HttpHeaders headers = new HttpHeaders();
-    headers.set("Authorization", "Bearer " + apiKey);
-
-    HttpEntity<String> entity = new HttpEntity<>(headers);
-
-    try {
+        HttpEntity<String> entity = new HttpEntity<>(headers);
         ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET, entity, String.class);
-        String jsonResponse = response.getBody();
 
+
+        List<GameModel> games = new ArrayList<>();
+        String jsonResponse = response.getBody();
         if (jsonResponse != null) {
             ObjectMapper mapper = new ObjectMapper();
-
-            // Deserialize directly into List<GameModel>
-            return mapper.readValue(jsonResponse, new TypeReference<List<GameModel>>() {});
+            games = (List<GameModel>) mapper.readValue(jsonResponse, (TypeReference<T>) new TypeReference<List<GameModel>>() {});
         }
-    } catch (Exception e) {
-        System.err.println("Error fetching games from API: " + e.getMessage());
+        return games;
     }
 
-    return new ArrayList<>(); 
-}
+//     public List<GameModel> fetchGamesFromApi() {
+//     int currentSeason = Year.now().getValue();
+//     System.out.println(currentSeason);
+//     String url = "https://api.sportsdata.io/v3/mlb/scores/json/Games/" + currentSeason + "?key=" + apiKey;
+
+//     HttpHeaders headers = new HttpHeaders();
+//     headers.set("Authorization", "Bearer " + apiKey);
+
+//     HttpEntity<String> entity = new HttpEntity<>(headers);
+
+//     try {
+//         ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET, entity, String.class);
+//         String jsonResponse = response.getBody();
+
+//         if (jsonResponse != null) {
+//             ObjectMapper mapper = new ObjectMapper();
+
+//             // Deserialize directly into List<GameModel>
+//             return mapper.readValue(jsonResponse, new TypeReference<List<GameModel>>() {});
+//         }
+//     } catch (Exception e) {
+//         System.err.println("Error fetching games from API: " + e.getMessage());
+//     }
+
+//     return new ArrayList<>(); 
+// }
 
 }

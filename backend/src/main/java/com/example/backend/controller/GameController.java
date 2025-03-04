@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.backend.model.GameModel;
 import com.example.backend.service.GameService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 
 //@CrossOrigin(origins = {"http://localhost:5173", "https://roadtriphelper.netlify.app"})
 @RestController
@@ -16,7 +18,7 @@ public class GameController {
     private GameService gameService;
 
     @GetMapping("/games")
-    public List<GameModel> getGames() {
+    public List<GameModel> getGames() throws JsonMappingException, JsonProcessingException {
         return gameService.fetchGamesFromApi();
     }
 

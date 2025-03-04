@@ -20,7 +20,7 @@ public class GameModel {
     private Long gameId; 
      @JsonProperty("HomeTeam")
     private String HomeTeam;
-    @JsonProperty("Date")
+    @JsonProperty("DateTime")
     private String date;
 
     public GameModel() {
