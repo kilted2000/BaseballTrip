@@ -51,16 +51,20 @@ const GameFinder = ({ setIsLoading, setResults, setShowForm }) => {
   const fetchGames = async (enteredTeams) => {
     try {
       const data = await getGames();
+      console.log("Raw Games Data:", data);
       const filteredResults = data.filter((game) => {
         const homeTeam = game.HomeTeam || null;
         return (
           enteredTeams.some((teamInput) => {
             const teamAbbreviation = getTeamAbbreviation(teamInput);
+            console.log(`Input: ${teamInput} -> Abbreviation: ${teamAbbreviation}`);
             return teamAbbreviation && homeTeam === teamAbbreviation;
           }) &&
           isWithinDateRange(game.Day, dateRange.startDate, dateRange.endDate)
         );
       });
+      console.log("Game HomeTeam:", homeTeam);
+      console.log("Matching Teams:", matchingTeams);
       console.log("Filtered Results:", filteredResults);
       setResults(filteredResults);
     } catch (error) {
@@ -163,15 +167,4 @@ const GameFinder = ({ setIsLoading, setResults, setShowForm }) => {
         {/* w-1/5 md:w-1/3  */}
         <button
           type="submit"
-          className=" bg-blue-700 hover:bg-blue-900 self-center cursor-pointer rounded-full text-stone-100 px-3 pb-2"
-        >
-          Press If You Dare!
-        </button>
-        </div>
-      </form>
-    </div>
-    </div>
-  );
-};
-
-export default GameFinder;
+          className=" bg-blue-700 hover:bg-blue-900 self-center cursor
