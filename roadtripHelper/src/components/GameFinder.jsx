@@ -56,7 +56,7 @@ const GameFinder = ({ setIsLoading, setResults, setShowForm }) => {
       console.log("Data fetched:", data);
 
       
-      console.log("Entered Teams:", selectedTeams);
+      console.log("Entered Teams:", enteredTeams);
       const filteredResults = data.filter((game) => {
         console.log("Filtered Results:", filteredResults);
         const homeTeam = game.HomeTeam || null;
