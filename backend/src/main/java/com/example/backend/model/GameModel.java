@@ -62,5 +62,3 @@ public class GameModel {
     public void setDate(String date) {
         this.date = date;
     }
-}
-

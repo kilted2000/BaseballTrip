@@ -69,10 +69,4 @@ public class GameService {
 //             return mapper.readValue(jsonResponse, new TypeReference<List<GameModel>>() {});
 //         }
 //     } catch (Exception e) {
-//         System.err.println("Error fetching games from API: " + e.getMessage());
-//     }
-
-//     return new ArrayList<>(); 
-// }
-
-}
+//         System.err.prin

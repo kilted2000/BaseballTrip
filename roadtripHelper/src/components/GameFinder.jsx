@@ -19,8 +19,8 @@ const GameFinder = ({ setIsLoading, setResults, setShowForm }) => {
       return null;
     }
     const lowerInput = teamInput.toLowerCase();
-    const flatTeams = teams[0];
-    const team = flatTeams.find(
+   
+    const team = teams.find(
       (t) =>
         t.name.toLowerCase().includes(lowerInput) ||
         t.city.toLowerCase().includes(lowerInput) ||
@@ -56,7 +56,7 @@ const GameFinder = ({ setIsLoading, setResults, setShowForm }) => {
         return (
           enteredTeams.some((teamInput) => {
             const teamAbbreviation = getTeamAbbreviation(teamInput);
-            return teamAbbreviation && homeTeam.includes(teamAbbreviation);
+            return teamAbbreviation && homeTeam === teamAbbreviation;
           }) &&
           isWithinDateRange(game.Day, dateRange.startDate, dateRange.endDate)
         );
