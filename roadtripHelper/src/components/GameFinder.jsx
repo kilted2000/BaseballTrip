@@ -52,7 +52,13 @@ const GameFinder = ({ setIsLoading, setResults, setShowForm }) => {
     try {
       const data = await getGames();
       console.log("Raw Games Data:", data);
+        
+      console.log("Data fetched:", data);
+
+      
+      console.log("Entered Teams:", selectedTeams);
       const filteredResults = data.filter((game) => {
+        console.log("Filtered Results:", filteredResults);
         const homeTeam = game.HomeTeam || null;
         return (
           enteredTeams.some((teamInput) => {
