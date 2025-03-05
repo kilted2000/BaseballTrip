@@ -17,4 +17,12 @@ public class GameController {
     @Autowired
     private GameService gameService;
 
-    @Ge
+    @GetMapping("/games")
+    public List<GameModel> getGames() throws JsonMappingException, JsonProcessingException {
+        return gameService.fetchGamesFromApi();
+    }
+
+}
+
+
+
