@@ -47,7 +47,7 @@ public class GameService {
         }
         return games;
     }
-
+}
 //     public List<GameModel> fetchGamesFromApi() {
 //     int currentSeason = Year.now().getValue();
 //     System.out.println(currentSeason);
@@ -69,4 +69,10 @@ public class GameService {
 //             return mapper.readValue(jsonResponse, new TypeReference<List<GameModel>>() {});
 //         }
 //     } catch (Exception e) {
-//         System.err.prin
+//         System.err.println("Error fetching games from API: " + e.getMessage());
+//     }
+
+//     return new ArrayList<>(); 
+// }
+
+//}

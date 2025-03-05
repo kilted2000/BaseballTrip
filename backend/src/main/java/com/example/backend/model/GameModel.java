@@ -20,7 +20,7 @@ public class GameModel {
     private Long gameId; 
      @JsonProperty("HomeTeam")
     private String HomeTeam;
-    @JsonProperty("DateTime")
+    @JsonProperty("Day")
     private String date;
 
     public GameModel() {
@@ -62,3 +62,5 @@ public class GameModel {
     public void setDate(String date) {
         this.date = date;
     }
+}
+

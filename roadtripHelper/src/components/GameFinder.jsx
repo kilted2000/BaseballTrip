@@ -9,7 +9,7 @@ const GameFinder = ({ setIsLoading, setResults, setShowForm }) => {
     startDate: new Date(),
     endDate: new Date(new Date().setDate(new Date().getDate() + 7)),
   });
-  const [homeTeams, setHomeTeams] = useState([]);
+  const [HomeTeam, setHomeTeam] = useState([]);
 
   const { register, handleSubmit } = useForm();
 
@@ -59,12 +59,12 @@ const GameFinder = ({ setIsLoading, setResults, setShowForm }) => {
       console.log("Entered Teams:", enteredTeams);
       const filteredResults = data.filter((game) => {
         console.log("Filtered Results:", filteredResults);
-        const homeTeam = game.HomeTeam || null;
+        const HomeTeam = game.HomeTeam || null;
         return (
           enteredTeams.some((teamInput) => {
             const teamAbbreviation = getTeamAbbreviation(teamInput);
             console.log(`Input: ${teamInput} -> Abbreviation: ${teamAbbreviation}`);
-            return teamAbbreviation && homeTeam === teamAbbreviation;
+            return teamAbbreviation && HomeTeam === teamAbbreviation;
           }) &&
           isWithinDateRange(game.Day, dateRange.startDate, dateRange.endDate)
         );
