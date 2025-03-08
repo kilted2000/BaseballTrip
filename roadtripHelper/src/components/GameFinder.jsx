@@ -11,6 +11,12 @@ const GameFinder = ({ setIsLoading, setResults, setShowForm }) => {
   });
   const [HomeTeam, setHomeTeam] = useState([]);
 
+  useEffect(() => {
+    if (HomeTeam.length > 0) {
+      fetchGames(HomeTeam);
+    }
+  }, [HomeTeam]);
+
   const { register, handleSubmit } = useForm();
 
   const getTeamAbbreviation = (teamInput) => {
@@ -43,7 +49,7 @@ const GameFinder = ({ setIsLoading, setResults, setShowForm }) => {
       .map((team) => team.trim().toLowerCase());
 
     console.log("Entered Teams:", enteredTeams);
-    setHomeTeams(enteredTeams);
+    setHomeTeam(enteredTeams);
 
     await fetchGames(enteredTeams);
   };
@@ -175,12 +181,4 @@ const GameFinder = ({ setIsLoading, setResults, setShowForm }) => {
           className=" bg-blue-700 hover:bg-blue-900 self-center cursor-pointer rounded-full text-stone-100 px-3 pb-2"
         >
           Press If You Dare!
-        </button>
-        </div>
-      </form>
-    </div>
-    </div>
-  );
-};
-
-export default GameFinder;
+ 
