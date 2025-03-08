@@ -60,37 +60,66 @@ const GameFinder = ({ setIsLoading, setResults, setShowForm }) => {
 
     await fetchGames(enteredTeams);
   };
+  const fetchGames = async (teams) => {
+    if (!teams || teams.length === 0) {
+        console.error("No teams provided.");
+        return;
+    }
+    
+    console.log("Fetching games for teams:", teams);
 
-  const fetchGames = async (enteredTeams) => {
     try {
-      const data = await getGames();
-      console.log("Raw Games Data:", data);
+        const response = await fetch(`/api/games?teams=${teams.join(",")}`);
+        const data = await response.json();
         
-      console.log("Data fetched:", data);
+        console.log("Raw Games Data:", data);
+        if (!Array.isArray(data)) {
+            console.error("Error: Expected an array but got:", data);
+            return;
+        }
+        
+        const filteredGames = data.filter(game => {
+            console.log("Checking game:", game);
+            return game.homeTeam && teams.includes(game.homeTeam.toLowerCase());
+        });
+
+        console.log("Filtered Games:", filteredGames);
+        setGames(filteredGames);
+    } catch (error) {
+        console.error("Failed to fetch games:", error);
+    }
+};
+
+  // const fetchGames = async (enteredTeams) => {
+  //   try {
+  //     const data = await getGames();
+  //     console.log("Raw Games Data:", data);
+        
+  //     console.log("Data fetched:", data);
 
       
-      console.log("Entered Teams:", enteredTeams);
-      const filteredResults = data.filter((game) => {
-        console.log("Filtered Results:", filteredResults);
-        const HomeTeam = game.HomeTeam || null;
-        return (
-          enteredTeams.some((teamInput) => {
-            const teamAbbreviation = getTeamAbbreviation(teamInput);
-            console.log(`Input: ${teamInput} -> Abbreviation: ${teamAbbreviation}`);
-            return teamAbbreviation && HomeTeam === teamAbbreviation;
-          }) &&
-          isWithinDateRange(game.Day, dateRange.startDate, dateRange.endDate)
-        );
-      });
+  //     console.log("Entered Teams:", enteredTeams);
+  //     const filteredResults = data.filter((game) => {
+  //       console.log("Filtered Results:", filteredResults);
+  //       const HomeTeam = game.HomeTeam || null;
+  //       return (
+  //         enteredTeams.some((teamInput) => {
+  //           const teamAbbreviation = getTeamAbbreviation(teamInput);
+  //           console.log(`Input: ${teamInput} -> Abbreviation: ${teamAbbreviation}`);
+  //           return teamAbbreviation && HomeTeam === teamAbbreviation;
+  //         }) &&
+  //         isWithinDateRange(game.Day, dateRange.startDate, dateRange.endDate)
+  //       );
+  //     });
    
-      console.log("Filtered Results:", filteredResults);
-      setResults(filteredResults);
-    } catch (error) {
-      console.error("Failed to fetch games.", error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  //     console.log("Filtered Results:", filteredResults);
+  //     setResults(filteredResults);
+  //   } catch (error) {
+  //     console.error("Failed to fetch games.", error);
+  //   } finally {
+  //     setIsLoading(false);
+  //   }
+  // };
   
   //bg-[url('/stadium.jpg')] bg-no-repeat bg-cover bg-center bg-fixed min-h-screen flex flex-col justify-center items-center  md:rounded-lg card lg:card-side
   
