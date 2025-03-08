@@ -45,10 +45,17 @@ const GameFinder = ({ setIsLoading, setResults, setShowForm }) => {
     setShowForm(false);
 
     const enteredTeams = [teamOne, teamTwo, teamThree, teamFour]
-      .filter(Boolean)
-      .map((team) => team.trim().toLowerCase());
+    .map((team) => team?.trim().toLowerCase())
+        .filter(team => team.length > 0);
 
     console.log("Entered Teams:", enteredTeams);
+    if (enteredTeams.length === 0) {
+      console.error("No valid teams entered.");
+      setIsLoading(false);
+      setShowForm(true);
+      return;
+  }
+
     setHomeTeam(enteredTeams);
 
     await fetchGames(enteredTeams);
