@@ -62,33 +62,38 @@ const GameFinder = ({ setIsLoading, setResults, setShowForm }) => {
   };
   const fetchGames = async (teams) => {
     if (!teams || teams.length === 0) {
-        console.error("No teams provided.");
-        return;
+      console.error("No teams provided.");
+      return;
     }
-    
+  
     console.log("Fetching games for teams:", teams);
-
+  
     try {
-        const response = await fetch(`/api/games?teams=${teams.join(",")}`);
-        const data = await response.json();
-        
-        console.log("Raw Games Data:", data);
-        if (!Array.isArray(data)) {
-            console.error("Error: Expected an array but got:", data);
-            return;
-        }
-        
-        const filteredGames = data.filter(game => {
-            console.log("Checking game:", game);
-            return game.homeTeam && teams.includes(game.homeTeam.toLowerCase());
-        });
-
-        console.log("Filtered Games:", filteredGames);
-        setGames(filteredGames);
+      const data = await getGames(); // Fetch games from the API
+      console.log("Raw Games Data:", data);
+  
+      if (!Array.isArray(data)) {
+        console.error("Error: Expected an array but got:", data);
+        return;
+      }
+  
+      const filteredGames = data.filter((game) => {
+        const homeTeam = game.HomeTeam.toLowerCase();
+        const gameDate = new Date(game.Day);
+        return (
+          teams.includes(homeTeam) &&
+          isWithinDateRange(gameDate, dateRange.startDate, dateRange.endDate)
+        );
+      });
+  
+      console.log("Filtered Games:", filteredGames);
+      setResults(filteredGames);
     } catch (error) {
-        console.error("Failed to fetch games:", error);
+      console.error("Failed to fetch games:", error);
+    } finally {
+      setIsLoading(false);
     }
-};
+  };
 
   // const fetchGames = async (enteredTeams) => {
   //   try {
