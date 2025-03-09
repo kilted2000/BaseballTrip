@@ -224,4 +224,10 @@ const GameFinder = ({ setIsLoading, setResults, setShowForm }) => {
           Press If You Dare!
         </button>
         </div>
-   
+      </form>
+    </div>
+    </div>
+  );
+};
+
+export default GameFinder;
