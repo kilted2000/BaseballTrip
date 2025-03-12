@@ -230,12 +230,13 @@ const GameFinder = ({ setIsLoading, setResults, setShowForm }) => {
             }
           />
           <div className="card-actions">
-            {/* B. user clicks submit button calling api and filtering results. handleSubmit function called */}
-            <button
-              onClick={() => {
-                setIsLoading(true);
-                setShowForm(false);
-              }}
+           
+   {/* B. user clicks submit button calling api and filtering results. handleSubmit function called */}
+   <button
+              // onClick={() => {
+              //   setIsLoading(true);
+              //   setShowForm(false);
+              // }}
               type="submit"
               className="bg-blue-700 hover:bg-blue-900 self-center cursor-pointer rounded-full text-stone-100 px-3 pb-2"
             >
