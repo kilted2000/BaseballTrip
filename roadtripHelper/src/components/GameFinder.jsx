@@ -31,32 +31,31 @@ const GameFinder = ({ setIsLoading, setResults, setShowForm }) => {
   const { register, handleSubmit } = useForm();
 
   const formatTeamName = (input) => {
-    // Normalize input to ignore case and extra spaces
     const formattedInput = input.trim().toLowerCase();
   
-    // Find the team by matching full name, city, or nickname
-    const team = teamList.find(({ name, city, nickname }) =>
+    const team = teams.find(({ name, city, nickname }) => // ✅ Corrected variable name
       [name.toLowerCase(), city.toLowerCase(), nickname.toLowerCase()].includes(formattedInput)
     );
   
-    return team ? team.abbreviation : null; // Return abbreviation or null if not found
-  };
-
-  const getTeamAbbreviation = (teamInput) => {
-    if (!teamInput || typeof teamInput !== "string") {
-      console.error("Invalid team input:", teamInput);
-      return null;
-    }
-    const lowerInput = teamInput.toLowerCase();
-   
-    const team = teams.find(
-      (t) =>
-        t.name.toLowerCase().includes(lowerInput) ||
-        t.city.toLowerCase().includes(lowerInput) ||
-        t.nickname.toLowerCase().includes(lowerInput)
-    );
     return team ? team.abbreviation : null;
   };
+  
+
+  // const getTeamAbbreviation = (teamInput) => {
+  //   if (!teamInput || typeof teamInput !== "string") {
+  //     console.error("Invalid team input:", teamInput);
+  //     return null;
+  //   }
+  //   const lowerInput = teamInput.toLowerCase();
+   
+  //   const team = teams.find(
+  //     (t) =>
+  //       t.name.toLowerCase().includes(lowerInput) ||
+  //       t.city.toLowerCase().includes(lowerInput) ||
+  //       t.nickname.toLowerCase().includes(lowerInput)
+  //   );
+  //   return team ? team.abbreviation : null;
+  // };
 
   const isWithinDateRange = (date, startDate, endDate) => {
     const gameDate = new Date(date);
