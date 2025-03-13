@@ -45,4 +45,6 @@ import { UserButton } from "@clerk/clerk-react";
           </tbody>
         </table>
       ))}
- 
+    </div>
+  );
+};
