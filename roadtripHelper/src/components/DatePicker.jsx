@@ -18,13 +18,9 @@ export const DatePicker = ({ onChange }) => {
     onChange(ranges); 
   };
  
-
+console.log("startDate:", startDate , "endDate:", endDate);
   return (
     <DateRange
       editableDateInputs={true}
       onChange={handleSelect}
-      moveRangeOnFirstSelection={false}
-      ranges={state}
-    />
-      )
-}
+      moveRangeOnF

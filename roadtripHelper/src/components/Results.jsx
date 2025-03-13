@@ -45,7 +45,4 @@ import { UserButton } from "@clerk/clerk-react";
           </tbody>
         </table>
       ))}
-    </div>
-  );
-};
-//change how data is sorted then redo results table
+ 

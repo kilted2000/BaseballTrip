@@ -103,7 +103,8 @@ const GameFinder = ({ setIsLoading, setResults, setShowForm }) => {
       const filteredGames = data.filter((game) => {
         const homeTeam = game.HomeTeam; 
         const gameDate = new Date(game.DateTime);
-  
+        console.log("Game Data:", game);
+
         return (
           teamAbbreviations.includes(homeTeam) &&
           isWithinDateRange(gameDate, dateRange.startDate, dateRange.endDate)
