@@ -10,7 +10,7 @@ import com.example.backend.service.GameService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 
-//@CrossOrigin(origins = {"http://localhost:5173", "https://roadtriphelper.netlify.app"})
+
 @RestController
 public class GameController {
 

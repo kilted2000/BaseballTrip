@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -25,7 +26,9 @@ public class GameService {
     @Autowired
     private RestTemplate restTemplate;
 
-    private final String apiKey = "5c5c0dea75d342ddbf81180756001c06";
+    @Value("${api.key}")
+private String apiKey;
+
 
     public <T> List<GameModel> fetchGamesFromApi() throws JsonMappingException, JsonProcessingException {
         int currentSeason = Year.now().getValue();
@@ -43,7 +46,8 @@ public class GameService {
         String jsonResponse = response.getBody();
         if (jsonResponse != null) {
             ObjectMapper mapper = new ObjectMapper();
-            games = (List<GameModel>) mapper.readValue(jsonResponse, (TypeReference<T>) new TypeReference<List<GameModel>>() {});
+            games = mapper.readValue(jsonResponse, new TypeReference<List<GameModel>>() {});
+            
         }
         return games;
     }
@@ -72,7 +76,4 @@ public class GameService {
 //         System.err.println("Error fetching games from API: " + e.getMessage());
 //     }
 
-//     return new ArrayList<>(); 
-// }
-
-//}
+//     return new ArrayList<>(

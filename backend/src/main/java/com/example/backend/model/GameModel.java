@@ -20,16 +20,16 @@ public class GameModel {
     private Long gameId; 
      @JsonProperty("HomeTeam")
     private String HomeTeam;
-    @JsonProperty("Day")
-    private String date;
+    @JsonProperty("DateTime")
+    private String DateTime;
 
     public GameModel() {
     }
 
-    public GameModel(Long gameId, String HomeTeam, String date) {
+    public GameModel(Long gameId, String HomeTeam, String DateTime) {
         this.gameId = gameId;
         this.HomeTeam = HomeTeam;
-        this.date = date;
+        this.DateTime = DateTime;
     }
 
     public Long getId() {
@@ -57,10 +57,7 @@ public class GameModel {
     }
 
     public String getDate() {
-        return date;
+        return DateTime;
     }
-    public void setDate(String date) {
-        this.date = date;
-    }
-}
-
+    public void setDate(String DateTime) {
+      

@@ -36,7 +36,7 @@ import { UserButton } from "@clerk/clerk-react";
                 <h3>{result.HomeTeam}</h3>
               </td>
               <td className=" text-2xl">
-                <p>{formatDate(result.Day)}</p>
+                <p>{formatDate(result.DateTime)}</p>
               </td>
             </tr>
           </tbody>

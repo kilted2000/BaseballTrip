@@ -38,8 +38,8 @@ const GameFinder = ({ setIsLoading, setResults, setShowForm }) => {
   
 
 
-  const isWithinDateRange = (date, startDate, endDate) => {
-    const gameDate = new Date(date);
+  const isWithinDateRange = (DateTime, startDate, endDate) => {
+    const gameDate = new Date(DateTime);
     return gameDate >= startDate && gameDate <= endDate;
   };
 
@@ -102,7 +102,7 @@ const GameFinder = ({ setIsLoading, setResults, setShowForm }) => {
   
       const filteredGames = data.filter((game) => {
         const homeTeam = game.HomeTeam; 
-        const gameDate = new Date(game.Day);
+        const gameDate = new Date(game.DateTime);
   
         return (
           teamAbbreviations.includes(homeTeam) &&
