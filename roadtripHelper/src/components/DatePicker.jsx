@@ -23,4 +23,8 @@ console.log("startDate:", startDate , "endDate:", endDate);
     <DateRange
       editableDateInputs={true}
       onChange={handleSelect}
-      moveRangeOnF
+      moveRangeOnFirstSelection={false}
+      ranges={state}
+    />
+      )
+}
