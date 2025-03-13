@@ -10,6 +10,9 @@ import { UserButton } from "@clerk/clerk-react";
     };
     return new Date(dateString).toLocaleDateString("en-US", options);
   };
+
+  console.log("Results being passed to component:", results);
+
   return (
     <div
       id="result"
