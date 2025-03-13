@@ -22,18 +22,14 @@ const GameFinder = ({ setIsLoading, setResults, setShowForm }) => {
   });
   const [HomeTeam, setHomeTeam] = useState([]);
 
-  // useEffect(() => {
-  //   if (HomeTeam.length > 0) {
-  //     fetchGames(HomeTeam);
-  //   }
-  // }, [HomeTeam]);
+
 
   const { register, handleSubmit } = useForm();
 
   const formatTeamName = (input) => {
     const formattedInput = input.trim().toLowerCase();
   
-    const team = teams.find(({ name, city, nickname }) => // ✅ Corrected variable name
+    const team = teams.find(({ name, city, nickname }) => 
       [name.toLowerCase(), city.toLowerCase(), nickname.toLowerCase()].includes(formattedInput)
     );
   
@@ -41,21 +37,6 @@ const GameFinder = ({ setIsLoading, setResults, setShowForm }) => {
   };
   
 
-  // const getTeamAbbreviation = (teamInput) => {
-  //   if (!teamInput || typeof teamInput !== "string") {
-  //     console.error("Invalid team input:", teamInput);
-  //     return null;
-  //   }
-  //   const lowerInput = teamInput.toLowerCase();
-   
-  //   const team = teams.find(
-  //     (t) =>
-  //       t.name.toLowerCase().includes(lowerInput) ||
-  //       t.city.toLowerCase().includes(lowerInput) ||
-  //       t.nickname.toLowerCase().includes(lowerInput)
-  //   );
-  //   return team ? team.abbreviation : null;
-  // };
 
   const isWithinDateRange = (date, startDate, endDate) => {
     const gameDate = new Date(date);
@@ -96,28 +77,7 @@ const GameFinder = ({ setIsLoading, setResults, setShowForm }) => {
     await fetchGames(teamAbbreviations);
   };
   
-//   const onSubmit = async ({ teamOne, teamTwo, teamThree, teamFour }) => {
-//     //C. sets loading to true
-//     setIsLoading(true);
-//     setShowForm(false);
-// //D.assigns entered teams to enteredTeams variable and regularises them to lower case
-//     const enteredTeams = [teamOne, teamTwo, teamThree, teamFour]
-//     .map((team) => team?.trim().toLowerCase())
-//         .filter(team => team.length > 0);
 
-//     console.log("Entered Teams:", enteredTeams);
-//     //E.shows form again if enteredTeams has no length
-//     if (enteredTeams.length === 0) {
-//       console.error("No valid teams entered.");
-//       setIsLoading(false);
-//       setShowForm(true);
-//       return;
-//   }
-// //F.sets home team state to enteredTeams
-//     setHomeTeam(enteredTeams);
-// //G.passes enteredTeams into fetchGames function
-//     await fetchGames(enteredTeams);
-//   };
   const fetchGames = async (teams) => {
     if (!teams || teams.length === 0) {
       console.error("No teams provided.");
@@ -141,7 +101,7 @@ const GameFinder = ({ setIsLoading, setResults, setShowForm }) => {
       console.log("Team Abbreviations:", teamAbbreviations);
   
       const filteredGames = data.filter((game) => {
-        const homeTeam = game.HomeTeam; // Already in abbreviation format
+        const homeTeam = game.HomeTeam; 
         const gameDate = new Date(game.Day);
   
         return (
