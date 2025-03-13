@@ -121,8 +121,7 @@ const GameFinder = ({ setIsLoading, setResults, setShowForm }) => {
   };
   
 
-  
-  //bg-[url('/stadium.jpg')] bg-no-repeat bg-cover bg-center bg-fixed min-h-screen flex flex-col justify-center items-center  md:rounded-lg card lg:card-side
+
   
   return (
     <div>
@@ -193,10 +192,7 @@ const GameFinder = ({ setIsLoading, setResults, setShowForm }) => {
            
    {/* B. user clicks submit button calling api and filtering results. handleSubmit function called */}
    <button
-              // onClick={() => {
-              //   setIsLoading(true);
-              //   setShowForm(false);
-              // }}
+             
               type="submit"
               className="bg-blue-700 hover:bg-blue-900 self-center cursor-pointer rounded-full text-stone-100 px-3 pb-2"
             >
@@ -204,4 +200,9 @@ const GameFinder = ({ setIsLoading, setResults, setShowForm }) => {
             </button>
           </div>
         </form>
-      <
+      </div>
+    </div>
+  );
+};
+
+export default GameFinder;
