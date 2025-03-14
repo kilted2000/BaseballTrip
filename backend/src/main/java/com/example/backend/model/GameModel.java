@@ -60,4 +60,7 @@ public class GameModel {
         return DateTime;
     }
     public void setDate(String DateTime) {
-      
+            this.DateTime = DateTime;
+    }
+}
+
