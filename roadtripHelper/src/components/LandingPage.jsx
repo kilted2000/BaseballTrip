@@ -9,7 +9,7 @@ const LandingPage = () => {
     >
       <div className="navbar bg-base-300">
         <a className="btn btn-ghost font-bold ">Baseball Bucketlist</a>
-        <SignInButton className="absolute top-0 right-0 mt-4 mr-4 text-sky-500" />
+        <SignInButton className="absolute top-0 right-0 mt-4 md:mr-4 text-sky-500" />
       </div>
       <div className="hero min-h-screen" style={{backgroundImage:"url(chasefield.jpg)",}}>
        <div className="hero-content text-neutral-content text-center text-6xl text-white">
