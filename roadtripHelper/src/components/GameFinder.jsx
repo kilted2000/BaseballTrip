@@ -77,7 +77,7 @@ const GameFinder = ({ setIsLoading, setResults, setShowForm }) => {
         </div>
 
         <form onSubmit={handleSubmit(onSubmit)} className="bg-gradient-to-r from-emerald-700 via-teal-700 to-cyan-600 bg-no-repeat shadow-2xl shadow-green-900 place-items-center card-body">
-          <div className="grid md:grid-cols-2 md:gap-4">
+          <div className="grid gap-3 md:grid-cols-2 md:gap-4">
             <input {...register("teamOne")} type="text" placeholder="Team One" className="rounded-lg pl-2" />
             <input {...register("teamTwo")} type="text" placeholder="Team Two" className="rounded-lg pl-2" />
             <input {...register("teamThree")} type="text" placeholder="Team Three" className="rounded-lg pl-2" />
