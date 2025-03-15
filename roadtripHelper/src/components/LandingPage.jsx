@@ -1,5 +1,5 @@
 import { SignInButton } from "@clerk/clerk-react";
-//import styles from "./landingPage.module.css"
+
 const LandingPage = () => {
   //style = {{ backgroundImage: url('../src/assets/stadium.jpg')}}
   return (
@@ -41,8 +41,7 @@ const LandingPage = () => {
 
      </div>
      </div>
-    {/* <div className={styles.footer}>
-        <div className={styles.data}> */}
+  
           <div className="hero bg-slate-700 h-48 w-screen">
             <div className="hero-content text-center">
         
@@ -62,10 +61,9 @@ const LandingPage = () => {
         </div>
         <p className="mt-2 text-center">&copy; 2025 Whittington Not At All Evil Industries</p>
         </div>
-    {/* </div>
-    </div> */}
+   
     </div>
   );
 };
 
-export default LandingPag
+export default LandingPage;
