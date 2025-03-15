@@ -5,7 +5,7 @@ const LandingPage = () => {
   return (
     <div
       className="bg-emerald-900 bg-gradient-to-r from-indigo-800 to-emerald-900
-     h-dvh bg-center h-full m-0"
+      bg-center h-full m-0"
     >
       <div className="navbar bg-base-300">
         <a className="btn btn-ghost font-bold ">Baseball Bucketlist</a>
