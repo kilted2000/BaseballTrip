@@ -19,7 +19,7 @@ const LandingPage = () => {
     </div>
     <div>
     {/* <h4>As Seen On:</h4> */}
-    <div className="hero flex flex-row w-screen place-content-evenly">
+    <div className="hero flex flex-row place-content-evenly w-screen">
     <h4>As Seen On:</h4>
       <img src="bbc.jpeg" alt="bbc logo" className="card bg-base-100 size-20 lg:size-48 xl:size-54"/>
       <img src="cnn.jpeg" alt="cnn logo" className="card bg-base-100 size-20 lg:size-48 xl:size-54"/>
@@ -28,7 +28,7 @@ const LandingPage = () => {
       <img src="rte.jpeg" alt="rte logo" className="card bg-base-100 size-20 lg:size-48 xl:size-54"/>
     </div>
     </div>
-    <div className="hero bg-slate-200 h-72 w-screen">
+    <div className="hero bg-slate-200 h-72">
       <div className="hero-content">
      <h3 className="text-xs md:text-lg">How Baseball-Trip Helper will simplify your life</h3>
      <p className="text-xs md:text-lg">Enter up to four teams to see their schedules. Baseball Roadtrip Helper brings every team's schedule together in one place.</p>
