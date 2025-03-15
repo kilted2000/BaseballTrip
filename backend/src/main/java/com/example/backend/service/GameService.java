@@ -76,7 +76,4 @@ private String apiKey;
 //         System.err.println("Error fetching games from API: " + e.getMessage());
 //     }
 
-//     return new ArrayList<>(); 
-// }
-
-//}
+//     return new ArrayList<>(
