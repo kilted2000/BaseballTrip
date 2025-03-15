@@ -1,5 +1,5 @@
 import { SignInButton } from "@clerk/clerk-react";
-import styles from "./landingPage.module.css"
+//import styles from "./landingPage.module.css"
 const LandingPage = () => {
   //style = {{ backgroundImage: url('../src/assets/stadium.jpg')}}
   return (
