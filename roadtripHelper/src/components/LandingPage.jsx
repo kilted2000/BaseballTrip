@@ -13,7 +13,7 @@ const LandingPage = () => {
       </div>
       <div className="hero min-h-screen" style={{backgroundImage:"url(chasefield.jpg)",}}>
        <div className="hero-content text-neutral-content text-center text-6xl text-white">
-        <h2 className="text-black font-bold">Simplify your road-trip planning!</h2>
+        <h2 className="text-black font-medium">Simplify your road-trip planning!</h2>
        </div>
        
     </div>
