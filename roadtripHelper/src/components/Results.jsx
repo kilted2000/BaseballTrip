@@ -28,13 +28,13 @@ import { UserButton } from "@clerk/clerk-react";
              {results.map((result, index) => (
               <div className="grid grid-cols-12 overflow-x-auto">
              <table key={index} className="table col-span-3">
-             <thead>
+             <thead className="row-span-4">
                <tr>
                 {/* connect index to each hometeam name */}
                  <th>{result.HomeTeam}</th>
                </tr>
              </thead>
-          <tbody>
+          <tbody className="row-span-4">
             <tr className="hover">
               <td className=" text-2xl">
                 <p>{formatDate(result.DateTime)}</p>
