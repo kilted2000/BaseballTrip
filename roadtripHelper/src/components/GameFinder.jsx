@@ -105,7 +105,7 @@ const GameFinder = ({ setIsLoading, setResults, setShowForm }) => {
               gap: 2,
               gridTemplateColumns: { xs: "1fr" },
               "@media (min-width: 600px)": {
-                gridTemplateColumns: "2fr, 2fr",
+                gridTemplateColumns: "1fr, 1fr",
                 gap: 1,
               },
             }}
