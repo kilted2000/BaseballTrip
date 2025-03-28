@@ -100,8 +100,8 @@ const GameFinder = ({ setIsLoading, setResults, setShowForm }) => {
           gap: 2,
           gridTemplateColumns: { xs: "1fr" },
           "@media (min-width: 600px)": {
-            gridTemplateColumns: '1fr, 1fr',
-            gap: 3
+            gridTemplateColumns: '2fr, 2fr',
+            gap: 4
           }
         }}>
      
@@ -206,46 +206,4 @@ const GameFinder = ({ setIsLoading, setResults, setShowForm }) => {
               options={teams.map((option) => option.name)}
               onChange={(_, value) => field.onChange(value)}
               value={field.value || ""}
-              sx={{ width: "100%" }}
-              renderInput={(params) => (
-                <TextField
-                  {...params}
-                  {...field}
-                  onChange={(e) => field.onChange(e.target.value)}
-                  placeholder="Team Four"
-                  variant="outlined"
-
-                  sx={{
-                    "& .MuiOutlinedInput-root": {
-                      borderRadius: "0.5rem", 
-                      paddingLeft: "0.5rem", 
-                      backgroundColor: "white" 
-                    }
-                  }}
-                />
-              )}
-            />
-          )}
-        />
-      
-      </div>
-          <label className="w-full mr-5">Dates:</label>
-          <DatePicker
-            onChange={(ranges) => setDateRange({
-              startDate: ranges.selection.startDate,
-              endDate: ranges.selection.endDate,
-            })}
-          />
- <div className="card-actions">
-          <button type="submit" className="bg-blue-700 hover:bg-blue-900 self-center cursor-pointer rounded-full text-stone-100 px-3 pb-2">
-            Press If You Dare!
-          </button>
-          </div>
-        </form>
-      </div>
-    </div>
-
-  );
-};
-
-export default GameFinder;
+              sx={{ w
