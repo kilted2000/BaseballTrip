@@ -12,14 +12,6 @@ const GameFinder = ({ setIsLoading, setResults, setShowForm }) => {
   });
   const [homeTeams, setHomeTeams] = useState([]);
   const { register, handleSubmit } = useForm();
-  // const { control, handleSubmit } = useForm({
-  //   defaultValues: {
-  //     teamOne: "",
-  //     teamTwo: "",
-  //     teamThree: "",
-  //     teamFour: "",
-  //   },
-  // });
 
   const formatTeamName = (input) => {
     const formattedInput = input.trim().toLowerCase();
@@ -97,147 +89,32 @@ const GameFinder = ({ setIsLoading, setResults, setShowForm }) => {
               <option value="Chicago Cubs"></option>
               <option value="Seattle Mariners"></option>
               <option value="New York Yankees"></option>
+              <option value="New York Mets"></option>
+              <option value="Chicago White Sox"></option>
+              <option value="Houston Astros"></option>
+              <option value="Boston Red Sox"></option>
+              <option value="Toronto Blue Jays"></option>
+              <option value="Baltimore Orioles"></option>
+              <option value="Cleveland Guardians"></option>
+              <option value="Detroit Tigers"></option>
+              <option value="Kansas City Royals"></option>
+              <option value="Minnesota Twins"></option>
+              <option value="Los Angeles Angels"></option>
+              <option value="Texas Rangers"></option>
+              <option value="Miami Marlins"></option>
+              <option value="Philadelphia Phillies"></option>
+              <option value="Washington Nationals"></option>
+              <option value="Cincinnati Reds"></option>
+              <option value="Milwaukee Brewers"></option>
+              <option value="Pittsburgh Pirates"></option>
+              <option value="Los Angeles Dodgers"></option>
+              <option value="Arizona Diamondbacks"></option>
+              <option value="Colorado Rockies"></option>
+              <option value="San Diego Padres"></option>
+              <option value="San Francisco Giants"></option>
+              <option value="Las Vegas Athletics"></option>
             </datalist> 
           </div>
-        {/* <form
-          onSubmit={handleSubmit(onSubmit)}
-          style={{
-            background: "linear-gradient(to right, #047857, #0d9488, #0e7490)",
-            backgroundRepeat: "no-repeat",
-            boxShadow: "0 25px 50px -12px rgba(22, 163, 74, 0.5)",
-            display: "grid",
-            placeItems: "center",
-            padding: "1.5rem",
-          }}
-        >
-          <div
-            sx={{
-              display: "grid",
-              gap: 2,
-              gridTemplateColumns: { xs: "1fr" },
-              "@media (min-width: 600px)": {
-                gridTemplateColumns: "1fr, 1fr",
-                gap: 1,
-              },
-            }}
-          >
-            <Controller
-              name="teamOne"
-              control={control}
-              render={({ field }) => (
-                <Autocomplete
-                  GameFinder
-                  options={teams.map((option) => option.name)}
-                  onChange={(_, value) => field.onChange(value)}
-                  value={field.value || ""}
-                  sx={{ width: "100%" }}
-                  renderInput={(params) => (
-                    <TextField
-                      {...params}
-                      {...field}
-                      onChange={(e) => field.onChange(e.target.value)}
-                      placeholder="Team One"
-                      variant="outlined"
-                      sx={{
-                        "& .MuiOutlinedInput-root": {
-                          borderRadius: "0.5rem",
-                          paddingLeft: "0.5rem",
-                          backgroundColor: "white",
-                        },
-                      }}
-                    />
-                  )}
-                />
-              )}
-            />
-            <Controller
-              name="teamTwo"
-              control={control}
-              render={({ field }) => (
-                <Autocomplete
-                  GameFinder
-                  options={teams.map((option) => option.name)}
-                  onChange={(_, value) => field.onChange(value)}
-                  value={field.value || ""}
-                  sx={{ width: "100%" }}
-                  renderInput={(params) => (
-                    <TextField
-                      {...params}
-                      {...field}
-                      onChange={(e) => field.onChange(e.target.value)}
-                      placeholder="Team Two"
-                      variant="outlined"
-                      sx={{
-                        "& .MuiOutlinedInput-root": {
-                          borderRadius: "0.5rem",
-                          paddingLeft: "0.5rem",
-                          backgroundColor: "white",
-                        },
-                      }}
-                    />
-                  )}
-                />
-              )}
-            />
-            <Controller
-              name="teamThree"
-              control={control}
-              render={({ field }) => (
-                <Autocomplete
-                  GameFinder
-                  options={teams.map((option) => option.name)}
-                  onChange={(_, value) => field.onChange(value)}
-                  value={field.value || ""}
-                  sx={{ width: "100%" }}
-                  renderInput={(params) => (
-                    <TextField
-                      {...params}
-                      {...field}
-                      onChange={(e) => field.onChange(e.target.value)}
-                      placeholder="Team Three"
-                      variant="outlined"
-                      sx={{
-                        "& .MuiOutlinedInput-root": {
-                          borderRadius: "0.5rem",
-                          paddingLeft: "0.5rem",
-                          backgroundColor: "white",
-                        },
-                      }}
-                    />
-                  )}
-                />
-              )}
-            />
-            <Controller
-              name="teamFour"
-              control={control}
-              render={({ field }) => (
-                <Autocomplete
-                  GameFinder
-                  options={teams.map((option) => option.name)}
-                  onChange={(_, value) => field.onChange(value)}
-                  value={field.value || ""}
-                  sx={{ width: "100%" }}
-                  renderInput={(params) => (
-                    <TextField
-                      {...params}
-                      {...field}
-                      onChange={(e) => field.onChange(e.target.value)}
-                      placeholder="Team Four"
-                      variant="outlined"
-                      sx={{
-                        "& .MuiOutlinedInput-root": {
-                          borderRadius: "0.5rem",
-                          paddingLeft: "0.5rem",
-                          backgroundColor: "white",
-                        },
-                      }}
-                    />
-                  )}
-                />
-              )}
-            />
-          </div> */}
           <label className="w-full mr-5">Dates:</label>
           <DatePicker
             onChange={(ranges) =>
