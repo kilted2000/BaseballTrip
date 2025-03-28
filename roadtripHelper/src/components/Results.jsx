@@ -30,13 +30,37 @@ import { UserButton } from "@clerk/clerk-react";
              <thead>
                <tr>
                 
-                 <td>{result.teamOne.HomeTeam}</td>
-                 <td>{result.teamTwo.HomeTeam}</td>
-                 <td>{result.teamThree.HomeTeam}</td>
-                 <td>{result.teamFour.HomeTeam}</td>
+                 <th>{result.teamOne.HomeTeam}</th>
+                 <th>{result.teamTwo.HomeTeam}</th>
+                 <th>{result.teamThree.HomeTeam}</th>
+                 <th>{result.teamFour.HomeTeam}</th>
                </tr>
                
              </thead>
           <tbody>
             <tr className="hover">
-              <td className=" text-2x
+              <td className=" text-2xl">
+                <p>{formatDate(result.teamOne.DateTime)}</p>
+              </td>
+            </tr>
+            <tr className="hover">
+              <td className=" text-2xl">
+                <p>{formatDate(result.teamTwo.DateTime)}</p>
+              </td>
+            </tr>
+            <tr className="hover">
+              <td className=" text-2xl">
+                <p>{formatDate(result.teamThree.DateTime)}</p>
+              </td>
+            </tr>
+            <tr className="hover">
+              <td className=" text-2xl">
+                <p>{formatDate(result.teamFour.DateTime)}</p>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      ))}
+    </div>
+  );
+};
