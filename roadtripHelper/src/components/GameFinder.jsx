@@ -19,7 +19,9 @@ const GameFinder = ({ setIsLoading, setResults, setShowForm }) => {
   const { control, handleSubmit } = useForm({
     defaultValues: {
       teamOne: "",
-      searchInput: "",
+      teamTwo: "",
+      teamThree: "",
+      teamFour: ""
     },
   });
 
@@ -91,7 +93,7 @@ const GameFinder = ({ setIsLoading, setResults, setShowForm }) => {
             <input {...register("teamThree")} type="text" placeholder="Team Three" className="rounded-lg pl-2" />
             <input {...register("teamFour")} type="text" placeholder="Team Four" className="rounded-lg pl-2" />
           </div> */}
-          <Stack>
+          
         <Controller
           name="teamOne"
           control={control}
@@ -185,7 +187,7 @@ const GameFinder = ({ setIsLoading, setResults, setShowForm }) => {
             />
           )}
         />
-      </Stack>
+      
       </div>
           <label className="w-full mr-5">Dates:</label>
           <DatePicker
