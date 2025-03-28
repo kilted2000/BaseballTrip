@@ -119,7 +119,7 @@ const GameFinder = ({ setIsLoading, setResults, setShowForm }) => {
                   options={teams.map((option) => option.name)}
                   onChange={(_, value) => field.onChange(value)}
                   value={field.value || ""}
-                  sx={{ width: "100%" }}
+                  sx={{ width: "50%" }}
                   renderInput={(params) => (
                     <TextField
                       {...params}
@@ -148,7 +148,7 @@ const GameFinder = ({ setIsLoading, setResults, setShowForm }) => {
                   options={teams.map((option) => option.name)}
                   onChange={(_, value) => field.onChange(value)}
                   value={field.value || ""}
-                  sx={{ width: "100%" }}
+                  sx={{ width: "50%" }}
                   renderInput={(params) => (
                     <TextField
                       {...params}
@@ -177,7 +177,7 @@ const GameFinder = ({ setIsLoading, setResults, setShowForm }) => {
                   options={teams.map((option) => option.name)}
                   onChange={(_, value) => field.onChange(value)}
                   value={field.value || ""}
-                  sx={{ width: "100%" }}
+                  sx={{ width: "50%" }}
                   renderInput={(params) => (
                     <TextField
                       {...params}
@@ -206,7 +206,7 @@ const GameFinder = ({ setIsLoading, setResults, setShowForm }) => {
                   options={teams.map((option) => option.name)}
                   onChange={(_, value) => field.onChange(value)}
                   value={field.value || ""}
-                  sx={{ width: "100%" }}
+                  sx={{ width: "50%" }}
                   renderInput={(params) => (
                     <TextField
                       {...params}
