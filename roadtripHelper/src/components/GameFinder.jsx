@@ -1,7 +1,5 @@
 import { useState } from "react";
-import TextField from "@mui/material/TextField";
-import Autocomplete from "@mui/material/Autocomplete";
-import { useForm, Controller } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { getGames } from "../api/apiService";
 import teams from "../TeamList.json";
 import { DatePicker } from "./DatePicker";
@@ -13,15 +11,15 @@ const GameFinder = ({ setIsLoading, setResults, setShowForm }) => {
     endDate: new Date(new Date().setDate(new Date().getDate() + 7)),
   });
   const [homeTeams, setHomeTeams] = useState([]);
-
-  const { control, handleSubmit } = useForm({
-    defaultValues: {
-      teamOne: "",
-      teamTwo: "",
-      teamThree: "",
-      teamFour: "",
-    },
-  });
+  const { register, handleSubmit } = useForm();
+  // const { control, handleSubmit } = useForm({
+  //   defaultValues: {
+  //     teamOne: "",
+  //     teamTwo: "",
+  //     teamThree: "",
+  //     teamFour: "",
+  //   },
+  // });
 
   const formatTeamName = (input) => {
     const formattedInput = input.trim().toLowerCase();
@@ -87,8 +85,21 @@ const GameFinder = ({ setIsLoading, setResults, setShowForm }) => {
             <UserButton className="absolute top-0 right-0 mt-4 mx-4 text-sky-500" />
           </div>
         </div>
-
-        <form
+        <form onSubmit={handleSubmit(onSubmit)} className="bg-gradient-to-r from-emerald-700 via-teal-700 to-cyan-600 bg-no-repeat shadow-2xl shadow-green-900 place-items-center card-body">
+          <div className="grid gap-3 md:grid-cols-2 md:gap-4">
+            <input {...register("teamOne")} type="text" placeholder="Team One" className="rounded-lg pl-2 input" list="teams"/>
+            <input {...register("teamTwo")} type="text" placeholder="Team Two" className="rounded-lg pl-2 input" list="teams"/>
+            <input {...register("teamThree")} type="text" placeholder="Team Three" className="rounded-lg pl-2 input" list="teams"/>
+            <input {...register("teamFour")} type="text" placeholder="Team Four" className="rounded-lg pl-2 input" list="teams"/>
+             <datalist id="teams">
+              <option value="St. Louis Cardinals"></option>
+              <option value="Atlanta Braves"></option>
+              <option value="Chicago Cubs"></option>
+              <option value="Seattle Mariners"></option>
+              <option value="New York Yankees"></option>
+            </datalist> 
+          </div>
+        {/* <form
           onSubmit={handleSubmit(onSubmit)}
           style={{
             background: "linear-gradient(to right, #047857, #0d9488, #0e7490)",
@@ -226,6 +237,28 @@ const GameFinder = ({ setIsLoading, setResults, setShowForm }) => {
                 />
               )}
             />
-          </div>
+          </div> */}
           <label className="w-full mr-5">Dates:</label>
-        
+          <DatePicker
+            onChange={(ranges) =>
+              setDateRange({
+                startDate: ranges.selection.startDate,
+                endDate: ranges.selection.endDate,
+              })
+            }
+          />
+          <div className="card-actions">
+            <button
+              type="submit"
+              className="bg-blue-700 hover:bg-blue-900 self-center cursor-pointer rounded-full text-stone-100 px-3 pb-2"
+            >
+              Press If You Dare!
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  );
+};
+
+export default GameFinder;
