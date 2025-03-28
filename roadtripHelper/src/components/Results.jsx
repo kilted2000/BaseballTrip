@@ -11,7 +11,10 @@ import { UserButton } from "@clerk/clerk-react";
     return new Date(dateString).toLocaleDateString("en-US", options);
   };
 
-  const uniqueDates = [...new Set(results.map(result => formatDate(result.DateTime)))].sort();
+  const uniqueDates = [...new Set(results.map(result => result.DateTime))]
+  .sort((a, b) => new Date(a) - new Date(b))
+  .map(date => formatDate(date));
+  
   const uniqueTeams = [...new Set(results.map(result => result.HomeTeam))];
 
   return (
@@ -48,7 +51,7 @@ import { UserButton } from "@clerk/clerk-react";
                   );
                   return (
                     <td key={teamIndex} className="text-center">
-                      {hasGame ? "✓" : ""}
+                      {hasGame ? "🌭" : ""}
                     </td>
                   );
                 })}
