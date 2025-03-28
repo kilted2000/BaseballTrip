@@ -31,7 +31,9 @@ import { UserButton } from "@clerk/clerk-react";
                <tr>
                 
                  <td>{result.HomeTeam}</td>
-                 
+                 <td>{result.HomeTeam}</td>
+                 <td>{result.HomeTeam}</td>
+                 <td>{result.HomeTeam}</td>
                </tr>
                
              </thead>
