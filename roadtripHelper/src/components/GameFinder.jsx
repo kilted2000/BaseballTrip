@@ -99,7 +99,7 @@ const GameFinder = ({ setIsLoading, setResults, setShowForm }) => {
           display: "grid",
           gap: 3,
           "@media (min-width: 768px)": {
-            gridTemplateColumns: "1fr 1fr",
+            gridTemplateColumns: 'repeat(2, 1fr)',
             gap: 4
           }
         }}>
@@ -124,9 +124,9 @@ const GameFinder = ({ setIsLoading, setResults, setShowForm }) => {
                   variant="outlined"
                   sx={{
                     "& .MuiOutlinedInput-root": {
-                      borderRadius: "0.5rem", // rounded-lg
-                      paddingLeft: "0.5rem", // pl-2
-                      backgroundColor: "white" // To ensure visibility on gradient bg
+                      borderRadius: "0.5rem", 
+                      paddingLeft: "0.5rem", 
+                      backgroundColor: "white" 
                     }
                   }}
                 />
@@ -153,9 +153,9 @@ const GameFinder = ({ setIsLoading, setResults, setShowForm }) => {
                   variant="outlined"
                   sx={{
                     "& .MuiOutlinedInput-root": {
-                      borderRadius: "0.5rem", // rounded-lg
-                      paddingLeft: "0.5rem", // pl-2
-                      backgroundColor: "white" // To ensure visibility on gradient bg
+                      borderRadius: "0.5rem", 
+                      paddingLeft: "0.5rem", 
+                      backgroundColor: "white" 
                     }
                   }}
                 />
@@ -182,9 +182,9 @@ const GameFinder = ({ setIsLoading, setResults, setShowForm }) => {
                   variant="outlined"
                   sx={{
                     "& .MuiOutlinedInput-root": {
-                      borderRadius: "0.5rem", // rounded-lg
-                      paddingLeft: "0.5rem", // pl-2
-                      backgroundColor: "white" // To ensure visibility on gradient bg
+                      borderRadius: "0.5rem", 
+                      paddingLeft: "0.5rem", 
+                      backgroundColor: "white" 
                     }
                   }}
                 />
@@ -212,9 +212,9 @@ const GameFinder = ({ setIsLoading, setResults, setShowForm }) => {
 
                   sx={{
                     "& .MuiOutlinedInput-root": {
-                      borderRadius: "0.5rem", // rounded-lg
-                      paddingLeft: "0.5rem", // pl-2
-                      backgroundColor: "white" // To ensure visibility on gradient bg
+                      borderRadius: "0.5rem", 
+                      paddingLeft: "0.5rem", 
+                      backgroundColor: "white" 
                     }
                   }}
                 />
