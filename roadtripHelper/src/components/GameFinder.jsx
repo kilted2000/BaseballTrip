@@ -97,8 +97,7 @@ const GameFinder = ({ setIsLoading, setResults, setShowForm }) => {
       }}>
           <div sx={{
           display: "grid",
-          gap: 2,
-          gridTemplateColumns: 'repeat(2, 2fr)',
+          gap: 3,
           "@media (min-width: 768px)": {
             gridTemplateColumns: '1fr, 1fr',
             gap: 4
@@ -116,6 +115,7 @@ const GameFinder = ({ setIsLoading, setResults, setShowForm }) => {
               options={teams.map((option) => option.name)}
               onChange={(_, value) => field.onChange(value)}
               value={field.value || ""}
+              sx={{ width: "100%" }}
               renderInput={(params) => (
                 <TextField
                   {...params}
@@ -145,6 +145,7 @@ const GameFinder = ({ setIsLoading, setResults, setShowForm }) => {
               options={teams.map((option) => option.name)}
               onChange={(_, value) => field.onChange(value)}
               value={field.value || ""}
+              sx={{ width: "100%" }}
               renderInput={(params) => (
                 <TextField
                   {...params}
@@ -174,6 +175,7 @@ const GameFinder = ({ setIsLoading, setResults, setShowForm }) => {
               options={teams.map((option) => option.name)}
               onChange={(_, value) => field.onChange(value)}
               value={field.value || ""}
+              sx={{ width: "100%" }}
               renderInput={(params) => (
                 <TextField
                   {...params}
@@ -203,6 +205,7 @@ const GameFinder = ({ setIsLoading, setResults, setShowForm }) => {
               options={teams.map((option) => option.name)}
               onChange={(_, value) => field.onChange(value)}
               value={field.value || ""}
+              sx={{ width: "100%" }}
               renderInput={(params) => (
                 <TextField
                   {...params}
