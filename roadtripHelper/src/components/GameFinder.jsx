@@ -98,8 +98,9 @@ const GameFinder = ({ setIsLoading, setResults, setShowForm }) => {
           <div sx={{
           display: "grid",
           gap: 3,
+          gridTemplateColumns: 'repeat(2, 2fr)',
           "@media (min-width: 768px)": {
-            gridTemplateColumns: 'repeat(2, 1fr)',
+            gridTemplateColumns: '1fr, 1fr',
             gap: 4
           }
         }}>
