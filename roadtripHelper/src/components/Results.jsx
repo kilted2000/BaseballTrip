@@ -25,19 +25,16 @@ import { UserButton } from "@clerk/clerk-react";
         <a href="/GameFinder.jsx" className="mx-3">Back</a>
       </div>
       </div>
-      {results.map((result, index) => (
-        <table key={index} className="table-auto table">
-          <thead>
-            <tr>
-              <th>Team</th>
-              <th>Day Played</th>
-            </tr>
-          </thead>
+   
+             {results.map((result, index) => (
+             <table key={index} className="table-auto table">
+             <thead>
+               <tr>
+                 <th>{result.HomeTeam}</th>
+               </tr>
+             </thead>
           <tbody>
             <tr className="hover">
-              <td>
-                <h3>{result.HomeTeam}</h3>
-              </td>
               <td className=" text-2xl">
                 <p>{formatDate(result.DateTime)}</p>
               </td>
