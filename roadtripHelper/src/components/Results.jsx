@@ -26,16 +26,14 @@ import { UserButton } from "@clerk/clerk-react";
       </div>
       {/* table-auto  */}
              {results.map((result, index) => (
+              <div className="overflow-x-auto">
              <table key={index} className="table table-pin-cols">
              <thead>
                <tr>
-                
-                 <th>{result.HomeTeam}</th>
-                 <th>{result.HomeTeam}</th>
-                 <th>{result.HomeTeam}</th>
+                {/* connect index to each hometeam name */}
+                <th></th>
                  <th>{result.HomeTeam}</th>
                </tr>
-               
              </thead>
           <tbody>
             <tr className="hover">
@@ -43,23 +41,9 @@ import { UserButton } from "@clerk/clerk-react";
                 <p>{formatDate(result.DateTime)}</p>
               </td>
             </tr>
-            <tr className="hover">
-              <td className=" text-2xl">
-                <p>{formatDate(result.DateTime)}</p>
-              </td>
-            </tr>
-            <tr className="hover">
-              <td className=" text-2xl">
-                <p>{formatDate(result.DateTime)}</p>
-              </td>
-            </tr>
-            <tr className="hover">
-              <td className=" text-2xl">
-                <p>{formatDate(result.DateTime)}</p>
-              </td>
-            </tr>
           </tbody>
         </table>
+        </div>
       ))}
     </div>
   );
