@@ -29,10 +29,10 @@ import { UserButton } from "@clerk/clerk-react";
              <table key={index} className="table-auto table table-pin-cols">
              <thead>
                <tr>
-                <th></th>
+                
                  <td>{result.HomeTeam}</td>
                </tr>
-               <th></th>
+               
              </thead>
           <tbody>
             <tr className="hover">
