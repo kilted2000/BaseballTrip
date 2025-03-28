@@ -85,8 +85,8 @@ const GameFinder = ({ setIsLoading, setResults, setShowForm }) => {
         </div>
 
         <form onSubmit={handleSubmit(onSubmit)} className="bg-gradient-to-r from-emerald-700 via-teal-700 to-cyan-600 bg-no-repeat shadow-2xl shadow-green-900 place-items-center card-body">
-          {/* <div className="grid gap-3 md:grid-cols-2 md:gap-4">
-            <input {...register("teamOne")} type="text" placeholder="Team One" className="rounded-lg pl-2" />
+          <div className="grid gap-3 md:grid-cols-2 md:gap-4">
+          {/*  <input {...register("teamOne")} type="text" placeholder="Team One" className="rounded-lg pl-2" />
             <input {...register("teamTwo")} type="text" placeholder="Team Two" className="rounded-lg pl-2" />
             <input {...register("teamThree")} type="text" placeholder="Team Three" className="rounded-lg pl-2" />
             <input {...register("teamFour")} type="text" placeholder="Team Four" className="rounded-lg pl-2" />
@@ -97,7 +97,7 @@ const GameFinder = ({ setIsLoading, setResults, setShowForm }) => {
           control={control}
           render={({ field }) => (
             <Autocomplete
-              
+              className="rounded-lg pl-2"
               GameFinder
               options={teams.map((option) => option.name)}
               onChange={(_, value) => field.onChange(value)}
@@ -119,7 +119,7 @@ const GameFinder = ({ setIsLoading, setResults, setShowForm }) => {
           control={control}
           render={({ field }) => (
             <Autocomplete
-              
+              className="rounded-lg pl-2"
               GameFinder
               options={teams.map((option) => option.name)}
               onChange={(_, value) => field.onChange(value)}
@@ -141,7 +141,7 @@ const GameFinder = ({ setIsLoading, setResults, setShowForm }) => {
           control={control}
           render={({ field }) => (
             <Autocomplete
-              
+              className="rounded-lg pl-2"
               GameFinder
               options={teams.map((option) => option.name)}
               onChange={(_, value) => field.onChange(value)}
@@ -163,7 +163,7 @@ const GameFinder = ({ setIsLoading, setResults, setShowForm }) => {
           control={control}
           render={({ field }) => (
             <Autocomplete
-              
+              className="rounded-lg pl-2"
               GameFinder
               options={teams.map((option) => option.name)}
               onChange={(_, value) => field.onChange(value)}
@@ -181,6 +181,7 @@ const GameFinder = ({ setIsLoading, setResults, setShowForm }) => {
           )}
         />
       </Stack>
+      </div>
           <label className="w-full mr-5">Dates:</label>
           <DatePicker
             onChange={(ranges) => setDateRange({
@@ -196,6 +197,7 @@ const GameFinder = ({ setIsLoading, setResults, setShowForm }) => {
         </form>
       </div>
     </div>
+
   );
 };
 
