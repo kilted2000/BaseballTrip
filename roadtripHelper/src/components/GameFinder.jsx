@@ -97,10 +97,11 @@ const GameFinder = ({ setIsLoading, setResults, setShowForm }) => {
       }}>
           <div sx={{
           display: "grid",
-          gap: 3,
-          "@media (min-width: 768px)": {
+          gap: 2,
+          gridTemplateColumns: { xs: "1fr" },
+          "@media (min-width: 600px)": {
             gridTemplateColumns: '1fr, 1fr',
-            gap: 4
+            gap: 3
           }
         }}>
      
