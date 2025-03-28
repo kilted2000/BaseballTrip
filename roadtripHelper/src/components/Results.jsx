@@ -24,13 +24,14 @@ import { UserButton } from "@clerk/clerk-react";
         <a href="/GameFinder.jsx" className="mx-3">Back</a>
       </div>
       </div>
-   
+      {/* table-auto  */}
              {results.map((result, index) => (
-             <table key={index} className="table-auto table table-pin-cols">
+             <table key={index} className="table table-pin-cols">
              <thead>
                <tr>
-                <th></th>
+                
                  <td>{result.HomeTeam}</td>
+                 
                </tr>
                
              </thead>
