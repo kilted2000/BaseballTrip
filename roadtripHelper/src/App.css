@@ -2,6 +2,7 @@
 
 body{
    background-color: slategrey; 
+   margin:0;
   /* background-image: url(./assets/stadium.jpg); */
 }
  input{
