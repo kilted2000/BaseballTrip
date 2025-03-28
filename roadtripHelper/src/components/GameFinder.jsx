@@ -97,7 +97,7 @@ const GameFinder = ({ setIsLoading, setResults, setShowForm }) => {
           control={control}
           render={({ field }) => (
             <Autocomplete
-              className="rounded-lg pl-2"
+              
               GameFinder
               options={teams.map((option) => option.name)}
               onChange={(_, value) => field.onChange(value)}
@@ -109,6 +109,7 @@ const GameFinder = ({ setIsLoading, setResults, setShowForm }) => {
                   onChange={(e) => field.onChange(e.target.value)}
                   placeholder="Team One"
                   variant="outlined"
+                  className="rounded-lg pl-2"
                 />
               )}
             />
@@ -119,7 +120,7 @@ const GameFinder = ({ setIsLoading, setResults, setShowForm }) => {
           control={control}
           render={({ field }) => (
             <Autocomplete
-              className="rounded-lg pl-2"
+              
               GameFinder
               options={teams.map((option) => option.name)}
               onChange={(_, value) => field.onChange(value)}
@@ -131,6 +132,7 @@ const GameFinder = ({ setIsLoading, setResults, setShowForm }) => {
                   onChange={(e) => field.onChange(e.target.value)}
                   placeholder="Team Two"
                   variant="outlined"
+                  className="rounded-lg pl-2"
                 />
               )}
             />
@@ -141,7 +143,7 @@ const GameFinder = ({ setIsLoading, setResults, setShowForm }) => {
           control={control}
           render={({ field }) => (
             <Autocomplete
-              className="rounded-lg pl-2"
+              
               GameFinder
               options={teams.map((option) => option.name)}
               onChange={(_, value) => field.onChange(value)}
@@ -153,6 +155,7 @@ const GameFinder = ({ setIsLoading, setResults, setShowForm }) => {
                   onChange={(e) => field.onChange(e.target.value)}
                   placeholder="Team Three"
                   variant="outlined"
+                  className="rounded-lg pl-2"
                 />
               )}
             />
@@ -163,7 +166,7 @@ const GameFinder = ({ setIsLoading, setResults, setShowForm }) => {
           control={control}
           render={({ field }) => (
             <Autocomplete
-              className="rounded-lg pl-2"
+              
               GameFinder
               options={teams.map((option) => option.name)}
               onChange={(_, value) => field.onChange(value)}
@@ -175,6 +178,8 @@ const GameFinder = ({ setIsLoading, setResults, setShowForm }) => {
                   onChange={(e) => field.onChange(e.target.value)}
                   placeholder="Team Four"
                   variant="outlined"
+
+                  className="rounded-lg pl-2"
                 />
               )}
             />
