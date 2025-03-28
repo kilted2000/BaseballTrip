@@ -26,12 +26,11 @@ import { UserButton } from "@clerk/clerk-react";
       </div>
       {/* table-auto  */}
              {results.map((result, index) => (
-              <div className="grid grid-cols-3 overflow-x-auto">
-             <table key={index} className="table table-pin-cols">
+              <div className="grid grid-cols-12 overflow-x-auto">
+             <table key={index} className="table col-span-3">
              <thead>
                <tr>
                 {/* connect index to each hometeam name */}
-                <th></th>
                  <th>{result.HomeTeam}</th>
                </tr>
              </thead>
