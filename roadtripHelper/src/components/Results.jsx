@@ -26,7 +26,7 @@ import { UserButton } from "@clerk/clerk-react";
       </div>
       {/* table-auto  */}
              {results.map((result, index) => (
-              <div className="overflow-x-auto">
+              <div className="grid grid-cols-3 overflow-x-auto">
              <table key={index} className="table table-pin-cols">
              <thead>
                <tr>
