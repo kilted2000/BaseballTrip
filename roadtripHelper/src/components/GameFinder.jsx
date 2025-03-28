@@ -91,13 +91,13 @@ const GameFinder = ({ setIsLoading, setResults, setShowForm }) => {
             <input {...register("teamThree")} type="text" placeholder="Team Three" className="rounded-lg pl-2" />
             <input {...register("teamFour")} type="text" placeholder="Team Four" className="rounded-lg pl-2" />
           </div> */}
-          <Stack spacing={2} sx={{ width: 300 }}>
+          <Stack>
         <Controller
           name="teamOne"
           control={control}
           render={({ field }) => (
             <Autocomplete
-              id="free-solo-demo"
+              
               GameFinder
               options={teams.map((option) => option.name)}
               onChange={(_, value) => field.onChange(value)}
@@ -119,7 +119,7 @@ const GameFinder = ({ setIsLoading, setResults, setShowForm }) => {
           control={control}
           render={({ field }) => (
             <Autocomplete
-              id="free-solo-demo"
+              
               GameFinder
               options={teams.map((option) => option.name)}
               onChange={(_, value) => field.onChange(value)}
@@ -141,7 +141,7 @@ const GameFinder = ({ setIsLoading, setResults, setShowForm }) => {
           control={control}
           render={({ field }) => (
             <Autocomplete
-              id="free-solo-demo"
+              
               GameFinder
               options={teams.map((option) => option.name)}
               onChange={(_, value) => field.onChange(value)}
@@ -163,7 +163,7 @@ const GameFinder = ({ setIsLoading, setResults, setShowForm }) => {
           control={control}
           render={({ field }) => (
             <Autocomplete
-              id="free-solo-demo"
+              
               GameFinder
               options={teams.map((option) => option.name)}
               onChange={(_, value) => field.onChange(value)}
