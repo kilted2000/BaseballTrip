@@ -11,7 +11,6 @@ import { UserButton } from "@clerk/clerk-react";
     return new Date(dateString).toLocaleDateString("en-US", options);
   };
 
-  console.log("Results being passed to component:", results);
 
   return (
     <div
@@ -27,11 +26,13 @@ import { UserButton } from "@clerk/clerk-react";
       </div>
    
              {results.map((result, index) => (
-             <table key={index} className="table-auto table">
+             <table key={index} className="table-auto table table-pin-cols">
              <thead>
                <tr>
-                 <th>{result.HomeTeam}</th>
+                <th></th>
+                 <td>{result.HomeTeam}</td>
                </tr>
+               <th></th>
              </thead>
           <tbody>
             <tr className="hover">
