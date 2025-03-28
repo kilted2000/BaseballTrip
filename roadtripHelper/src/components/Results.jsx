@@ -11,11 +11,13 @@ import { UserButton } from "@clerk/clerk-react";
     return new Date(dateString).toLocaleDateString("en-US", options);
   };
 
+  const uniqueDates = [...new Set(results.map(result => formatDate(result.DateTime)))].sort();
+  const uniqueTeams = [...new Set(results.map(result => result.HomeTeam))];
 
   return (
     <div
       id="result"
-      className="bg-emerald-900 text-slate-200  rounded-lg table-auto w-full"
+      className="bg-emerald-900 text-slate-200  rounded-lg overflow-x-auto w-full"
     >
         <div className="navbar bg-base-300 mt-0">
         <a className="btn btn-ghost text-xl">Baseball Bucketlist</a>
@@ -24,26 +26,38 @@ import { UserButton } from "@clerk/clerk-react";
         <a href="/GameFinder.jsx" className="mx-3">Back</a>
       </div>
       </div>
-      {/* table-auto  */}
-             {results.map((result, index) => (
-              <div className="grid grid-cols-12 overflow-x-auto">
-             <table key={index} className="table col-span-3">
-             <thead className="row-span-4">
-               <tr>
-                {/* connect index to each hometeam name */}
-                 <th>{result.HomeTeam}</th>
-               </tr>
-             </thead>
-          <tbody className="row-span-4">
-            <tr className="hover">
-              <td className=" text-2xl">
-                <p>{formatDate(result.DateTime)}</p>
-              </td>
+      <div className="p-4">
+        <table className="table w-full">
+          <thead>
+            <tr>
+              <th></th> 
+              {uniqueTeams.map((team, index) => (
+                <th key={index} className="text-center">{team}</th>
+              ))}
             </tr>
+          </thead>
+          <tbody>
+            {uniqueDates.map((date, dateIndex) => (
+              <tr key={dateIndex} className="hover">
+                <td className="font-bold">{date}</td>
+                {uniqueTeams.map((team, teamIndex) => {
+                  const hasGame = results.some(
+                    result => 
+                      result.HomeTeam === team && 
+                      formatDate(result.DateTime) === date
+                  );
+                  return (
+                    <td key={teamIndex} className="text-center">
+                      {hasGame ? "✓" : ""}
+                    </td>
+                  );
+                })}
+              </tr>
+            ))}
           </tbody>
         </table>
         </div>
-      ))}
+      
     </div>
   );
 };
