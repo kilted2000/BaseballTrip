@@ -1,7 +1,6 @@
 import { SignInButton } from "@clerk/clerk-react";
 
 const LandingPage = () => {
-  //style = {{ backgroundImage: url('../src/assets/stadium.jpg')}}
   return (
     <div
       className="bg-emerald-900 bg-gradient-to-r from-indigo-800 to-emerald-900
@@ -18,7 +17,6 @@ const LandingPage = () => {
        
     </div>
     <div>
-    {/* <h4>As Seen On:</h4> */}
     <div className="hero flex flex-row place-content-evenly w-screen">
     <h4>As Seen On:</h4>
       <img src="bbc.jpeg" alt="bbc logo" className="card bg-base-100 size-20 lg:size-48 xl:size-54"/>

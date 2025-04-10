@@ -65,9 +65,7 @@ const GameFinder = ({ setIsLoading, setResults, setShowForm }) => {
       setIsLoading(false);
     }
   };
-  //className="bg-gradient-to-r from-emerald-700 via-teal-700 to-cyan-600 bg-no-repeat shadow-2xl shadow-green-900 place-items-center card-body"
-
-  //className="grid gap-3 md:grid-cols-2 md:gap-4"
+ 
   return (
     <div>
       <div className="bg-[url('/stadium.jpg')] bg-cover bg-repeat-y object-cover justify-center items-center flex flex-col h-dvh">
