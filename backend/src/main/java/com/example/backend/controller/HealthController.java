@@ -11,4 +11,10 @@ public class HealthController {
     public ResponseEntity<String> ping() {
         return ResponseEntity.ok("Pong from backend");
     }
+
+    @GetMapping("/")
+public ResponseEntity<String> root() {
+    return ResponseEntity.ok("Root works");
+}
+
 }
