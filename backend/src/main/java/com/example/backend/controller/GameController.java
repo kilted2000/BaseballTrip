@@ -19,7 +19,15 @@ public class GameController {
 
     @GetMapping("/games")
     public List<GameModel> getGames() throws JsonMappingException, JsonProcessingException {
-        return gameService.fetchGamesFromApi();
+        long start = System.currentTimeMillis();
+
+        List<GameModel> games = gameService.fetchGamesFromApi();
+    
+        long end = System.currentTimeMillis();
+        System.out.println("Total time to handle /games request: " + (end - start) + " ms");
+    
+        return games;
+        //return gameService.fetchGamesFromApi();
     }
 
 }

@@ -23,6 +23,7 @@ public class SecurityConfig {
         .cors(cors -> cors.configurationSource(corsConfigurationSource()))  
         .csrf(csrf -> csrf.disable())  
         .authorizeHttpRequests(auth -> auth
+            .requestMatchers("/ping").permitAll()
             .anyRequest().permitAll()  
         )
         .httpBasic(httpBasic -> httpBasic.disable())  
