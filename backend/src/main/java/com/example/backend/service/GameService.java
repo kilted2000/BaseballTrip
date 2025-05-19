@@ -1,6 +1,7 @@
 
 
 package com.example.backend.service;
+import java.time.LocalDate;
 import java.time.Year;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,53 +21,114 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import jakarta.annotation.PostConstruct;
+
 @Service
 public class GameService {
+
+    private List<GameModel> cachedGames;
+    private final ObjectMapper objectMapper = new ObjectMapper();
+
+    @Value("${sportsdata.api.key}")
+    private String apiKey;
 
     @Autowired
     private RestTemplate restTemplate;
 
-    @Value("${api.key}")
-private String apiKey;
+    @PostConstruct
+    public void init() throws JsonProcessingException {
+        this.cachedGames = fetchGamesFromApi(); // Load once at startup
+    }
 
-
-    public <T> List<GameModel> fetchGamesFromApi() throws JsonMappingException, JsonProcessingException {
+    public List<GameModel> fetchGamesFromApi() throws JsonProcessingException {
         long startTime = System.currentTimeMillis();
 
+        int currentSeason = Year.now().getValue();
+        String url = "https://api.sportsdata.io/v3/mlb/scores/json/Games/" + currentSeason + "?key=" + apiKey;
 
-    int currentSeason = Year.now().getValue();
-    String url = "https://api.sportsdata.io/v3/mlb/scores/json/Games/" + currentSeason + "?key=" + apiKey;
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Authorization", "Bearer " + apiKey);
 
-    HttpHeaders headers = new HttpHeaders();
-    headers.set("Authorization", "Bearer " + apiKey);
+        HttpEntity<String> entity = new HttpEntity<>(headers);
 
-    HttpEntity<String> entity = new HttpEntity<>(headers);
+        System.out.println("Sending request to SportsData API...");
 
-    System.out.println("Sending request to SportsData API...");
+        ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET, entity, String.class);
 
-    long apiCallStart = System.currentTimeMillis();
-    ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET, entity, String.class);
-    long apiCallEnd = System.currentTimeMillis();
+        String jsonResponse = response.getBody();
+        List<GameModel> games = new ArrayList<>();
 
-    System.out.println("API call duration: " + (apiCallEnd - apiCallStart) + " ms");
+        if (jsonResponse != null) {
+            games = objectMapper.readValue(jsonResponse, new TypeReference<List<GameModel>>() {});
+        }
 
-    List<GameModel> games = new ArrayList<>();
-    String jsonResponse = response.getBody();
+        long endTime = System.currentTimeMillis();
+        System.out.println("Total fetchGamesFromApi() time: " + (endTime - startTime) + " ms");
 
-    if (jsonResponse != null) {
-        long parsingStart = System.currentTimeMillis();
-        ObjectMapper mapper = new ObjectMapper();
-        games = mapper.readValue(jsonResponse, new TypeReference<List<GameModel>>() {});
-        long parsingEnd = System.currentTimeMillis();
-
-        System.out.println("JSON parsing duration: " + (parsingEnd - parsingStart) + " ms");
+        return games;
     }
 
-    long endTime = System.currentTimeMillis();
-    System.out.println("Total fetchGamesFromApi() time: " + (endTime - startTime) + " ms");
-
-    return games;
-   
+    public List<GameModel> getFilteredGames(LocalDate start, LocalDate end, List<String> teams) {
+        return cachedGames.stream()
+            .filter(game -> {
+                LocalDate gameDate = LocalDate.parse(game.getDate().substring(0, 10));
+                return !gameDate.isBefore(start) &&
+                       !gameDate.isAfter(end) &&
+                       teams.contains(game.getHomeTeam());
+            })
+            .toList();
     }
 }
+
+
+
+// @Service
+// public class GameService {
+
+//     @Autowired
+//     private RestTemplate restTemplate;
+
+//     @Value("${api.key}")
+// private String apiKey;
+
+
+//     public <T> List<GameModel> fetchGamesFromApi() throws JsonMappingException, JsonProcessingException {
+//         long startTime = System.currentTimeMillis();
+
+
+//     int currentSeason = Year.now().getValue();
+//     String url = "https://api.sportsdata.io/v3/mlb/scores/json/Games/" + currentSeason + "?key=" + apiKey;
+
+//     HttpHeaders headers = new HttpHeaders();
+//     headers.set("Authorization", "Bearer " + apiKey);
+
+//     HttpEntity<String> entity = new HttpEntity<>(headers);
+
+//     System.out.println("Sending request to SportsData API...");
+
+//     long apiCallStart = System.currentTimeMillis();
+//     ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET, entity, String.class);
+//     long apiCallEnd = System.currentTimeMillis();
+
+//     System.out.println("API call duration: " + (apiCallEnd - apiCallStart) + " ms");
+
+//     List<GameModel> games = new ArrayList<>();
+//     String jsonResponse = response.getBody();
+
+//     if (jsonResponse != null) {
+//         long parsingStart = System.currentTimeMillis();
+//         ObjectMapper mapper = new ObjectMapper();
+//         games = mapper.readValue(jsonResponse, new TypeReference<List<GameModel>>() {});
+//         long parsingEnd = System.currentTimeMillis();
+
+//         System.out.println("JSON parsing duration: " + (parsingEnd - parsingStart) + " ms");
+//     }
+
+//     long endTime = System.currentTimeMillis();
+//     System.out.println("Total fetchGamesFromApi() time: " + (endTime - startTime) + " ms");
+
+//     return games;
+   
+//     }
+// }
 

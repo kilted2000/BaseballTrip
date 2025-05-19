@@ -50,21 +50,35 @@ const GameFinder = ({ setIsLoading, setResults, setShowForm }) => {
 
   const fetchGames = async (teams) => {
     try {
-      const data = await getGames();
-      const filteredGames = data.filter((game) => {
-        const gameDate = new Date(game.DateTime);
-        return (
-          teams.includes(game.HomeTeam) &&
-          isWithinDateRange(gameDate, dateRange.startDate, dateRange.endDate)
-        );
-      });
-      setResults(filteredGames);
+        const start = dateRange.startDate.toISOString().split("T")[0];
+        const end = dateRange.endDate.toISOString().split("T")[0];
+        const data = await getGames(teams, start, end);
+
+        setResults(data); 
     } catch (error) {
-      console.error("Failed to fetch games:", error);
+        console.error("Failed to fetch games:", error);
     } finally {
-      setIsLoading(false);
+        setIsLoading(false);
     }
-  };
+};
+
+  // const fetchGames = async (teams) => {
+  //   try {
+  //     const data = await getGames();
+  //     const filteredGames = data.filter((game) => {
+  //       const gameDate = new Date(game.DateTime);
+  //       return (
+  //         teams.includes(game.HomeTeam) &&
+  //         isWithinDateRange(gameDate, dateRange.startDate, dateRange.endDate)
+  //       );
+  //     });
+  //     setResults(filteredGames);
+  //   } catch (error) {
+  //     console.error("Failed to fetch games:", error);
+  //   } finally {
+  //     setIsLoading(false);
+  //   }
+  // };
  
   return (
     <div>
