@@ -1,5 +1,3 @@
-
-
 package com.example.backend.service;
 import java.time.LocalDate;
 import java.time.Year;
@@ -73,32 +71,32 @@ public class GameService {
         System.out.println("Filtering games from " + start + " to " + end);
         System.out.println("Target teams: " + teams);
         
-
-        List<String> lowerCaseTeams = teams.stream()
-        .map(String::toLowerCase)
-        .toList();
-    System.out.println("Filtering against teams (lowercase): " + lowerCaseTeams);
-    System.out.println("Total cached games: " + cachedGames.size());
-    
+        // Convert teams to uppercase for case-insensitive comparison
+        List<String> upperCaseTeams = teams.stream()
+            .map(String::toUpperCase)
+            .toList();
+            
+        System.out.println("Filtering against teams (uppercase): " + upperCaseTeams);
+        System.out.println("Total cached games: " + cachedGames.size());
+        
         List<GameModel> filteredGames = cachedGames.stream()
             .filter(game -> {
-                String dateStr = game.getDate(); // extra clarity
+                String dateStr = game.getDate();
                 LocalDate gameDate = LocalDate.parse(dateStr.substring(0, 10));
-    
+                
                 boolean inRange = !gameDate.isBefore(start) && !gameDate.isAfter(end);
-                boolean teamMatches = teams.contains(game.getHomeTeam());
-    
+                boolean teamMatches = upperCaseTeams.contains(game.getHomeTeam().toUpperCase());
+                
                 if (inRange && teamMatches) {
                     System.out.println("✅ Match: " + game.getHomeTeam() + " on " + gameDate);
                 }
-    
+                
                 return inRange && teamMatches;
             })
             .toList();
-    
-        System.out.println("Filtered game count: " + filteredGames.size()); // Optional but helpful
-    
-        return filteredGames; // ← This is what was missing
+        
+        System.out.println("Filtered game count: " + filteredGames.size());
+        return filteredGames;
     }
     
 
@@ -131,38 +129,4 @@ public class GameService {
 
 
 //     int currentSeason = Year.now().getValue();
-//     String url = "https://api.sportsdata.io/v3/mlb/scores/json/Games/" + currentSeason + "?key=" + apiKey;
-
-//     HttpHeaders headers = new HttpHeaders();
-//     headers.set("Authorization", "Bearer " + apiKey);
-
-//     HttpEntity<String> entity = new HttpEntity<>(headers);
-
-//     System.out.println("Sending request to SportsData API...");
-
-//     long apiCallStart = System.currentTimeMillis();
-//     ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET, entity, String.class);
-//     long apiCallEnd = System.currentTimeMillis();
-
-//     System.out.println("API call duration: " + (apiCallEnd - apiCallStart) + " ms");
-
-//     List<GameModel> games = new ArrayList<>();
-//     String jsonResponse = response.getBody();
-
-//     if (jsonResponse != null) {
-//         long parsingStart = System.currentTimeMillis();
-//         ObjectMapper mapper = new ObjectMapper();
-//         games = mapper.readValue(jsonResponse, new TypeReference<List<GameModel>>() {});
-//         long parsingEnd = System.currentTimeMillis();
-
-//         System.out.println("JSON parsing duration: " + (parsingEnd - parsingStart) + " ms");
-//     }
-
-//     long endTime = System.currentTimeMillis();
-//     System.out.println("Total fetchGamesFromApi() time: " + (endTime - startTime) + " ms");
-
-//     return games;
-   
-//     }
-// }
-
+//     String url = "https://api.spo

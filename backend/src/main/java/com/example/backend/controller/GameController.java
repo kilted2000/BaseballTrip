@@ -43,10 +43,4 @@ public List<GameModel> getGamesFiltered(
 //         System.out.println("Total time to handle /games request: " + (end - start) + " ms");
     
 //         return games;
-//         //return gameService.fetchGamesFromApi();
-//     }
-
-// }
-
-
-
+//         //ret
