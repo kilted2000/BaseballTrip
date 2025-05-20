@@ -27,6 +27,8 @@ public List<GameModel> getGamesFiltered(
     LocalDate endDate = LocalDate.parse(end);
     return gameService.getFilteredGames(startDate, endDate, teams);
 }
+
+
 }
 
 //     @GetMapping("/games")
@@ -43,6 +45,4 @@ public List<GameModel> getGamesFiltered(
 //     }
 
 // }
-
-
 

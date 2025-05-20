@@ -18,7 +18,6 @@ import org.springframework.web.client.RestTemplate;
 import com.example.backend.model.GameModel;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import jakarta.annotation.PostConstruct;
@@ -41,6 +40,8 @@ public class GameService {
     }
 
     public List<GameModel> fetchGamesFromApi() throws JsonProcessingException {
+    
+
         long startTime = System.currentTimeMillis();
 
         int currentSeason = Year.now().getValue();
@@ -69,16 +70,43 @@ public class GameService {
     }
 
     public List<GameModel> getFilteredGames(LocalDate start, LocalDate end, List<String> teams) {
-        return cachedGames.stream()
+        System.out.println("Filtering games from " + start + " to " + end);
+        System.out.println("Target teams: " + teams);
+        System.out.println("Total cached games: " + cachedGames.size());
+    
+        List<GameModel> filteredGames = cachedGames.stream()
             .filter(game -> {
-                LocalDate gameDate = LocalDate.parse(game.getDate().substring(0, 10));
-                return !gameDate.isBefore(start) &&
-                       !gameDate.isAfter(end) &&
-                       teams.contains(game.getHomeTeam());
+                String dateStr = game.getDate(); // extra clarity
+                LocalDate gameDate = LocalDate.parse(dateStr.substring(0, 10));
+    
+                boolean inRange = !gameDate.isBefore(start) && !gameDate.isAfter(end);
+                boolean teamMatches = teams.contains(game.getHomeTeam());
+    
+                if (inRange && teamMatches) {
+                    System.out.println("✅ Match: " + game.getHomeTeam() + " on " + gameDate);
+                }
+    
+                return inRange && teamMatches;
             })
             .toList();
+    
+        System.out.println("Filtered game count: " + filteredGames.size()); // Optional but helpful
+    
+        return filteredGames; // ← This is what was missing
     }
-}
+    
+
+        // return cachedGames.stream()
+        //     .filter(game -> {
+        //         LocalDate gameDate = LocalDate.parse(game.getDate().substring(0, 10));
+        //         return !gameDate.isBefore(start) &&
+        //                !gameDate.isAfter(end) &&
+        //                teams.contains(game.getHomeTeam());
+        //     })
+        //     .toList();
+       
+    }
+
 
 
 
