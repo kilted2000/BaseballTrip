@@ -21,11 +21,13 @@ public class GameController {
 public List<GameModel> getGamesFiltered(
     @RequestParam String start,
     @RequestParam String end,
-    @RequestParam List<String> teams
+    @RequestParam String teams
 ) {
     LocalDate startDate = LocalDate.parse(start);
     LocalDate endDate = LocalDate.parse(end);
-    return gameService.getFilteredGames(startDate, endDate, teams);
+
+    List<String> teamList = List.of(teams.split(","));
+    return gameService.getFilteredGames(startDate, endDate, teamList);
 }
 
 
@@ -45,4 +47,6 @@ public List<GameModel> getGamesFiltered(
 //     }
 
 // }
+
+
 

@@ -133,4 +133,36 @@ public class GameService {
 //     int currentSeason = Year.now().getValue();
 //     String url = "https://api.sportsdata.io/v3/mlb/scores/json/Games/" + currentSeason + "?key=" + apiKey;
 
-//     Htt
+//     HttpHeaders headers = new HttpHeaders();
+//     headers.set("Authorization", "Bearer " + apiKey);
+
+//     HttpEntity<String> entity = new HttpEntity<>(headers);
+
+//     System.out.println("Sending request to SportsData API...");
+
+//     long apiCallStart = System.currentTimeMillis();
+//     ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET, entity, String.class);
+//     long apiCallEnd = System.currentTimeMillis();
+
+//     System.out.println("API call duration: " + (apiCallEnd - apiCallStart) + " ms");
+
+//     List<GameModel> games = new ArrayList<>();
+//     String jsonResponse = response.getBody();
+
+//     if (jsonResponse != null) {
+//         long parsingStart = System.currentTimeMillis();
+//         ObjectMapper mapper = new ObjectMapper();
+//         games = mapper.readValue(jsonResponse, new TypeReference<List<GameModel>>() {});
+//         long parsingEnd = System.currentTimeMillis();
+
+//         System.out.println("JSON parsing duration: " + (parsingEnd - parsingStart) + " ms");
+//     }
+
+//     long endTime = System.currentTimeMillis();
+//     System.out.println("Total fetchGamesFromApi() time: " + (endTime - startTime) + " ms");
+
+//     return games;
+   
+//     }
+// }
+
