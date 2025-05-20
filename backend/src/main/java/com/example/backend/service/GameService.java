@@ -72,7 +72,13 @@ public class GameService {
     public List<GameModel> getFilteredGames(LocalDate start, LocalDate end, List<String> teams) {
         System.out.println("Filtering games from " + start + " to " + end);
         System.out.println("Target teams: " + teams);
-        System.out.println("Total cached games: " + cachedGames.size());
+        
+
+        List<String> lowerCaseTeams = teams.stream()
+        .map(String::toLowerCase)
+        .toList();
+    System.out.println("Filtering against teams (lowercase): " + lowerCaseTeams);
+    System.out.println("Total cached games: " + cachedGames.size());
     
         List<GameModel> filteredGames = cachedGames.stream()
             .filter(game -> {
@@ -127,36 +133,4 @@ public class GameService {
 //     int currentSeason = Year.now().getValue();
 //     String url = "https://api.sportsdata.io/v3/mlb/scores/json/Games/" + currentSeason + "?key=" + apiKey;
 
-//     HttpHeaders headers = new HttpHeaders();
-//     headers.set("Authorization", "Bearer " + apiKey);
-
-//     HttpEntity<String> entity = new HttpEntity<>(headers);
-
-//     System.out.println("Sending request to SportsData API...");
-
-//     long apiCallStart = System.currentTimeMillis();
-//     ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET, entity, String.class);
-//     long apiCallEnd = System.currentTimeMillis();
-
-//     System.out.println("API call duration: " + (apiCallEnd - apiCallStart) + " ms");
-
-//     List<GameModel> games = new ArrayList<>();
-//     String jsonResponse = response.getBody();
-
-//     if (jsonResponse != null) {
-//         long parsingStart = System.currentTimeMillis();
-//         ObjectMapper mapper = new ObjectMapper();
-//         games = mapper.readValue(jsonResponse, new TypeReference<List<GameModel>>() {});
-//         long parsingEnd = System.currentTimeMillis();
-
-//         System.out.println("JSON parsing duration: " + (parsingEnd - parsingStart) + " ms");
-//     }
-
-//     long endTime = System.currentTimeMillis();
-//     System.out.println("Total fetchGamesFromApi() time: " + (endTime - startTime) + " ms");
-
-//     return games;
-   
-//     }
-// }
-
+//     Htt
