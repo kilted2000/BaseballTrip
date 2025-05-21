@@ -22,6 +22,11 @@ public class GameController {
     @Autowired
     private GameService gameService;
 
+    @GetMapping("/test")
+    public ResponseEntity<String> test() {
+        return ResponseEntity.ok("API is working!");
+    }
+
     @GetMapping("/games")
     public ResponseEntity<?> getGamesFiltered(
         @RequestParam String start,
@@ -58,7 +63,7 @@ public class GameController {
 //         //return gameService.fetchGamesFromApi();
 //     }
 
-// }
+ }
 
 
 
