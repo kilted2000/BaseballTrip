@@ -1,6 +1,5 @@
 package com.example.backend.model;
 
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -13,23 +12,27 @@ import jakarta.persistence.Id;
 @JsonIgnoreProperties(ignoreUnknown = true) 
 public class GameModel {
 
-     @Id
+    @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id; 
+    
     @JsonProperty("GameID")
     private Long gameId; 
-     @JsonProperty("HomeTeam")
-    private String HomeTeam;
+    
+    @JsonProperty("HomeTeam")
+    private String homeTeam;
+    
+    
     @JsonProperty("DateTime")
-    private String DateTime;
+    private String dateTime;
 
     public GameModel() {
     }
 
-    public GameModel(Long gameId, String HomeTeam, String DateTime) {
+    public GameModel(Long gameId, String homeTeam, String awayTeam, String dateTime) {
         this.gameId = gameId;
-        this.HomeTeam = HomeTeam;
-        this.DateTime = DateTime;
+        this.homeTeam = homeTeam;
+        this.dateTime = dateTime;
     }
 
     public Long getId() {
@@ -49,18 +52,20 @@ public class GameModel {
     }
 
     public String getHomeTeam() {
-        return HomeTeam;
+        return homeTeam;
     }
 
-    public void setHomeTeam(String HomeTeam) {
-        this.HomeTeam = HomeTeam;
+    public void setHomeTeam(String homeTeam) {
+        this.homeTeam = homeTeam;
+    
     }
 
     public String getDate() {
-        return DateTime;
+        return dateTime;
     }
-    public void setDate(String DateTime) {
-            this.DateTime = DateTime;
+
+    public void setDate(String dateTime) {
+        this.dateTime = dateTime;
     }
 }
 

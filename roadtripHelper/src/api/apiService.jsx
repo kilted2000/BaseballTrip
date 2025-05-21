@@ -1,9 +1,8 @@
-
 const API_URL = import.meta.env.VITE_BACKEND_URL;
 
 export const getGames = async (teams, startDate, endDate) => {
-    const teamParams = teams.map(team => `teams=${team}`).join('&');
-    const url = `${API_URL}/games?start=${startDate}&end=${endDate}&${teamParams}`;
+    const teamsParam = teams.join(',');
+    const url = `${API_URL}/games?start=${startDate}&end=${endDate}&teams=${teamsParam}`;
 
     try {
         console.log("Fetching filtered games from backend...");
