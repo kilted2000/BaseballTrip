@@ -2,6 +2,7 @@ import { useState } from "react";
 import "./App.css";
 import GameFinder from "./components/GameFinder";
 import LandingPage from "./components/LandingPage";
+
 import Spinner from "./components/Spinner";
 import { Results } from "./components/Results";
 import {
@@ -23,6 +24,7 @@ function App() {
       <SignedIn>
         <div className="App">
           <header className="App-header">
+          
           {showForm ? (
               <GameFinder 
                 setIsLoading={setIsLoading} 

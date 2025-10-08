@@ -16,6 +16,9 @@
     width: 100%;
     
 }
+.info{
+    background-color: darkolivegreen;
+}
 .mainTitle{
     color: white;
     font-weight: 900;
