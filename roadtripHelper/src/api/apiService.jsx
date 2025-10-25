@@ -26,3 +26,15 @@ export const getGames = async () => {
         throw error;
     }
 };
+
+export async function queryAI(prompt) {
+  const response = await fetch('http://localhost:8080/api/ai/query', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ prompt }),
+  });
+  if (!response.ok) {
+    throw new Error('AI API error');
+  }
+  return response.text(); // or response.json() if you return JSON
+}

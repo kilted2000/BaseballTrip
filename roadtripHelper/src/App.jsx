@@ -5,10 +5,12 @@ import LandingPage from "./components/LandingPage";
 
 import Spinner from "./components/Spinner";
 import { Results } from "./components/Results";
+
 import {
   SignedIn,
   SignedOut,
 } from "@clerk/clerk-react";
+
 function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [results, setResults] = useState([]);
@@ -38,6 +40,7 @@ function App() {
             )}
            
           </header>
+         
         </div>
       </SignedIn>
     </>
