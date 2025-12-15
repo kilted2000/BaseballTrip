@@ -25,6 +25,12 @@ public class SearchService {
     public List<Search> getSearchesByCrewId(Long crewId) {
         return searchRepository.findByCrewId(crewId);
     }
+
+    public Search getSearchById(Long id) {
+    return searchRepository.findById(id)
+        .orElse(null); // or throw an exception
+}
+
 }
 
 

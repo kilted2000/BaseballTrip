@@ -29,21 +29,27 @@ public class AIService {
                 .build();
     }
 
-    public Mono<String> getAIResponse(String userPrompt) {
-        var requestBody = Map.of(
-            "model", model,
-            "messages", List.of(
-                Map.of(
-                    "role", "system",
-                    "content", "You are a helpful baseball trip planning assistant."
-                ),
-                Map.of(
-                    "role", "user", 
-                    "content", userPrompt
-                )
+public Mono<String> getAIResponse(String userPrompt) {
+    var requestBody = Map.of(
+        "model", model,
+        "messages", List.of(
+            Map.of(
+                "role", "system",
+                "content", """
+                    You are an agentic baseball road trip planner.
+                    You analyze saved searches and MLB schedules.
+                    You suggest itineraries, stadium facts, travel tips, and nearby attractions.
+                    You format answers clearly using sections and bullet points.
+                    If dates or teams are unclear, make reasonable assumptions.
+                    """
             ),
-            "temperature", 0.7
-        );
+            Map.of(
+                "role", "user",
+                "content", userPrompt
+            )
+        ),
+        "temperature", 0.7
+    );
 
         return webClient.post()
                 .uri("/v1/chat/completions")

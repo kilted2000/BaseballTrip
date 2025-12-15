@@ -42,5 +42,11 @@ public class SearchController {
     public List<Search> getSearchesByCrew(@PathVariable Long crewId) {
         return searchService.getSearchesByCrewId(crewId);
     }
+
+    @GetMapping("/{searchId}")
+public Search getSearchById(@PathVariable Long searchId) {
+    return searchService.getSearchById(searchId);
+}
+
 }
 

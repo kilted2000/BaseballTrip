@@ -1,8 +1,18 @@
+import { mockGames } from "../mock/mockGames";
+
+const USE_MOCK_DATA = true; // ← flip this later
 
 const API_URL = import.meta.env.VITE_BACKEND_URL;
 
 
 export const getGames = async () => {
+  if (USE_MOCK_DATA) {
+     console.log("Using mock games");
+    return mockGames;
+  }
+
+  const res = await fetch("/api/games");
+  return res.json();
     try {
         console.log("Fetching games...");
         const response = await fetch(`${API_URL}/games`, {
@@ -27,14 +37,24 @@ export const getGames = async () => {
     }
 };
 
-export async function queryAI(prompt) {
-  const response = await fetch('http://localhost:8080/api/ai/query', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ prompt }),
+export async function queryAI({ userPrompt, searchContext, games }) {
+  const response = await fetch(`${API_URL}/ai/query`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      userPrompt,
+      searchContext,
+      games
+    }),
   });
+
   if (!response.ok) {
-    throw new Error('AI API error');
+    throw new Error("AI API error");
   }
-  return response.text(); // or response.json() if you return JSON
+
+  return response.text();
 }
+
+
+  
+

@@ -5,13 +5,19 @@ import teams from "../TeamList.json";
 import { DatePicker } from "./DatePicker";
 import { UserButton } from "@clerk/clerk-react";
 import ChatBot from "./ChatBot";
+import Spinner from "./Spinner";
+import { useNavigate } from "react-router-dom";
+const GameFinder = () => {
 
-const GameFinder = ({ setIsLoading, setResults, setShowForm }) => {
+
+const navigate = useNavigate();
+const [isLoading, setIsLoading] = useState(false);
+
   const [dateRange, setDateRange] = useState({
     startDate: new Date(),
     endDate: new Date(new Date().setDate(new Date().getDate() + 7)),
   });
-  const [homeTeams, setHomeTeams] = useState([]);
+  // const [homeTeams, setHomeTeams] = useState([]);
   const [showChat, setShowChat] = useState(false);
 
   const { register, handleSubmit } = useForm();
@@ -31,49 +37,82 @@ const GameFinder = ({ setIsLoading, setResults, setShowForm }) => {
     return gameDate >= startDate && gameDate <= endDate;
   };
 
-  const onSubmit = async ({ teamOne, teamTwo, teamThree, teamFour }) => {
-    setIsLoading(true);
-    setShowForm(false);
+const onSubmit = async ({ teamOne, teamTwo, teamThree, teamFour }) => {
+  setIsLoading(true);
 
-    const enteredTeams = [teamOne, teamTwo, teamThree, teamFour]
-      .map((team) => team?.trim().toLowerCase())
-      .filter((team) => team.length > 0);
+  const enteredTeams = [teamOne, teamTwo, teamThree, teamFour]
+    .map((team) => team?.trim().toLowerCase())
+    .filter((team) => team.length > 0);
 
-    if (enteredTeams.length === 0) {
-      console.error("No valid teams entered.");
-      setIsLoading(false);
-      setShowForm(true);
-      return;
-    }
+  if (enteredTeams.length === 0) {
+    console.error("No valid teams entered.");
+    setIsLoading(false);
+    return;
+  }
 
-    const teamAbbreviations = enteredTeams.map(formatTeamName).filter(Boolean);
-    setHomeTeams(teamAbbreviations);
-    await fetchGames(teamAbbreviations);
-  };
+  const teamAbbreviations = enteredTeams.map(formatTeamName).filter(Boolean);
+  // setHomeTeams(teamAbbreviations);
 
-  const fetchGames = async (teams) => {
-    try {
-      const data = await getGames();
-      const filteredGames = data.filter((game) => {
-        const gameDate = new Date(game.DateTime);
-        return (
-          teams.includes(game.HomeTeam) &&
-          isWithinDateRange(gameDate, dateRange.startDate, dateRange.endDate)
-        );
-      });
-      setResults(filteredGames);
-    } catch (error) {
-      console.error("Failed to fetch games:", error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  await fetchGames(teamAbbreviations);
+};
+
+  // const fetchGames = async (teams) => {
+  //   try {
+  //     const data = await getGames();
+  //     const filteredGames = data.filter((game) => {
+  //       const gameDate = new Date(game.DateTime);
+  //       return (
+  //         teams.includes(game.HomeTeam) &&
+  //         isWithinDateRange(gameDate, dateRange.startDate, dateRange.endDate)
+  //       );
+  //     });
+  //     setResults(filteredGames);
+  //   } catch (error) {
+  //     console.error("Failed to fetch games:", error);
+  //   } finally {
+  //     setIsLoading(false);
+  //   }
+  // };
+const fetchGames = async (teams) => {
+  try {
+    const data = await getGames();
+
+    const filteredGames = data.filter((game) => {
+      const gameDate = new Date(game.DateTime);
+      return (
+        teams.includes(game.HomeTeam) &&
+        isWithinDateRange(gameDate, dateRange.startDate, dateRange.endDate)
+      );
+    });
+
+    navigate("/results", {
+      state: { results: filteredGames }
+    });
+
+  } catch (error) {
+    console.error("Failed to fetch games:", error);
+  } finally {
+    setIsLoading(false);
+  }
+};
+
+
+if (isLoading) {
+  return <Spinner />;
+}
 
   return (
     <div>
       <div className="bg-[url('/stadium.jpg')] bg-cover bg-repeat-y object-cover justify-center items-center flex flex-col h-dvh">
         <div className="navbar navbar-center bg-base-300 mt-12 md:mt-0">
           <a className="btn btn-ghost text-xl">Baseball Bucketlist</a>
+         <button
+  type="button"
+  onClick={() => navigate("/profile")}
+  className="btn btn-ghost"
+>
+  Profile
+</button>
           <div className="ml-auto">
             <UserButton className="absolute top-0 right-0 mt-4 mx-4 text-sky-500" />
           </div>
