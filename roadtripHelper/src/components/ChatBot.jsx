@@ -1,16 +1,13 @@
 import { useState } from "react";
 
-export default function ChatBot({ search, games }) {
+export default function ChatBot({ search = null, games = [] }) {
   const [input, setInput] = useState("");
   const [reply, setReply] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
   const handleSend = async () => {
-    if (!search || !games) {
-      setError("Search data not loaded yet");
-      return;
-    }
+
 
     if (!input.trim()) return;
 
@@ -20,29 +17,27 @@ export default function ChatBot({ search, games }) {
 
     try {
       const fullPrompt = `
+You are Tubey, a helpful assistant for planning MLB road trips and baseball travel.
+
 USER QUESTION:
 ${input}
 
-SAVED SEARCH:
-Title: ${search?.title || "Untitled"}
-Teams: ${search?.teams || "Unknown"}
-Date Range: ${search?.startDate || "?"} → ${search?.endDate || "?"}
+${search ? `
+SAVED SEARCH CONTEXT:
+Teams: ${search.teams}
+Date Range: ${search.startDate} → ${search.endDate}
+` : ""}
 
-GAMES:
-${
-  games?.length
-    ? games
-        .map(
-          (g) =>
-            `- Date: ${g.DateTime}
-      Matchup: ${g.AwayTeam} at ${g.HomeTeam}
-      Stadium: ${g.Stadium}`
-        )
+${games?.length ? `
+GAMES CONTEXT:
+${games.map(g =>
+  `- ${g.AwayTeam} at ${g.HomeTeam} (${g.Stadium}) on ${g.DateTime}`
+).join("\n")}
+` : ""}
 
-        .join("\n")
-    : "No games available"
-}
+If no search or game context is provided, answer generally.
 `;
+
 
       const res = await fetch(
         `${import.meta.env.VITE_BACKEND_URL}/api/ai/query`,

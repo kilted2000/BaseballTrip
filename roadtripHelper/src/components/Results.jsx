@@ -4,9 +4,9 @@ import { useUser } from "@clerk/clerk-react";
 import { getOrCreateCrewId } from "../api/crewService";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import ChatBot from "../components/ChatBot";
 
-export const Results = () => {
+
+export const Results = ({ setAiContext }) => {
   const navigate = useNavigate();
   const { state } = useLocation();
   
@@ -50,6 +50,31 @@ export const Results = () => {
     .map(date => formatDate(date));
   
   const uniqueTeams = [...new Set(results.map(result => result.HomeTeam))];
+
+const derivedSearch = {
+  title: title || "Ad-hoc Search",
+  teams: teams.join(","),
+  startDate: startDate.toISOString().split("T")[0],
+  endDate: endDate.toISOString().split("T")[0],
+};
+useEffect(() => {
+  setAiContext(prev => {
+    // prevent useless updates
+    if (
+      JSON.stringify(prev.search) === JSON.stringify(derivedSearch) &&
+      prev.games === results
+    ) {
+      return prev;
+    }
+
+    return {
+      search: derivedSearch,
+      games: results,
+    };
+  });
+}, [results, derivedSearch, setAiContext]);
+
+
 
   useEffect(() => {
     const loadCrew = async () => {
@@ -138,7 +163,7 @@ export const Results = () => {
         </table>
 
         {/* Game List (from second component) */}
-        <div>
+        {/* <div>
           <h2 className="text-xl font-bold mb-4">Game Details</h2>
           <ul className="space-y-2">
             {results.map((g, idx) => (
@@ -147,10 +172,10 @@ export const Results = () => {
               </li>
             ))}
           </ul>
-        </div>
+        </div> */}
 
-        {/* ChatBot Section */}
-        {search && <ChatBot search={search} games={results} />}
+     
+
       </div>
     </div>
   );

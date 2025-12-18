@@ -59,7 +59,7 @@ public class Search {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
+private String title;
     private String teams;
     private LocalDate startDate;
     private LocalDate endDate;
@@ -71,6 +71,7 @@ public class Search {
 
     // Getters
     public Long getId() { return id; }
+    public String getTitle() { return title; } 
     public String getTeams() { return teams; }
     public LocalDate getStartDate() { return startDate; }
     public LocalDate getEndDate() { return endDate; }
@@ -78,6 +79,7 @@ public class Search {
     public Crew getCrew() { return crew; }
 
     // Setters
+      public void setTitle(String title) { this.title = title; } 
     public void setTeams(String teams) { this.teams = teams; }
     public void setStartDate(LocalDate startDate) { this.startDate = startDate; }
     public void setEndDate(LocalDate endDate) { this.endDate = endDate; }

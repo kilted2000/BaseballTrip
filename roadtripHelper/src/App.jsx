@@ -61,8 +61,15 @@ import Spinner from "./components/Spinner";
 import { Results } from "./components/Results";
 import UserDash  from "./components/UserDash";
 import SavedSearchDetail from "./components/SavedSearchDetail";
+import { useState } from "react";
+import ChatBot from "./components/ChatBot";
 
 function App() {
+  const [aiContext, setAiContext] = useState({
+    search: null,
+    games: [],
+  });
+
   return (
     <>
       <SignedOut>
@@ -70,9 +77,21 @@ function App() {
       </SignedOut>
 
       <SignedIn>
+        {/* Navbar should live here */}
+        <ChatBot
+          search={aiContext.search}
+          games={aiContext.games}
+        />
+
         <Routes>
-          <Route path="/" element={<GameFinder />} />
-          <Route path="/results" element={<Results />} />
+          <Route
+            path="/"
+            element={<GameFinder setAiContext={setAiContext} />}
+          />
+          <Route
+            path="/results"
+            element={<Results setAiContext={setAiContext} />}
+          />
           <Route path="/profile" element={<UserDash />} />
           <Route path="/saved-search/:id" element={<SavedSearchDetail />} />
         </Routes>
@@ -80,5 +99,4 @@ function App() {
     </>
   );
 }
-
 export default App;

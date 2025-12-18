@@ -52,7 +52,17 @@ export async function queryAI({ userPrompt, searchContext, games }) {
     throw new Error("AI API error");
   }
 
-  return response.text();
+ const res = await fetch(url);
+
+if (res.status === 404 || res.status === 204) {
+  return null;
+}
+
+const text = await res.text();
+if (!text) return null;
+
+return JSON.parse(text);
+
 }
 
 

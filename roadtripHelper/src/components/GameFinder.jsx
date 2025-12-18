@@ -7,7 +7,7 @@ import { UserButton } from "@clerk/clerk-react";
 import ChatBot from "./ChatBot";
 import Spinner from "./Spinner";
 import { useNavigate } from "react-router-dom";
-const GameFinder = () => {
+const GameFinder = ({ setAiContext }) => {
 
 
 const navigate = useNavigate();
@@ -84,6 +84,10 @@ const fetchGames = async (teams) => {
         isWithinDateRange(gameDate, dateRange.startDate, dateRange.endDate)
       );
     });
+setAiContext({
+  search: null,
+  games: filteredGames,
+});
 
     navigate("/results", {
       state: { results: filteredGames }
@@ -116,15 +120,7 @@ if (isLoading) {
           <div className="ml-auto">
             <UserButton className="absolute top-0 right-0 mt-4 mx-4 text-sky-500" />
           </div>
-          <div>
-           
-              <button
-                onClick={() => setShowChat(true)}
-                className="absolute top-0 right-8 mt-4 mx-4 text-sky-200"
-              >
-                🌭Ask Tubey
-              </button>
-            </div>
+       
          
           </div>
           <form
