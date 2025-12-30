@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { getGames } from "../api/apiService";
+import NavBar from "./NavBar";
 import teams from "../TeamList.json";
 import { DatePicker } from "./DatePicker";
 import { UserButton } from "@clerk/clerk-react";
-import ChatBot from "./ChatBot";
+
 import Spinner from "./Spinner";
 import { useNavigate } from "react-router-dom";
 const GameFinder = ({ setAiContext }) => {
@@ -108,21 +109,7 @@ if (isLoading) {
   return (
     <div>
       <div className="bg-[url('/stadium.jpg')] bg-cover bg-repeat-y object-cover justify-center items-center flex flex-col h-dvh">
-        <div className="navbar navbar-center bg-base-300 mt-12 md:mt-0">
-          <a className="btn btn-ghost text-xl">Baseball Bucketlist</a>
-         <button
-  type="button"
-  onClick={() => navigate("/profile")}
-  className="btn btn-ghost"
->
-  Profile
-</button>
-          <div className="ml-auto">
-            <UserButton className="absolute top-0 right-0 mt-4 mx-4 text-sky-500" />
-          </div>
-       
-         
-          </div>
+     
           <form
             onSubmit={handleSubmit(onSubmit)}
             className="bg-gradient-to-r from-emerald-700 via-teal-700 to-cyan-600 bg-no-repeat shadow-2xl shadow-green-900 place-items-center card-body"
@@ -208,18 +195,7 @@ if (isLoading) {
           </form>
      
       </div>
-      {showChat && (
-        <dialog open className="modal">
-          <div className="modal-box">
-            <ChatBot />
-            <div className="modal-action">
-              <button className="btn" onClick={() => setShowChat(false)}>
-                Close
-              </button>
-            </div>
-        </div>
-        </dialog>
-      )}
+  
     </div>
   );
 };
