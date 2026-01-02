@@ -8,6 +8,6 @@ import com.example.backend.model.Search;
 
 public interface SearchRepository extends JpaRepository<Search, Long> {
     List<Search> findByCrewId(Long crewId);
-    // Optional<Search> findById(Long id);
+  
 
 }

@@ -1,45 +1,4 @@
-// package com.example.backend.model;
 
-// import java.time.LocalDate;
-// import java.time.LocalDateTime;
-
-// import jakarta.persistence.Entity;
-// import jakarta.persistence.GeneratedValue;
-// import jakarta.persistence.GenerationType;
-// import jakarta.persistence.Id;
-// import jakarta.persistence.JoinColumn;
-// import jakarta.persistence.ManyToOne;
-
-// @Entity
-// public class Search {
-
-//     @Id
-//     @GeneratedValue(strategy = GenerationType.AUTO)
-//     private Long id;
-
-   
-//     private String teams; 
-   
-//     private LocalDate startDate;
-    
-//     private LocalDate endDate;
-//     private LocalDateTime savedAt;
-
-//     @ManyToOne
-//     @JoinColumn(name = "crew_id")
-//     private Crew crew;
-
-//     public void setCrew(Crew crew) {
-//         this.crew = crew;
-//     }
-
-//     // Getters and setters...
-
-//  public void setSavedAt(LocalDateTime savedAt) {
-//     this.savedAt = savedAt;
-// }
-
-// }
 
  package com.example.backend.model;
 
@@ -69,7 +28,7 @@ private String title;
     @JoinColumn(name = "crew_id")
     private Crew crew;
 
-    // Getters
+   
     public Long getId() { return id; }
     public String getTitle() { return title; } 
     public String getTeams() { return teams; }
@@ -78,7 +37,7 @@ private String title;
     public LocalDateTime getSavedAt() { return savedAt; }
     public Crew getCrew() { return crew; }
 
-    // Setters
+    
       public void setTitle(String title) { this.title = title; } 
     public void setTeams(String teams) { this.teams = teams; }
     public void setStartDate(LocalDate startDate) { this.startDate = startDate; }

@@ -1,27 +1,20 @@
 import { UserButton } from "@clerk/clerk-react";
-import { saveSearch } from "../api/searchService";
+import { saveSearch, getSearchesByCrew } from "../api/searchService";
 import { useUser } from "@clerk/clerk-react";
 import { getOrCreateCrewId } from "../api/crewService";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
-
 export const Results = ({ setAiContext }) => {
   const navigate = useNavigate();
   const { state } = useLocation();
-  
-  // Support both data structures
-  const results = state?.results || state?.games || [];
-  const search = state?.search;
 
+  const results = state?.results || state?.games || [];
   const [title, setTitle] = useState("");
   const { user } = useUser();
   const [crewId, setCrewId] = useState(null);
 
-  // Early return if no results
-  if (!results.length) {
-    return <p className="p-4">No results to display.</p>;
-  }
+  if (!results.length) return <p className="p-4">No results to display.</p>;
 
   const teams = [...new Set(results.map(r => r.HomeTeam))];
 
@@ -36,45 +29,13 @@ export const Results = ({ setAiContext }) => {
   );
 
   const formatDate = (dateString) => {
-    const options = {
-      weekday: "short",
-      year: "numeric",
-      month: "short",
-      day: "numeric",
-    };
+    const options = { weekday: "short", year: "numeric", month: "short", day: "numeric" };
     return new Date(dateString).toLocaleDateString("en-US", options);
   };
 
-  const uniqueDates = [...new Set(results.map(result => result.DateTime))]
+  const uniqueDates = [...new Set(results.map(r => r.DateTime))]
     .sort((a, b) => new Date(a) - new Date(b))
-    .map(date => formatDate(date));
-  
-  const uniqueTeams = [...new Set(results.map(result => result.HomeTeam))];
-
-const derivedSearch = {
-  title: title || "Ad-hoc Search",
-  teams: teams.join(","),
-  startDate: startDate.toISOString().split("T")[0],
-  endDate: endDate.toISOString().split("T")[0],
-};
-useEffect(() => {
-  setAiContext(prev => {
-    // prevent useless updates
-    if (
-      JSON.stringify(prev.search) === JSON.stringify(derivedSearch) &&
-      prev.games === results
-    ) {
-      return prev;
-    }
-
-    return {
-      search: derivedSearch,
-      games: results,
-    };
-  });
-}, [results, derivedSearch, setAiContext]);
-
-
+    .map(formatDate);
 
   useEffect(() => {
     const loadCrew = async () => {
@@ -94,26 +55,18 @@ useEffect(() => {
     const searchData = {
       title,
       teams: teams.join(","),
-      startDate,
-      endDate,
+      startDate: startDate.toISOString().split("T")[0],
+      endDate: endDate.toISOString().split("T")[0],
+      crew: { id: crewId }
     };
 
-    await saveSearch(crewId, searchData);
+    await saveSearch(searchData);
     alert("Search saved!");
   };
 
   return (
     <div className="bg-emerald-900 text-slate-200 rounded-lg overflow-x-auto w-full">
-      <div className="navbar bg-base-300 mt-0">
-        <a className="btn btn-ghost text-xl">Baseball Bucketlist</a>
-        <div className="ml-auto">
-          <UserButton className="absolute top-0 right-0 mt-4 mx-4 text-sky-500" />
-          <button onClick={() => navigate("/")}>Back</button>
-        </div>
-      </div>
-
       <div className="p-4 space-y-6">
-        {/* Save Search Section */}
         <div className="flex items-center gap-2">
           <input
             type="text"
@@ -121,7 +74,7 @@ useEffect(() => {
             className="input input-bordered w-full max-w-xs"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
-          /> 
+          />
           <button
             onClick={handleSaveSearch}
             className="btn btn-primary"
@@ -131,54 +84,31 @@ useEffect(() => {
           </button>
         </div>
 
-        {/* Results Table */}
         <table className="table w-full">
           <thead>
             <tr>
-              <th></th> 
-              {uniqueTeams.map((team, index) => (
-                <th key={index} className="text-center">{team}</th>
-              ))}
+              <th></th>
+              {teams.map((team, i) => <th key={i} className="text-center">{team}</th>)}
             </tr>
           </thead>
           <tbody>
-            {uniqueDates.map((date, dateIndex) => (
-              <tr key={dateIndex} className="hover">
+            {uniqueDates.map((date, i) => (
+              <tr key={i} className="hover">
                 <td className="font-bold">{date}</td>
-                {uniqueTeams.map((team, teamIndex) => {
+                {teams.map((team, j) => {
                   const hasGame = results.some(
-                    result => 
-                      result.HomeTeam === team && 
-                      formatDate(result.DateTime) === date
+                    r => r.HomeTeam === team && formatDate(r.DateTime) === date
                   );
-                  return (
-                    <td key={teamIndex} className="text-center">
-                      {hasGame ? "🌭" : ""}
-                    </td>
-                  );
+                  return <td key={j} className="text-center">{hasGame ? "🌭" : ""}</td>;
                 })}
               </tr>
             ))}
           </tbody>
         </table>
-
-        {/* Game List (from second component) */}
-        {/* <div>
-          <h2 className="text-xl font-bold mb-4">Game Details</h2>
-          <ul className="space-y-2">
-            {results.map((g, idx) => (
-              <li key={idx} className="border p-2 rounded bg-emerald-800">
-                {g.AwayTeam} at {g.HomeTeam} — {g.Stadium}
-              </li>
-            ))}
-          </ul>
-        </div> */}
-
-     
-
       </div>
     </div>
   );
 };
 
 export default Results;
+

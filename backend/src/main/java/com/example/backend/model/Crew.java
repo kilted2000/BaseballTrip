@@ -1,55 +1,4 @@
-// package com.example.backend.model;
 
-// import jakarta.persistence.*;
-// import java.util.ArrayList;
-// import java.util.List;
-
-
-
-// @Entity
-// @Table(name = "crew")
-// public class Crew{
-
-//   @Id
-//   @GeneratedValue(strategy = GenerationType.AUTO)
-//   private Long id;
-  
-//   private String userName;
-//   private String email;
-
-//    @OneToMany(mappedBy = "crew", cascade = CascadeType.ALL, orphanRemoval = true)
-//     private List<Search> searches = new ArrayList<>();
-
-//   public Crew() {
-//   }
-  
-//   public Crew(String userName, String email) {
-//     this.userName = userName;
-//     this.email = email;
-//   }
-  
-//   public Long getId() {
-//     return id;
-//   }
-  
-//   public String getUserName() {
-//     return userName;
-//   }
-
-//   public String getEmail() {
-//     return email;
-// }
-
-// public List<Search> getSearches() {
-//     return searches;
-// }
-
-// public void addSearch(Search search) {
-//     searches.add(search);
-//     search.setCrew(this);
-// }
-
-// }
 package com.example.backend.model;
 
 import java.util.ArrayList;
@@ -71,12 +20,16 @@ import jakarta.persistence.Table;
 public class Crew {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String userName;
 
     private String email;
+    private String favTeam;
+
+public String getFavTeam() { return favTeam; }
+
 
     @Column(nullable = false, unique = true)
     private String clerkUserId;
@@ -87,29 +40,38 @@ public class Crew {
 
     public Crew() {}
 
-    // New constructor including clerkUserId
+    
     public Crew(String userName, String email, String clerkUserId) {
         this.userName = userName;
         this.email = email;
         this.clerkUserId = clerkUserId;
     }
 
-    // Getters
+   
     public Long getId() { return id; }
     public String getUserName() { return userName; }
     public String getEmail() { return email; }
     public String getClerkUserId() { return clerkUserId; }
     public List<Search> getSearches() { return searches; }
 
-    // Setters
+   
     public void setUserName(String userName) { this.userName = userName; }
     public void setEmail(String email) { this.email = email; }
     public void setClerkUserId(String clerkUserId) { this.clerkUserId = clerkUserId; }
 
-    // Helper
+    
     public void addSearch(Search search) {
         searches.add(search);
         search.setCrew(this);
     }
+
+public void setFavTeam(String favTeam) {
+    this.favTeam = favTeam;
+}
+
+    public void setSearches(List<Search> searches) {
+        this.searches = searches;
+    }
+
 }
 

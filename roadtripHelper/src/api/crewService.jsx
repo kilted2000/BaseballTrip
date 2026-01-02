@@ -1,8 +1,11 @@
 const API_URL = import.meta.env.VITE_BACKEND_URL;
 
-// Get a crew by email
 export const getCrewByEmail = async (email) => {
-  const res = await fetch(`${API_URL}/crews/by-email/${email}`);
+  const encodedEmail = encodeURIComponent(email);
+
+  const res = await fetch(
+    `${API_URL}/api/crews/by-email/${encodedEmail}`
+  );
 
   if (!res.ok) return null;
 
@@ -12,37 +15,38 @@ export const getCrewByEmail = async (email) => {
   return JSON.parse(text);
 };
 
-// Create a new crew
+
 export const createCrew = async (email, clerkUserId) => {
-  const res = await fetch(`${API_URL}/crews`, {
+  const res = await fetch(`${API_URL}/api/crews`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ email, clerkUserId }),
   });
 
-  if (!res.ok) {
-    throw new Error("Failed to create crew");
-  }
-
+  if (!res.ok) throw new Error("Failed to create crew");
   return res.json();
 };
 
-// Get existing crew or create a new one
+export const updateFavTeam = async (crewId, favTeam) => {
+  const res = await fetch(`${API_URL}/api/crews/${crewId}`, {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ favTeam }),
+  });
+  if (!res.ok) throw new Error("Failed to update fav team");
+  return res.json();
+};
+
 export const getOrCreateCrewId = async (user) => {
   if (!user) return null;
-
   const email = user.primaryEmailAddress?.emailAddress;
   if (!email) return null;
-
   const clerkUserId = user.id;
 
   let crew = await getCrewByEmail(email);
-
-  if (!crew) {
-    crew = await createCrew(email, clerkUserId);
-  }
-
+  if (!crew) crew = await createCrew(email, clerkUserId);
   return crew.id;
 };
+
 
 

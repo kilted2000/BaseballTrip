@@ -60,12 +60,11 @@ import NavBar from "./components/NavBar";
 import GameFinder from "./components/GameFinder";
 import Spinner from "./components/Spinner";
 import { Results } from "./components/Results";
-import UserDash  from "./components/UserDash";
+
 import SavedSearchDetail from "./components/SavedSearchDetail";
 import { useState } from "react";
 import ChatBot from "./components/ChatBot";
-import { UserProfile } from '@clerk/clerk-react'
-
+import Userprofile from "./components/UserProfilePage";
 function App() {
   const [aiContext, setAiContext] = useState({
     search: null,
@@ -99,7 +98,7 @@ function App() {
               />
             }
           />
-          <Route path="/profile" element={<UserProfile />} />
+          <Route path="/profile" element={<Userprofile/>} />
           <Route path="/saved-search/:id" element={<SavedSearchDetail />} />
         </Routes>
         </div>

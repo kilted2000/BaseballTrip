@@ -31,6 +31,14 @@ public class SearchService {
         .orElse(null); // or throw an exception
 }
 
+ public void deleteSearch(Long id) {
+    if (!searchRepository.existsById(id)) {
+        throw new RuntimeException("Search not found with id: " + id);
+    }
+    searchRepository.deleteById(id);
+}
+
+
 }
 
 
