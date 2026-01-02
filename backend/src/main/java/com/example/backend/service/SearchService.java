@@ -28,7 +28,7 @@ public class SearchService {
 
     public Search getSearchById(Long id) {
     return searchRepository.findById(id)
-        .orElse(null); // or throw an exception
+        .orElse(null); 
 }
 
  public void deleteSearch(Long id) {

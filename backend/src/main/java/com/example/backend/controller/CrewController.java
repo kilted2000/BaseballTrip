@@ -40,44 +40,42 @@ public class CrewController {
         return ResponseEntity.ok(crew);
     }
 
-  
     @PostMapping
     public Crew createCrew(@RequestBody Crew crew) {
         return crewService.saveCrew(crew);
     }
 
-    
+    @PatchMapping("/{crewId}")
+    public Crew updateCrew(@PathVariable Long crewId,
+                           @RequestBody Map<String, String> updates) {
 
-@PatchMapping("/{crewId}")
-public Crew updateFavTeam(@PathVariable Long crewId,
-                          @RequestBody Map<String, String> updates) {
-
-    if (crewId == null) {
-        throw new ResponseStatusException(
-            HttpStatus.BAD_REQUEST,
-            "Crew ID must not be null"
-        );
-    }
-
-    Crew crew = crewRepository.findById(crewId)
-            .orElseThrow(() ->
-                new ResponseStatusException(
-                    HttpStatus.NOT_FOUND,
-                    "Crew not found with id " + crewId
-                )
+        if (crewId == null) {
+            throw new ResponseStatusException(
+                HttpStatus.BAD_REQUEST,
+                "Crew ID must not be null"
             );
+        }
 
-    String favTeam = updates.get("favTeam");
-    if (favTeam != null) {
-        crew.setFavTeam(favTeam);
+        Crew crew = crewRepository.findById(crewId)
+                .orElseThrow(() ->
+                    new ResponseStatusException(
+                        HttpStatus.NOT_FOUND,
+                        "Crew not found with id " + crewId
+                    )
+                );
+
+       
+        String favTeam = updates.get("favTeam");
+        if (favTeam != null) {
+            crew.setFavTeam(favTeam);
+        }
+
+       
+        String username = updates.get("username");
+        if (username != null) {
+            crew.setUserName(username);
+        }
+
+        return crewService.saveCrew(crew);
     }
-
-    return crewService.saveCrew(crew);
 }
-}
-
-
-
-
-
-

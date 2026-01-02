@@ -1,6 +1,6 @@
 import { mockGames } from "../mock/mockGames";
 
-const USE_MOCK_DATA = true; // ← flip this later
+const USE_MOCK_DATA = true; 
 
 const API_URL = import.meta.env.VITE_BACKEND_URL;
 

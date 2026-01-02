@@ -1,4 +1,4 @@
-// Add this function to your searchService.jsx file
+
 
 const API_URL = import.meta.env.VITE_BACKEND_URL;
 
@@ -45,7 +45,7 @@ export const deleteSearch = async (searchId) => {
     throw new Error(`Failed to delete search: ${response.statusText}`);
   }
   
-  // Check if response has content before parsing JSON
+ 
   const text = await response.text();
   return text ? JSON.parse(text) : { success: true };
 };

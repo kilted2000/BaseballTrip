@@ -55,7 +55,7 @@ public class SearchController {
         return searchService.saveSearch(search);
     }
 
-    // GET single search by ID
+    
     @GetMapping("/{id}")
     public ResponseEntity<Search> getSearchById(@PathVariable Long id) {
         Search search = searchService.getSearchById(id);
@@ -70,13 +70,13 @@ public class SearchController {
         return ResponseEntity.ok(search);
     }
 
-    // GET searches by crew ID - matching frontend endpoint
+    
     @GetMapping("/crew/{crewId}")
     public List<Search> getSearchesByCrew(@PathVariable Long crewId) {
         return searchService.getSearchesByCrewId(crewId);
     }
 
-    // Keep the old endpoint for backward compatibility
+    
     @GetMapping("/by-crew/{crewId}")
     public List<Search> getSearchesByCrewLegacy(@PathVariable Long crewId) {
         return searchService.getSearchesByCrewId(crewId);

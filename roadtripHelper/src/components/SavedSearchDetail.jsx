@@ -14,7 +14,7 @@ export default function SavedSearchDetail() {
       try {
         setLoading(true);
         
-        // Fetch the saved search data
+       
         const search = await getSearchById(id);
         
         if (!search) {
@@ -22,15 +22,15 @@ export default function SavedSearchDetail() {
           return;
         }
 
-        // Fetch all games
+        
         const games = await getGames();
 
-        // Parse the saved search parameters
+        
         const teams = search.teams.split(",").map(t => t.trim());
         const startDate = new Date(search.startDate);
         const endDate = new Date(search.endDate);
 
-        // Filter games based on saved criteria
+        
         const filteredGames = games.filter(game => {
           const gameDate = new Date(game.DateTime);
           return (
@@ -40,7 +40,7 @@ export default function SavedSearchDetail() {
           );
         });
 
-        // Navigate to results page with filtered games
+        
         navigate("/results", {
           state: { results: filteredGames }
         });

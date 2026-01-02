@@ -39,7 +39,7 @@ public class SecurityConfig {
             "https://roadtriphelper.netlify.app",  
             "https://roadtriphelper.com"         
         ));
-        // ADDED PATCH HERE - this was the missing piece!
+      
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(List.of("*"));
         config.setAllowCredentials(true);

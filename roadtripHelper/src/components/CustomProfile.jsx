@@ -1,5 +1,5 @@
 
-// CustomProfile.jsx - Main consolidated profile component
+
 import { useUser } from "@clerk/clerk-react";
 import { useState, useEffect } from "react";
 
@@ -16,7 +16,7 @@ export default function CustomProfile() {
   const [usernameInput, setUsernameInput] = useState("");
   const [isSaving, setIsSaving] = useState(false);
 
-  // Load crew data once the user is available
+  
   useEffect(() => {
     const getOrCreateCrew = async () => {
       if (!user) return;
@@ -32,13 +32,14 @@ export default function CustomProfile() {
           data = await res.json();
         }
 
-        if (!data || !data.id) {
+if (!data || !data.id) {
           res = await fetch(`${API_URL}/api/crews`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
               email,
               clerkUserId: user.id,
+              username: user.username || user.firstName || "user",
             }),
           });
 
@@ -49,8 +50,8 @@ export default function CustomProfile() {
         setCrewId(data.id);
         setFavTeam(data.favTeam || "");
         setTeamInput(data.favTeam || "");
-        setUsername(user.username || "");
-        setUsernameInput(user.username || "");
+setUsername(data.username || user.username || "");
+setUsernameInput(data.username || user.username || "");
       } catch (err) {
         console.error("Failed to load crew info:", err);
       }
@@ -83,21 +84,29 @@ export default function CustomProfile() {
     }
   };
 
-  const handleSaveUsername = async () => {
-    setIsSaving(true);
-    try {
-      await user.update({
-        username: usernameInput,
-      });
-      setUsername(usernameInput);
-      setIsEditingUsername(false);
-    } catch (err) {
-      console.error("Failed to update username:", err);
-      alert("Failed to update username. Please try again.");
-    } finally {
-      setIsSaving(false);
-    }
-  };
+const handleSaveUsername = async () => {
+  if (crewId === null) return;
+
+  setIsSaving(true);
+  try {
+    const res = await fetch(`${API_URL}/api/crews/${crewId}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ username: usernameInput }),
+    });
+
+    if (!res.ok) throw new Error("Failed to update username");
+
+    const updatedCrew = await res.json();
+    setUsername(updatedCrew.username || "");
+    setIsEditingUsername(false);
+  } catch (err) {
+    console.error("Failed to update username:", err);
+    alert("Failed to update username. Please try again.");
+  } finally {
+    setIsSaving(false);
+  }
+};
 
   if (!user) return <p className="p-8 text-center">Loading user...</p>;
   if (crewId === null) return <p className="p-8 text-center">Loading profile...</p>;
@@ -105,7 +114,7 @@ export default function CustomProfile() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 py-8 px-4">
       <div className="max-w-4xl mx-auto">
-        {/* Profile Header */}
+       
         <div className="bg-white rounded-lg shadow-lg overflow-hidden mb-6">
           <div className="bg-gradient-to-r from-blue-600 to-indigo-600 px-8 py-12 text-white flex items-center gap-6">
             <div className="relative">
@@ -123,14 +132,14 @@ export default function CustomProfile() {
           </div>
         </div>
 
-        {/* Profile Settings */}
+        
         <div className="bg-white rounded-lg shadow-lg p-6 mb-6">
           <h2 className="text-xl font-bold mb-4 flex items-center gap-2 text-gray-800">
             <span className="text-2xl">👤</span> Profile Settings
           </h2>
 
           <div className="space-y-4">
-            {/* Username */}
+           
             <div>
               <div className="flex items-center justify-between mb-2">
                 <label className="text-sm font-medium text-gray-500">Username</label>
@@ -182,7 +191,7 @@ export default function CustomProfile() {
           </div>
         </div>
 
-        {/* Baseball Preferences */}
+        
         <div className="bg-white rounded-lg shadow-lg p-6">
           <h2 className="text-xl font-bold mb-4 flex items-center gap-2 text-gray-800">
             <span className="text-2xl">⚾</span> Baseball Preferences
