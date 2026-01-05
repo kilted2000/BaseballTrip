@@ -76,9 +76,10 @@ setUsernameInput(data.username || user.username || "");
       const updatedCrew = await res.json();
       setFavTeam(updatedCrew.favTeam || "");
       setIsEditingTeam(false);
+      document.getElementById("editTeam").showModal();
     } catch (err) {
       console.error("Failed to save:", err);
-      alert("Failed to save. Please try again.");
+     document.getElementById("errorTeam").showModal();
     } finally {
       setIsSaving(false);
     }
@@ -100,9 +101,10 @@ const handleSaveUsername = async () => {
     const updatedCrew = await res.json();
     setUsername(updatedCrew.username || "");
     setIsEditingUsername(false);
+    document.getElementById("editUser").showModal();
   } catch (err) {
     console.error("Failed to update username:", err);
-    alert("Failed to update username. Please try again.");
+    document.getElementById("errorUser").showModal()
   } finally {
     setIsSaving(false);
   }
@@ -194,13 +196,13 @@ const handleSaveUsername = async () => {
         
         <div className="bg-white rounded-lg shadow-lg p-6">
           <h2 className="text-xl font-bold mb-4 flex items-center gap-2 text-gray-800">
-            <span className="text-2xl">⚾</span> Baseball Preferences
+            <span className="text-2xl">⚾</span> Favorite Team(s)
           </h2>
 
           <div className="space-y-4">
             <div>
               <div className="flex items-center justify-between mb-2">
-                <label className="text-sm font-medium text-gray-500">Favorite Teams</label>
+                
                 {!isEditingTeam && (
                   <button
                     onClick={() => setIsEditingTeam(true)}
@@ -261,7 +263,74 @@ const handleSaveUsername = async () => {
             </div>
           </div>
         </div>
+
       </div>
+      <dialog id="errorUser" className="modal modal-bottom sm:modal-middle">
+  <div className="modal-box">
+    <h3 className="font-bold text-lg">Error Updating Username</h3>
+    <div className="modal-action">
+      <form method="dialog">
+        <button
+  className="btn"
+  onClick={() => document.getElementById("errorUser").close()}
+>
+  Close
+</button>
+
+      </form>
+    </div>
+  </div>
+</dialog>
+              <dialog id="editUser" className="modal modal-bottom sm:modal-middle">
+  <div className="modal-box">
+    <h3 className="font-bold text-lg">Username Updated!</h3>
+    <div className="modal-action">
+      <form method="dialog">
+       <button
+  className="btn"
+  onClick={() => document.getElementById("editUser").close()}
+>
+  Close
+</button>
+
+      </form>
+    </div>
+  </div>
+</dialog>
+<dialog id="errorTeam" className="modal modal-bottom sm:modal-middle">
+  <div className="modal-box">
+    <h3 className="font-bold text-lg">
+      Error updating favorite team(s)
+    </h3>
+    <div className="modal-action">
+      <form method="dialog">
+        <button
+  className="btn"
+  onClick={() => document.getElementById("errorTeam").close()}
+>
+  Close
+</button>
+
+      </form>
+    </div>
+  </div>
+</dialog>
+<dialog id="editTeam" className="modal modal-bottom sm:modal-middle">
+  <div className="modal-box">
+    <h3 className="font-bold text-lg">Favorite Team(s) Updated!</h3>
+    <div className="modal-action">
+      <form method="dialog">
+        <button
+  className="btn"
+  onClick={() => document.getElementById("editTeam").close()}
+>
+  Close
+</button>
+
+      </form>
+    </div>
+  </div>
+</dialog>
     </div>
   );
 }

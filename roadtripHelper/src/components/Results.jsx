@@ -46,27 +46,28 @@ export const Results = ({ setAiContext }) => {
     loadCrew();
   }, [user]);
 
-  const handleSaveSearch = async () => {
-    if (!title.trim()) {
-      alert("Please enter a title before saving.");
-      return;
-    }
+const handleSaveSearch = async () => {
+  if (!title.trim()) {
+    document.getElementById("errorSave").showModal();
+    return;
+  }
 
-    const searchData = {
-      title,
-      teams: teams.join(","),
-      startDate: startDate.toISOString().split("T")[0],
-      endDate: endDate.toISOString().split("T")[0],
-      crew: { id: crewId }
-    };
-
-    await saveSearch(searchData);
-    alert("Search saved!");
+  const searchData = {
+    title,
+    teams: teams.join(","),
+    startDate: startDate.toISOString().split("T")[0],
+    endDate: endDate.toISOString().split("T")[0],
+    crew: { id: crewId }
   };
+
+  await saveSearch(searchData);
+  document.getElementById("saveSearch").showModal();
+};
+
 
   return (
     <div className="bg-emerald-900 text-slate-200 rounded-lg overflow-x-auto w-full">
-      <div className="p-4 space-y-6">
+      <div className="p-4 space-y-6 ">
         <div className="flex items-center gap-2">
           <input
             type="text"
@@ -106,6 +107,31 @@ export const Results = ({ setAiContext }) => {
           </tbody>
         </table>
       </div>
+<dialog id="errorSave" className="modal modal-bottom sm:modal-middle">
+  <div className="modal-box">
+    <h3 className="font-bold text-lg">
+      Please enter a title before saving.
+    </h3>
+    <div className="modal-action">
+      <form method="dialog">
+        <button className="btn">Close</button>
+      </form>
+    </div>
+  </div>
+</dialog>
+
+      <dialog id="saveSearch" className="modal modal-bottom sm:modal-middle">
+  <div className="modal-box">
+    <h3 className="font-bold text-lg">Search Saved!</h3>
+  
+    <div className="modal-action">
+      <form method="dialog">
+        <button className="btn">Close</button>
+      </form>
+    </div>
+  </div>
+</dialog>
+
     </div>
   );
 };

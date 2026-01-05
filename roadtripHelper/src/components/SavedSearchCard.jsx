@@ -5,6 +5,8 @@ import { getSearchesByCrew, deleteSearch } from "../api/searchService";
 export default function SavedSearchCard({ crewId }) {
   const [searches, setSearches] = useState([]);
   const [deletingId, setDeletingId] = useState(null);
+  const [confirmDeleteId, setConfirmDeleteId] = useState(null);
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -22,22 +24,28 @@ export default function SavedSearchCard({ crewId }) {
     loadSearches();
   }, [crewId]);
 
-  const handleDelete = async (e, searchId) => {
-    e.stopPropagation();
+const handleDelete = (e, searchId) => {
+  e.stopPropagation();
+  setConfirmDeleteId(searchId);
+  document.getElementById("confirmDelete").showModal();
+};
+const confirmDelete = async () => {
+  if (!confirmDeleteId) return;
 
-    if (!confirm("Are you sure you want to delete this saved search?")) return;
+  setDeletingId(confirmDeleteId);
+  try {
+    await deleteSearch(confirmDeleteId);
+    setSearches(prev => prev.filter(s => s.id !== confirmDeleteId));
+  } catch (err) {
+    console.error(err);
+    document.getElementById("deleteError").showModal();
+  } finally {
+    setDeletingId(null);
+    setConfirmDeleteId(null);
+    document.getElementById("confirmDelete").close();
+  }
+};
 
-    setDeletingId(searchId);
-    try {
-      await deleteSearch(searchId);
-      setSearches(prev => prev.filter(s => s.id !== searchId));
-    } catch (err) {
-      console.error(err);
-      alert("Failed to delete search.");
-    } finally {
-      setDeletingId(null);
-    }
-  };
 
   if (!crewId) {
     return <p>Loading profile…</p>;
@@ -81,6 +89,46 @@ export default function SavedSearchCard({ crewId }) {
           ))}
         </div>
       )}
+      <dialog id="deleteError" className="modal modal-bottom sm:modal-middle">
+  <div className="modal-box">
+    <h3 className="font-bold text-lg">Search not deleted.</h3>
+    <div className="modal-action">
+      <form method="dialog" className="modal-backdrop">
+       <button
+  className="btn"
+  onClick={() => document.getElementById("deleteError").close()}
+>
+  Close
+</button>
+
+      </form>
+    </div>
+  </div>
+</dialog>
+<dialog id="confirmDelete" className="modal modal-bottom sm:modal-middle">
+  <div className="modal-box">
+    <h3 className="font-bold text-lg">
+      Delete this saved search?
+    </h3>
+    <p className="py-2 text-sm text-gray-600">
+      This action cannot be undone.
+    </p>
+
+    <div className="modal-action">
+      <button
+        className="btn btn-error"
+        onClick={confirmDelete}
+      >
+        Yes, delete
+      </button>
+
+      <form method="dialog">
+        <button className="btn">Cancel</button>
+      </form>
+    </div>
+  </div>
+</dialog>
+
     </div>
   );
 }

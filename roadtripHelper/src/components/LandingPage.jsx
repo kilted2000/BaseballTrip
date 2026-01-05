@@ -136,7 +136,7 @@ const LandingPage = () => {
           <a>GitHub</a>
         </div>
         <p className="mt-2 text-center">
-          &copy; 2025 Whittington Not At All Evil Industries
+          &copy; 2026 Whittington Not At All Evil Industries
         </p>
       </div>
     </div>

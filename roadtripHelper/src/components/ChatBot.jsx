@@ -83,7 +83,7 @@ If no search or game context is provided, answer generally.
 
   return (
     <div className="p-4 max-w-xl mx-auto bg-gray-100 rounded shadow">
-      <h2 className="text-xl font-bold mb-2">Ask Tubey</h2>
+      <h2 className="text-xl font-bold mb-2 text-black">Ask Tubey</h2>
 
       <div className="flex gap-2 mb-2">
         <input
@@ -106,7 +106,7 @@ If no search or game context is provided, answer generally.
       {loading && <p className="text-gray-500 mb-2">Tubey is thinking...</p>}
       {error && <p className="text-red-500 mb-2">Error: {error}</p>}
 
-      <div className="reply-box p-2 border rounded h-dvh overflow-y-auto whitespace-pre-wrap">
+      <div className="reply-box p-2 border rounded h-dvh overflow-y-auto whitespace-pre-wrap text-black">
         {reply || (!loading && "Tubey's response will appear here.")}
       </div>
     </div>
