@@ -7,12 +7,14 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.example.backend.model.Crew;
 
 public interface CrewRepository extends JpaRepository<Crew, Long> {
-    Crew findByUserName(String userName);
-    Optional<Crew> findByEmail(String email);
+
     Optional<Crew> findByClerkUserId(String clerkUserId);
 
+    Optional<Crew> findByEmail(String email);
 
+    Crew findByUserName(String userName);
 }
+
 
 
 

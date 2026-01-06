@@ -1,69 +1,67 @@
-import { mockGames } from "../mock/mockGames";
-
-const USE_MOCK_DATA = true; 
-
 const API_URL = import.meta.env.VITE_BACKEND_URL;
 
+export const getCrewByEmail = async (email) => {
+  const encodedEmail = encodeURIComponent(email);
 
-export const getGames = async () => {
-  if (USE_MOCK_DATA) {
-     console.log("Using mock games");
-    return mockGames;
-  }
+  const res = await fetch(
+    `${API_URL}/api/crews/by-email/${encodedEmail}`
+  );
 
-  const res = await fetch("/api/games");
-  return res.json();
-    try {
-        console.log("Fetching games...");
-        const response = await fetch(`${API_URL}/games`, {
-            method: 'GET',
-            headers: {
-                "Content-Type": "application/json",
-            },
-            mode: 'cors', 
-            credentials: 'include',
-        });
+  if (!res.ok) return null;
 
-        if (!response.ok) {
-            throw new Error(`Error fetching messages: ${response.status}`);
-        }
+  const text = await res.text();
+  if (!text) return null;
 
-        const data = await response.json();
-        console.log("Data fetched: ", data);
-        return data;
-    } catch (error) {
-        console.error('Error fetching games:', error);
-        throw error;
-    }
+  return JSON.parse(text);
 };
 
-export async function queryAI({ userPrompt, searchContext, games }) {
-  const response = await fetch(`${API_URL}/ai/query`, {
+
+export const createCrew = async (email, clerkUserId) => {
+  const res = await fetch(`${API_URL}/api/crews`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      userPrompt,
-      searchContext,
-      games
-    }),
+    body: JSON.stringify({ email, clerkUserId }),
   });
 
-  if (!response.ok) {
-    throw new Error("AI API error");
-  }
+  if (!res.ok) throw new Error("Failed to create crew");
+  return res.json();
+};
+export const getGames = async () => {
+  const res = await fetch(`${API_URL}/api/games`);
+  if (!res.ok) throw new Error(`Failed to fetch games: ${res.statusText}`);
+  return res.json();
+};
 
- const res = await fetch(url);
+export const updateFavTeam = async (crewId, favTeam) => {
+  const res = await fetch(`${API_URL}/api/crews/${crewId}`, {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ favTeam }),
+  });
+  if (!res.ok) throw new Error("Failed to update fav team");
+  return res.json();
+};
+export const updateProfile = async (crewId, profileData) => {
+  const res = await fetch(`${API_URL}/api/crews/${crewId}/profile`, {  
+    method: "PATCH",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(profileData),
+  });
 
-if (res.status === 404 || res.status === 204) {
-  return null;
-}
+  if (!res.ok) throw new Error("Failed to update profile");
+  return res.json();
+};
 
-const text = await res.text();
-if (!text) return null;
+export const getOrCreateCrewId = async (user) => {
+  if (!user) return null;
+  const email = user.primaryEmailAddress?.emailAddress;
+  if (!email) return null;
+  const clerkUserId = user.id;
 
-return JSON.parse(text);
-
-}
+  let crew = await getCrewByEmail(email);
+  if (!crew) crew = await createCrew(email, clerkUserId);
+  return crew.id;
+};
 
 
   

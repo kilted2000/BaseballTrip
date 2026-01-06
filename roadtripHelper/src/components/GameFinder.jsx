@@ -77,7 +77,8 @@ const onSubmit = async ({ teamOne, teamTwo, teamThree, teamFour }) => {
 const fetchGames = async (teams) => {
   try {
     const data = await getGames();
-
+console.log("Raw API data:", data); 
+    console.log("Teams to filter:", teams);
     const filteredGames = data.filter((game) => {
       const gameDate = new Date(game.DateTime);
       return (

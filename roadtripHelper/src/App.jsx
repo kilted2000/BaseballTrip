@@ -29,7 +29,7 @@ function App() {
       </SignedOut>
 
       <SignedIn>
-         <div className="app-container">
+         <div className="app-container min-h-screen bg-[url('/stadium.jpg')] bg-cover bg-center bg-no-repeat">
         <NavBar />
         <Routes>
           <Route

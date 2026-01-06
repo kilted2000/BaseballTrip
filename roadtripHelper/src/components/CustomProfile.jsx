@@ -1,19 +1,32 @@
-
-
 import { useUser } from "@clerk/clerk-react";
 import { useState, useEffect } from "react";
+
+import { updateProfile } from "../api/apiService";
 
 const API_URL = import.meta.env.VITE_BACKEND_URL;
 
 export default function CustomProfile() {
   const { user } = useUser();
+
   const [crewId, setCrewId] = useState(null);
   const [favTeam, setFavTeam] = useState("");
   const [username, setUsername] = useState("");
-  const [isEditingTeam, setIsEditingTeam] = useState(false);
-  const [isEditingUsername, setIsEditingUsername] = useState(false);
+
+  const [foodAllergies, setFoodAllergies] = useState([]);
+  const [foodPreferences, setFoodPreferences] = useState([]);
+  const [hobbies, setHobbies] = useState([]);
+  const [interests, setInterests] = useState([]);
+
   const [teamInput, setTeamInput] = useState("");
   const [usernameInput, setUsernameInput] = useState("");
+  const [foodAllergiesInput, setFoodAllergiesInput] = useState("");
+  const [foodPreferencesInput, setFoodPreferencesInput] = useState("");
+  const [hobbiesInput, setHobbiesInput] = useState("");
+  const [interestsInput, setInterestsInput] = useState("");
+
+  const [isEditingTeam, setIsEditingTeam] = useState(false);
+  const [isEditingUsername, setIsEditingUsername] = useState(false);
+  const [isEditingProfile, setIsEditingProfile] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
 
   
@@ -25,14 +38,12 @@ export default function CustomProfile() {
       if (!email) return;
 
       try {
+       
         let res = await fetch(`${API_URL}/api/crews/by-email/${email}`);
-        let data = null;
+        let data = res.ok ? await res.json() : null;
 
-        if (res.ok) {
-          data = await res.json();
-        }
-
-if (!data || !data.id) {
+        
+        if (!data || !data.id) {
           res = await fetch(`${API_URL}/api/crews`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -42,7 +53,6 @@ if (!data || !data.id) {
               username: user.username || user.firstName || "user",
             }),
           });
-
           if (!res.ok) throw new Error("Failed to create crew");
           data = await res.json();
         }
@@ -50,8 +60,19 @@ if (!data || !data.id) {
         setCrewId(data.id);
         setFavTeam(data.favTeam || "");
         setTeamInput(data.favTeam || "");
-setUsername(data.username || user.username || "");
-setUsernameInput(data.username || user.username || "");
+        setUsername(data.username || user.username || "");
+        setUsernameInput(data.username || user.username || "");
+
+        
+        setFoodAllergies(data.foodAllergies || []);
+        setFoodPreferences(data.foodPreferences || []);
+        setHobbies(data.hobbies || []);
+        setInterests(data.interests || []);
+
+        setFoodAllergiesInput((data.foodAllergies || []).join(", "));
+        setFoodPreferencesInput((data.foodPreferences || []).join(", "));
+        setHobbiesInput((data.hobbies || []).join(", "));
+        setInterestsInput((data.interests || []).join(", "));
       } catch (err) {
         console.error("Failed to load crew info:", err);
       }
@@ -60,9 +81,61 @@ setUsernameInput(data.username || user.username || "");
     getOrCreateCrew();
   }, [user]);
 
-  const handleSaveTeam = async () => {
-    if (crewId === null) return;
+  
+const handleSaveProfile = async () => {
+  if (!crewId) return;
+  setIsSaving(true);
 
+  try {
+    
+    const profileData = {
+      username: usernameInput,
+      favTeam: teamInput,
+      foodAllergies: foodAllergiesInput.split(",").map((s) => s.trim()).filter(Boolean),
+      foodPreferences: foodPreferencesInput.split(",").map((s) => s.trim()).filter(Boolean),
+      hobbies: hobbiesInput.split(",").map((s) => s.trim()).filter(Boolean),
+      interests: interestsInput.split(",").map((s) => s.trim()).filter(Boolean),
+    };
+
+    
+    const updatedCrew = await updateProfile(crewId, profileData);
+
+    console.log("Profile updated", updatedCrew);
+
+    
+    setUsername(updatedCrew.userName);
+    setUsernameInput(updatedCrew.userName);
+
+    setFavTeam(updatedCrew.favTeam);
+    setTeamInput(updatedCrew.favTeam);
+
+    setFoodAllergies(updatedCrew.foodAllergies || []);
+    setFoodPreferences(updatedCrew.foodPreferences || []);
+    setHobbies(updatedCrew.hobbies || []);
+    setInterests(updatedCrew.interests || []);
+
+    setFoodAllergiesInput((updatedCrew.foodAllergies || []).join(", "));
+    setFoodPreferencesInput((updatedCrew.foodPreferences || []).join(", "));
+    setHobbiesInput((updatedCrew.hobbies || []).join(", "));
+    setInterestsInput((updatedCrew.interests || []).join(", "));
+
+    setIsEditingProfile(false);
+    setIsEditingUsername(false);
+    setIsEditingTeam(false);
+
+    document.getElementById("editProfile").showModal();
+  } catch (err) {
+    console.error("Failed to update profile:", err);
+    document.getElementById("errorProfile").showModal();
+  } finally {
+    setIsSaving(false);
+  }
+};
+
+
+
+  const handleSaveTeam = async () => {
+    if (!crewId) return;
     setIsSaving(true);
     try {
       const res = await fetch(`${API_URL}/api/crews/${crewId}`, {
@@ -70,48 +143,43 @@ setUsernameInput(data.username || user.username || "");
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ favTeam: teamInput }),
       });
-
-      if (!res.ok) throw new Error("Failed to update");
-
+      if (!res.ok) throw new Error("Failed to update team");
       const updatedCrew = await res.json();
       setFavTeam(updatedCrew.favTeam || "");
       setIsEditingTeam(false);
       document.getElementById("editTeam").showModal();
     } catch (err) {
-      console.error("Failed to save:", err);
-     document.getElementById("errorTeam").showModal();
+      console.error(err);
+      document.getElementById("errorTeam").showModal();
     } finally {
       setIsSaving(false);
     }
   };
 
-const handleSaveUsername = async () => {
-  if (crewId === null) return;
-
-  setIsSaving(true);
-  try {
-    const res = await fetch(`${API_URL}/api/crews/${crewId}`, {
-      method: "PATCH",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ username: usernameInput }),
-    });
-
-    if (!res.ok) throw new Error("Failed to update username");
-
-    const updatedCrew = await res.json();
-    setUsername(updatedCrew.username || "");
-    setIsEditingUsername(false);
-    document.getElementById("editUser").showModal();
-  } catch (err) {
-    console.error("Failed to update username:", err);
-    document.getElementById("errorUser").showModal()
-  } finally {
-    setIsSaving(false);
-  }
-};
+  const handleSaveUsername = async () => {
+    if (!crewId) return;
+    setIsSaving(true);
+    try {
+      const res = await fetch(`${API_URL}/api/crews/${crewId}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username: usernameInput }),
+      });
+      if (!res.ok) throw new Error("Failed to update username");
+      const updatedCrew = await res.json();
+      setUsername(updatedCrew.username || "");
+      setIsEditingUsername(false);
+      document.getElementById("editUser").showModal();
+    } catch (err) {
+      console.error(err);
+      document.getElementById("errorUser").showModal();
+    } finally {
+      setIsSaving(false);
+    }
+  };
 
   if (!user) return <p className="p-8 text-center">Loading user...</p>;
-  if (crewId === null) return <p className="p-8 text-center">Loading profile...</p>;
+  if (!crewId) return <p className="p-8 text-center">Loading profile...</p>;
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 py-8 px-4">
@@ -134,14 +202,10 @@ const handleSaveUsername = async () => {
           </div>
         </div>
 
-        
+       
         <div className="bg-white rounded-lg shadow-lg p-6 mb-6">
-          <h2 className="text-xl font-bold mb-4 flex items-center gap-2 text-gray-800">
-            <span className="text-2xl">👤</span> Profile Settings
-          </h2>
-
+          <h2 className="text-xl font-bold mb-4">Profile Settings</h2>
           <div className="space-y-4">
-           
             <div>
               <div className="flex items-center justify-between mb-2">
                 <label className="text-sm font-medium text-gray-500">Username</label>
@@ -154,7 +218,6 @@ const handleSaveUsername = async () => {
                   </button>
                 )}
               </div>
-
               {!isEditingUsername ? (
                 <div className="bg-gray-50 rounded-lg p-4 border-2 border-gray-100">
                   <p className="text-gray-800 font-medium">@{username}</p>
@@ -194,30 +257,23 @@ const handleSaveUsername = async () => {
         </div>
 
         
-        <div className="bg-white rounded-lg shadow-lg p-6">
-          <h2 className="text-xl font-bold mb-4 flex items-center gap-2 text-gray-800">
-            <span className="text-2xl">⚾</span> Favorite Team(s)
-          </h2>
-
+        <div className="bg-white rounded-lg shadow-lg p-6 mb-6">
+          <h2 className="text-xl font-bold mb-4">Favorite Team(s)</h2>
           <div className="space-y-4">
             <div>
-              <div className="flex items-center justify-between mb-2">
-                
-                {!isEditingTeam && (
-                  <button
-                    onClick={() => setIsEditingTeam(true)}
-                    className="text-sm text-blue-600 hover:text-blue-700 font-medium"
-                  >
-                    Edit
-                  </button>
-                )}
-              </div>
-
+              {!isEditingTeam && (
+                <button
+                  onClick={() => setIsEditingTeam(true)}
+                  className="text-sm text-blue-600 hover:text-blue-700 font-medium mb-2"
+                >
+                  Edit
+                </button>
+              )}
               {!isEditingTeam ? (
                 <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg p-4 border-2 border-blue-100">
                   {favTeam ? (
                     <div className="flex flex-wrap gap-2">
-                      {favTeam.split(',').map((team, idx) => (
+                      {favTeam.split(",").map((team, idx) => (
                         <span
                           key={idx}
                           className="px-3 py-1 bg-blue-600 text-white rounded-full text-sm font-medium"
@@ -237,7 +293,7 @@ const handleSaveUsername = async () => {
                     onChange={(e) => setTeamInput(e.target.value)}
                     className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     rows={3}
-                    placeholder="Enter team names separated by commas (e.g., Yankees, Red Sox, Dodgers)"
+                    placeholder="Enter team names separated by commas"
                   />
                   <div className="flex gap-2">
                     <button
@@ -264,73 +320,114 @@ const handleSaveUsername = async () => {
           </div>
         </div>
 
+        
+        <div className="bg-white rounded-lg shadow-lg p-6 mb-6">
+          <h2 className="text-xl font-bold mb-4">Additional Profile Info</h2>
+          {!isEditingProfile && (
+            <div className="space-y-2">
+              <p><strong>Food Allergies:</strong> {foodAllergies.join(", ") || "None"}</p>
+              <p><strong>Food Preferences:</strong> {foodPreferences.join(", ") || "None"}</p>
+              <p><strong>Hobbies:</strong> {hobbies.join(", ") || "None"}</p>
+              <p><strong>Interests:</strong> {interests.join(", ") || "None"}</p>
+              <button
+                onClick={() => setIsEditingProfile(true)}
+                className="mt-2 text-sm text-blue-600 hover:text-blue-700 font-medium"
+              >
+                Edit
+              </button>
+            </div>
+          )}
+          {isEditingProfile && (
+            <div className="space-y-3">
+              <label>Food Allergies</label>
+              <input
+                value={foodAllergiesInput}
+                onChange={(e) => setFoodAllergiesInput(e.target.value)}
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg"
+                placeholder="Comma-separated values"
+              />
+              <label>Food Preferences</label>
+              <input
+                value={foodPreferencesInput}
+                onChange={(e) => setFoodPreferencesInput(e.target.value)}
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg"
+                placeholder="Comma-separated values"
+              />
+              <label>Hobbies</label>
+              <input
+                value={hobbiesInput}
+                onChange={(e) => setHobbiesInput(e.target.value)}
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg"
+                placeholder="Comma-separated values"
+              />
+              <label>Interests</label>
+              <input
+                value={interestsInput}
+                onChange={(e) => setInterestsInput(e.target.value)}
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg"
+                placeholder="Comma-separated values"
+              />
+              <div className="flex gap-2 mt-2">
+                <button
+                  onClick={handleSaveProfile}
+                  disabled={isSaving}
+                  className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 disabled:bg-gray-400 transition"
+                >
+                  {isSaving ? "Saving..." : "Save"}
+                </button>
+                <button
+                  onClick={() => {
+                    setIsEditingProfile(false);
+                    setFoodAllergiesInput(foodAllergies.join(", "));
+                    setFoodPreferencesInput(foodPreferences.join(", "));
+                    setHobbiesInput(hobbies.join(", "));
+                    setInterestsInput(interests.join(", "));
+                  }}
+                  disabled={isSaving}
+                  className="px-4 py-2 bg-gray-300 text-gray-700 rounded-lg hover:bg-gray-400 transition"
+                >
+                  Cancel
+                </button>
+              </div>
+            </div>
+          )}
+        </div>
+
+        
+        <dialog id="editProfile" className="modal modal-bottom sm:modal-middle">
+          <div className="modal-box">
+            <h3 className="font-bold text-lg">Profile Updated!</h3>
+            <div className="modal-action">
+              <form method="dialog">
+                <button
+                  className="btn"
+                  onClick={() => document.getElementById("editProfile").close()}
+                >
+                  Close
+                </button>
+              </form>
+            </div>
+          </div>
+        </dialog>
+
+        <dialog id="errorProfile" className="modal modal-bottom sm:modal-middle">
+          <div className="modal-box">
+            <h3 className="font-bold text-lg">Error updating profile</h3>
+            <div className="modal-action">
+              <form method="dialog">
+                <button
+                  className="btn"
+                  onClick={() => document.getElementById("errorProfile").close()}
+                >
+                  Close
+                </button>
+              </form>
+            </div>
+          </div>
+        </dialog>
       </div>
-      <dialog id="errorUser" className="modal modal-bottom sm:modal-middle">
-  <div className="modal-box">
-    <h3 className="font-bold text-lg">Error Updating Username</h3>
-    <div className="modal-action">
-      <form method="dialog">
-        <button
-  className="btn"
-  onClick={() => document.getElementById("errorUser").close()}
->
-  Close
-</button>
-
-      </form>
-    </div>
-  </div>
-</dialog>
-              <dialog id="editUser" className="modal modal-bottom sm:modal-middle">
-  <div className="modal-box">
-    <h3 className="font-bold text-lg">Username Updated!</h3>
-    <div className="modal-action">
-      <form method="dialog">
-       <button
-  className="btn"
-  onClick={() => document.getElementById("editUser").close()}
->
-  Close
-</button>
-
-      </form>
-    </div>
-  </div>
-</dialog>
-<dialog id="errorTeam" className="modal modal-bottom sm:modal-middle">
-  <div className="modal-box">
-    <h3 className="font-bold text-lg">
-      Error updating favorite team(s)
-    </h3>
-    <div className="modal-action">
-      <form method="dialog">
-        <button
-  className="btn"
-  onClick={() => document.getElementById("errorTeam").close()}
->
-  Close
-</button>
-
-      </form>
-    </div>
-  </div>
-</dialog>
-<dialog id="editTeam" className="modal modal-bottom sm:modal-middle">
-  <div className="modal-box">
-    <h3 className="font-bold text-lg">Favorite Team(s) Updated!</h3>
-    <div className="modal-action">
-      <form method="dialog">
-        <button
-  className="btn"
-  onClick={() => document.getElementById("editTeam").close()}
->
-  Close
-</button>
-
-      </form>
-    </div>
-  </div>
-</dialog>
     </div>
   );
 }
+
+

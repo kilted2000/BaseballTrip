@@ -66,6 +66,7 @@ const handleSaveSearch = async () => {
 
 
   return (
+    
     <div className="bg-emerald-900 text-slate-200 rounded-lg overflow-x-auto w-full">
       <div className="p-4 space-y-6 ">
         <div className="flex items-center gap-2">
@@ -133,6 +134,7 @@ const handleSaveSearch = async () => {
 </dialog>
 
     </div>
+    
   );
 };
 
