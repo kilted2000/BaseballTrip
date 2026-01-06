@@ -26,11 +26,6 @@ export const createCrew = async (email, clerkUserId) => {
   if (!res.ok) throw new Error("Failed to create crew");
   return res.json();
 };
-export const getGames = async () => {
-  const res = await fetch(`${API_URL}/api/games`);
-  if (!res.ok) throw new Error(`Failed to fetch games: ${res.statusText}`);
-  return res.json();
-};
 
 export const updateFavTeam = async (crewId, favTeam) => {
   const res = await fetch(`${API_URL}/api/crews/${crewId}`, {
@@ -39,16 +34,6 @@ export const updateFavTeam = async (crewId, favTeam) => {
     body: JSON.stringify({ favTeam }),
   });
   if (!res.ok) throw new Error("Failed to update fav team");
-  return res.json();
-};
-export const updateProfile = async (crewId, profileData) => {
-  const res = await fetch(`${API_URL}/api/crews/${crewId}/profile`, {  
-    method: "PATCH",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(profileData),
-  });
-
-  if (!res.ok) throw new Error("Failed to update profile");
   return res.json();
 };
 
@@ -64,5 +49,4 @@ export const getOrCreateCrewId = async (user) => {
 };
 
 
-  
 

@@ -25,6 +25,20 @@ public class SearchService {
     public List<Search> getSearchesByCrewId(Long crewId) {
         return searchRepository.findByCrewId(crewId);
     }
+
+    public Search getSearchById(Long id) {
+    return searchRepository.findById(id)
+        .orElse(null); 
+}
+
+ public void deleteSearch(Long id) {
+    if (!searchRepository.existsById(id)) {
+        throw new RuntimeException("Search not found with id: " + id);
+    }
+    searchRepository.deleteById(id);
+}
+
+
 }
 
 
