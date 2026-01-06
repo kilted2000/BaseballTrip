@@ -1,7 +1,6 @@
 
-
-# Build stage (for ARM)
-FROM --platform=linux/arm64 maven:3.9.6-eclipse-temurin-17 AS build
+# Build stage
+FROM maven:3.9.6-eclipse-temurin-17 AS build
 WORKDIR /app
 
 # Copy pom and download dependencies
@@ -12,8 +11,8 @@ RUN mvn dependency:go-offline
 COPY src ./src
 RUN mvn clean package -DskipTests
 
-# Runtime stage (ARM)
-FROM --platform=linux/arm64 eclipse-temurin:17
+# Runtime stage
+FROM eclipse-temurin:17
 WORKDIR /app
 
 # Copy jar from build stage
