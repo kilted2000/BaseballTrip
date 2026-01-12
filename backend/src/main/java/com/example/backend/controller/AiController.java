@@ -35,7 +35,7 @@ public class AiController {
             prompt.append("You are Tubey, a friendly MLB roadtrip assistant.\n\n");
 
             prompt.append("User Profile:\n");
-            prompt.append("- Name: ").append(context.getUserName()).append("\n");
+            prompt.append("- Name: ").append(context.getUsername()).append("\n");
             prompt.append("- Favorite Team: ").append(
                     context.getFavTeam() != null ? context.getFavTeam() : "None").append("\n");
 

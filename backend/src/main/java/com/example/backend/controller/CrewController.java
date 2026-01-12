@@ -33,41 +33,33 @@ public class CrewController {
 
     @GetMapping("/by-email/{email}")
     public Crew getCrewByEmail(@PathVariable String email) {
-        return crewRepository.findByEmail(email)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Crew not found"));
+        Optional<Crew> crew = crewService.getCrewByEmail(email);
+        return crew.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Crew not found"));
     }
 
-   
     @PostMapping
     public Crew createCrew(@RequestBody Crew newCrew) {
-        
-        Optional<Crew> existing = crewRepository.findByEmail(newCrew.getEmail());
-        if (existing.isPresent()) {
+        if (newCrew.getEmail() == null || newCrew.getClerkUserId() == null || newCrew.getUsername() == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Missing required fields");
+        }
+
+        if (crewRepository.findByEmail(newCrew.getEmail()).isPresent()) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Crew already exists");
         }
 
-        
         return crewRepository.save(newCrew);
     }
 
-    @PatchMapping("/{crewId}/profile")
-    public Crew updateProfile(
-            @PathVariable Long crewId,
-            @RequestBody CrewProfileUpdateDTO updates
-    ) {
-        Crew crew = crewRepository.findById(crewId)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Crew not found"));
-
-        if (updates.getFavTeam() != null) crew.setFavTeam(updates.getFavTeam());
-        if (updates.getUsername() != null) crew.setUserName(updates.getUsername());
-        if (updates.getFoodAllergies() != null) crew.setFoodAllergies(updates.getFoodAllergies());
-        if (updates.getFoodPreferences() != null) crew.setFoodPreferences(updates.getFoodPreferences());
-        if (updates.getHobbies() != null) crew.setHobbies(updates.getHobbies());
-        if (updates.getInterests() != null) crew.setInterests(updates.getInterests());
-
-        return crewService.saveCrew(crew);
-    }
+@PatchMapping("/{crewId}/profile")
+public Crew updateCrewProfile(
+        @PathVariable Long crewId,
+        @RequestBody CrewProfileUpdateDTO dto
+) {
+    return crewService.updateProfile(crewId, dto);
 }
+
+}
+
 
 
 

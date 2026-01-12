@@ -29,7 +29,7 @@ public class TubeyContextService {
             .collect(Collectors.toList());
 
         return new TubeyContext(
-            crew.getUserName(),
+            crew.getUsername(),
             crew.getFavTeam(),
             crew.getFoodAllergies(),
             crew.getFoodPreferences(),

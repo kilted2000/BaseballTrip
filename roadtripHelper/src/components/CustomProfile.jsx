@@ -1,7 +1,7 @@
 import { useUser } from "@clerk/clerk-react";
 import { useState, useEffect } from "react";
 
-import { updateProfile } from "../api/apiService";
+import { updateCrewProfile } from "../api/crewApi";
 
 const API_URL = import.meta.env.VITE_BACKEND_URL;
 
@@ -81,51 +81,25 @@ export default function CustomProfile() {
     getOrCreateCrew();
   }, [user]);
 
-  
-const handleSaveProfile = async () => {
-  if (!crewId) return;
+  const handleSaveProfile = async () => {
   setIsSaving(true);
-
   try {
-    
-    const profileData = {
-      username: usernameInput,
-      favTeam: teamInput,
-      foodAllergies: foodAllergiesInput.split(",").map((s) => s.trim()).filter(Boolean),
-      foodPreferences: foodPreferencesInput.split(",").map((s) => s.trim()).filter(Boolean),
-      hobbies: hobbiesInput.split(",").map((s) => s.trim()).filter(Boolean),
-      interests: interestsInput.split(",").map((s) => s.trim()).filter(Boolean),
-    };
+    const updated = await updateCrewProfile(crewId, {
+      foodAllergies: foodAllergiesInput.split(",").map(s => s.trim()).filter(Boolean),
+      foodPreferences: foodPreferencesInput.split(",").map(s => s.trim()).filter(Boolean),
+      hobbies: hobbiesInput.split(",").map(s => s.trim()).filter(Boolean),
+      interests: interestsInput.split(",").map(s => s.trim()).filter(Boolean),
+    });
 
-    
-    const updatedCrew = await updateProfile(crewId, profileData);
-
-    console.log("Profile updated", updatedCrew);
-
-    
-    setUsername(updatedCrew.userName);
-    setUsernameInput(updatedCrew.userName);
-
-    setFavTeam(updatedCrew.favTeam);
-    setTeamInput(updatedCrew.favTeam);
-
-    setFoodAllergies(updatedCrew.foodAllergies || []);
-    setFoodPreferences(updatedCrew.foodPreferences || []);
-    setHobbies(updatedCrew.hobbies || []);
-    setInterests(updatedCrew.interests || []);
-
-    setFoodAllergiesInput((updatedCrew.foodAllergies || []).join(", "));
-    setFoodPreferencesInput((updatedCrew.foodPreferences || []).join(", "));
-    setHobbiesInput((updatedCrew.hobbies || []).join(", "));
-    setInterestsInput((updatedCrew.interests || []).join(", "));
+    setFoodAllergies(updated.foodAllergies || []);
+    setFoodPreferences(updated.foodPreferences || []);
+    setHobbies(updated.hobbies || []);
+    setInterests(updated.interests || []);
 
     setIsEditingProfile(false);
-    setIsEditingUsername(false);
-    setIsEditingTeam(false);
-
     document.getElementById("editProfile").showModal();
   } catch (err) {
-    console.error("Failed to update profile:", err);
+    console.error(err);
     document.getElementById("errorProfile").showModal();
   } finally {
     setIsSaving(false);
@@ -134,49 +108,50 @@ const handleSaveProfile = async () => {
 
 
 
-  const handleSaveTeam = async () => {
-    if (!crewId) return;
-    setIsSaving(true);
-    try {
-      const res = await fetch(`${API_URL}/api/crews/${crewId}`, {
-        method: "PATCH",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ favTeam: teamInput }),
-      });
-      if (!res.ok) throw new Error("Failed to update team");
-      const updatedCrew = await res.json();
-      setFavTeam(updatedCrew.favTeam || "");
-      setIsEditingTeam(false);
-      document.getElementById("editTeam").showModal();
-    } catch (err) {
-      console.error(err);
-      document.getElementById("errorTeam").showModal();
-    } finally {
-      setIsSaving(false);
-    }
-  };
 
-  const handleSaveUsername = async () => {
-    if (!crewId) return;
-    setIsSaving(true);
-    try {
-      const res = await fetch(`${API_URL}/api/crews/${crewId}`, {
-        method: "PATCH",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username: usernameInput }),
-      });
-      if (!res.ok) throw new Error("Failed to update username");
-      const updatedCrew = await res.json();
-      setUsername(updatedCrew.username || "");
-      setIsEditingUsername(false);
-      document.getElementById("editUser").showModal();
-    } catch (err) {
-      console.error(err);
-      document.getElementById("errorUser").showModal();
-    } finally {
-      setIsSaving(false);
-    }
-  };
+
+
+const handleSaveTeam = async () => {
+  setIsSaving(true);
+  try {
+    const updated = await updateCrewProfile(crewId, {
+      favTeam: teamInput,
+    });
+
+    setFavTeam(updated.favTeam);
+    setTeamInput(updated.favTeam);
+    setIsEditingTeam(false);
+
+    document.getElementById("editTeam").showModal();
+  } catch (err) {
+    console.error(err);
+    document.getElementById("errorTeam").showModal();
+  } finally {
+    setIsSaving(false);
+  }
+};
+
+
+const handleSaveUsername = async () => {
+  setIsSaving(true);
+  try {
+    const updated = await updateCrewProfile(crewId, {
+      username: usernameInput,
+    });
+
+    setUsername(updated.username);
+    setUsernameInput(updated.username);
+    setIsEditingUsername(false);
+
+    document.getElementById("editUser").showModal();
+  } catch (err) {
+    console.error(err);
+    document.getElementById("errorUser").showModal();
+  } finally {
+    setIsSaving(false);
+  }
+};
+
 
   if (!user) return <p className="p-8 text-center">Loading user...</p>;
   if (!crewId) return <p className="p-8 text-center">Loading profile...</p>;

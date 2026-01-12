@@ -3,7 +3,7 @@ package com.example.backend.model;
 import java.util.List;
 
 public class TubeyContext {
-    private String userName;
+    private String username;
     private String favTeam;
     private List<String> foodAllergies;
     private List<String> foodPreferences;
@@ -12,7 +12,7 @@ public class TubeyContext {
     private List<String> searches;
 
     public TubeyContext(
-            String userName,
+            String username,
             String favTeam,
             List<String> foodAllergies,
             List<String> foodPreferences,
@@ -20,7 +20,7 @@ public class TubeyContext {
             List<String> interests,
             List<String> searches
     ) {
-        this.userName = userName;
+        this.username = username;
         this.favTeam = favTeam;
         this.foodAllergies = foodAllergies;
         this.foodPreferences = foodPreferences;
@@ -30,7 +30,7 @@ public class TubeyContext {
     }
 
     
-    public String getUserName() { return userName; }
+    public String getUsername() { return username; }
     public String getFavTeam() { return favTeam; }
     public List<String> getFoodAllergies() { return foodAllergies; }
     public List<String> getFoodPreferences() { return foodPreferences; }

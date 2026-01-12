@@ -12,7 +12,7 @@ public interface CrewRepository extends JpaRepository<Crew, Long> {
 
     Optional<Crew> findByEmail(String email);
 
-    Crew findByUserName(String userName);
+    Crew findByUsername(String username);
 }
 
 
