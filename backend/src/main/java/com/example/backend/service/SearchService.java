@@ -26,19 +26,20 @@ public class SearchService {
         return searchRepository.findByCrewId(crewId);
     }
 
+    // ✅ THIS IS THE METHOD YOUR CONTROLLER IS CALLING
     public Search getSearchById(Long id) {
-    return searchRepository.findById(id)
-        .orElse(null); 
-}
-
- public void deleteSearch(Long id) {
-    if (!searchRepository.existsById(id)) {
-        throw new RuntimeException("Search not found with id: " + id);
+        return searchRepository.findById(id).orElse(null);
     }
-    searchRepository.deleteById(id);
+
+    public void deleteSearch(Long id) {
+        if (!searchRepository.existsById(id)) {
+            throw new RuntimeException("Search not found with id: " + id);
+        }
+        searchRepository.deleteById(id);
+    }
 }
 
 
-}
+
 
 

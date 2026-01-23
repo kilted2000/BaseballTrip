@@ -1,12 +1,13 @@
 package com.example.backend.service;
 
-import java.util.Optional;
+import java.util.ArrayList;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.backend.model.Crew;
 import com.example.backend.model.CrewProfileUpdateDTO;
+import com.example.backend.model.CrewResponseDTO;
 import com.example.backend.repository.CrewRepository;
 
 @Service
@@ -18,47 +19,77 @@ public class CrewService {
         this.crewRepository = crewRepository;
     }
 
-    public Crew saveCrew(Crew crew) {
-        return crewRepository.save(crew);
-    }
+    /* ---------- READ ---------- */
 
     @Transactional(readOnly = true)
-    public Optional<Crew> getCrewByEmail(String email) {
-        return crewRepository.findByEmail(email);
+    public CrewResponseDTO getCrewByEmail(String email) {
+        Crew crew = crewRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("Crew not found"));
+
+        return toCrewResponseDTO(crew);
     }
+// Add this method to CrewService
+public Crew getOrCreateByClerkUserId(String clerkUserId) {
+    return crewRepository.findByClerkUserId(clerkUserId)
+        .orElseGet(() -> {
+            Crew newCrew = new Crew("New User", "user@example.com", clerkUserId);
+            return crewRepository.save(newCrew);
+        });
+}
+    /* ---------- UPDATE ---------- */
+
     @Transactional
-public Crew updateProfile(Long crewId, CrewProfileUpdateDTO dto) {
-    Crew crew = crewRepository.findById(crewId)
-            .orElseThrow(() -> new RuntimeException("Crew not found"));
+    public CrewResponseDTO updateProfile(Long crewId, CrewProfileUpdateDTO dto) {
+        Crew crew = crewRepository.findById(crewId)
+                .orElseThrow(() -> new RuntimeException("Crew not found"));
 
-    if (dto.getUsername() != null) {
-        crew.setUsername(dto.getUsername());
+        if (dto.getUsername() != null) {
+            crew.setUsername(dto.getUsername());
+        }
+
+        if (dto.getFavTeam() != null) {
+            crew.setFavTeam(dto.getFavTeam());
+        }
+
+        if (dto.getFoodPreferences() != null) {
+            crew.getFoodPreferences().clear();
+            crew.getFoodPreferences().addAll(dto.getFoodPreferences());
+        }
+
+        if (dto.getFoodAllergies() != null) {
+            crew.getFoodAllergies().clear();
+            crew.getFoodAllergies().addAll(dto.getFoodAllergies());
+        }
+
+        if (dto.getHobbies() != null) {
+            crew.getHobbies().clear();
+            crew.getHobbies().addAll(dto.getHobbies());
+        }
+
+        if (dto.getInterests() != null) {
+            crew.getInterests().clear();
+            crew.getInterests().addAll(dto.getInterests());
+        }
+
+        return toCrewResponseDTO(crew);
     }
 
-    if (dto.getFavTeam() != null) {
-        crew.setFavTeam(dto.getFavTeam());
-    }
+    /* ---------- MAPPER ---------- */
 
-    if (dto.getFoodAllergies() != null) {
-        crew.setFoodAllergies(dto.getFoodAllergies());
+    private CrewResponseDTO toCrewResponseDTO(Crew crew) {
+        return new CrewResponseDTO(
+                crew.getId(),
+                crew.getUsername(),
+                crew.getEmail(),
+                crew.getFavTeam(),
+                new ArrayList<>(crew.getFoodAllergies()),
+                new ArrayList<>(crew.getFoodPreferences()),
+                new ArrayList<>(crew.getHobbies()),
+                new ArrayList<>(crew.getInterests())
+        );
     }
-
-    if (dto.getFoodPreferences() != null) {
-        crew.setFoodPreferences(dto.getFoodPreferences());
-    }
-
-    if (dto.getHobbies() != null) {
-        crew.setHobbies(dto.getHobbies());
-    }
-
-    if (dto.getInterests() != null) {
-        crew.setInterests(dto.getInterests());
-    }
-
-    return crewRepository.save(crew);
 }
 
-}
 
 
 
