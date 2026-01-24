@@ -96,10 +96,7 @@ export default function ChatBot({ search = null, games = [] }) {
       <div className="p-6 max-w-2xl w-full mx-auto bg-emerald-900 text-white rounded-lg shadow-lg">
         <h2 className="text-2xl font-bold mb-4">Ask Tubey 🌭</h2>
         
-        {/* Debug info - remove after testing */}
-        <div className="mb-4 p-2 bg-emerald-800 rounded text-xs">
-          <p>Debug: User ID = {clerkUserId}</p>
-        </div>
+      
 
         <div className="flex gap-2 mb-4">
           <input
@@ -108,7 +105,7 @@ export default function ChatBot({ search = null, games = [] }) {
             onChange={(e) => setInput(e.target.value)}
             onKeyPress={(e) => e.key === 'Enter' && !loading && handleSend()}
             placeholder="Type your question..."
-            className="flex-1 input input-bordered p-3 rounded text-black"
+            className="flex-1 input input-bordered p-3 rounded text-white"
             disabled={loading}
           />
           <button
