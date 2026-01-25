@@ -2,10 +2,12 @@ package com.example.backend.controller;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -48,7 +50,6 @@ public class CrewController {
         Crew crew = crewRepository.findByClerkUserId(clerkUserId)
             .orElseGet(() -> {
                 System.out.println("Creating new crew for clerkUserId: " + clerkUserId);
-                // Use placeholder data - will be updated later from frontend
                 Crew newCrew = new Crew("New User", "temp@example.com", clerkUserId);
                 Crew saved = crewRepository.save(newCrew);
                 System.out.println("Created crew with ID: " + saved.getId());
@@ -72,39 +73,46 @@ public class CrewController {
     /* ---------- CREATE/UPDATE ---------- */
 
     @PostMapping("/clerk")
+    @Transactional
     public ResponseEntity<CrewResponseDTO> createOrUpdateFromClerk(@RequestBody ClerkUserRequest request) {
         System.out.println("=== CREATE/UPDATE CREW FROM CLERK ===");
         System.out.println("ClerkUserId: " + request.getClerkUserId());
         System.out.println("Email: " + request.getEmail());
         System.out.println("Username: " + request.getUsername());
         
-        Crew crew = crewRepository.findByClerkUserId(request.getClerkUserId())
-            .orElseGet(() -> new Crew(
-                request.getUsername() != null ? request.getUsername() : "New User",
-                request.getEmail() != null ? request.getEmail() : "user@example.com",
-                request.getClerkUserId()
+        try {
+            Crew crew = crewRepository.findByClerkUserId(request.getClerkUserId())
+                .orElseGet(() -> new Crew(
+                    request.getUsername() != null ? request.getUsername() : "New User",
+                    request.getEmail() != null ? request.getEmail() : "user@example.com",
+                    request.getClerkUserId()
+                ));
+            
+            // Update email and username if they've changed
+            if (request.getEmail() != null && !request.getEmail().equals(crew.getEmail())) {
+                crew.setEmail(request.getEmail());
+            }
+            if (request.getUsername() != null && !request.getUsername().equals(crew.getUsername())) {
+                crew.setUsername(request.getUsername());
+            }
+            
+            Crew saved = crewRepository.save(crew);
+            
+            return ResponseEntity.ok(new CrewResponseDTO(
+                saved.getId(),
+                saved.getUsername(),
+                saved.getEmail(),
+                saved.getFavTeam(),
+                saved.getFoodAllergies(),
+                saved.getFoodPreferences(),
+                saved.getHobbies(),
+                saved.getInterests()
             ));
-        
-        // Update email and username if they've changed
-        if (request.getEmail() != null) {
-            crew.setEmail(request.getEmail());
+        } catch (Exception e) {
+            System.err.println("Error creating/updating crew: " + e.getMessage());
+            e.printStackTrace();
+            return ResponseEntity.status(500).body(null);
         }
-        if (request.getUsername() != null) {
-            crew.setUsername(request.getUsername());
-        }
-        
-        Crew saved = crewRepository.save(crew);
-        
-        return ResponseEntity.ok(new CrewResponseDTO(
-            saved.getId(),
-            saved.getUsername(),
-            saved.getEmail(),
-            saved.getFavTeam(),
-            saved.getFoodAllergies(),
-            saved.getFoodPreferences(),
-            saved.getHobbies(),
-            saved.getInterests()
-        ));
     }
 
     @PatchMapping("/{crewId}/profile")
@@ -116,46 +124,78 @@ public class CrewController {
     }
 
     /* ---------- DEBUG ---------- */
-    
-    @GetMapping("/debug/{clerkUserId}")
-    public ResponseEntity<?> debugCrew(@PathVariable String clerkUserId) {
-        try {
-            System.out.println("=== DEBUG: Looking for clerkUserId: " + clerkUserId);
-            
-            // Try to find the crew
-            Optional<Crew> crew = crewRepository.findByClerkUserId(clerkUserId);
-            
-            if (crew.isPresent()) {
-                System.out.println("FOUND crew: " + crew.get().getUsername());
-                return ResponseEntity.ok(Map.of(
-                    "found", true,
-                    "id", crew.get().getId(),
-                    "username", crew.get().getUsername(),
-                    "email", crew.get().getEmail(),
-                    "clerkUserId", crew.get().getClerkUserId()
-                ));
-            } else {
-                System.out.println("NOT FOUND - crew does not exist");
-                
-                // List all crews to see what's in the database
-                List<Crew> allCrews = crewRepository.findAll();
-                System.out.println("Total crews in database: " + allCrews.size());
-                allCrews.forEach(c -> 
-                    System.out.println("  - Crew ID: " + c.getId() + ", ClerkUserId: " + c.getClerkUserId())
-                );
-                
-                return ResponseEntity.status(404).body(Map.of(
-                    "found", false,
-                    "message", "Crew not found with clerkUserId: " + clerkUserId,
-                    "totalCrews", allCrews.size(),
-                    "hint", "Check backend console for list of all clerkUserIds in database"
-                ));
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseEntity.status(500).body(Map.of("error", e.getMessage()));
-        }
+    @GetMapping("/debug/all")
+public ResponseEntity<?> debugAllCrews() {
+    try {
+        List<Crew> allCrews = crewRepository.findAll();
+        
+        System.out.println("=== ALL CREWS IN DATABASE ===");
+        System.out.println("Total: " + allCrews.size());
+        
+        List<Map<String, Object>> crewInfo = allCrews.stream()
+            .map(c -> {
+                Map<String, Object> info = new java.util.HashMap<>();
+                info.put("id", c.getId());
+                info.put("clerkUserId", c.getClerkUserId() != null ? c.getClerkUserId() : "NULL");
+                info.put("email", c.getEmail() != null ? c.getEmail() : "NULL");
+                info.put("username", c.getUsername() != null ? c.getUsername() : "NULL");
+                return info;
+            })
+            .collect(Collectors.toList());
+        
+        allCrews.forEach(c -> 
+            System.out.println("ID: " + c.getId() + 
+                             ", ClerkUserId: " + c.getClerkUserId() + 
+                             ", Email: " + c.getEmail())
+        );
+        
+        Map<String, Object> response = new java.util.HashMap<>();
+        response.put("total", allCrews.size());
+        response.put("crews", crewInfo);
+        
+        return ResponseEntity.ok(response);
+    } catch (Exception e) {
+        e.printStackTrace();
+        Map<String, Object> error = new java.util.HashMap<>();
+        error.put("error", e.getMessage());
+        return ResponseEntity.status(500).body(error);
     }
+}
+
+@DeleteMapping("/debug/cleanup-duplicates")
+@Transactional
+public ResponseEntity<?> cleanupDuplicates() {
+    try {
+        List<Crew> allCrews = crewRepository.findAll();
+        Map<String, List<Crew>> byClerkUserId = allCrews.stream()
+            .filter(c -> c.getClerkUserId() != null)
+            .collect(Collectors.groupingBy(Crew::getClerkUserId));
+        
+        int deletedCount = 0;
+        for (Map.Entry<String, List<Crew>> entry : byClerkUserId.entrySet()) {
+            if (entry.getValue().size() > 1) {
+                // Keep the first one, delete the rest
+                List<Crew> duplicates = entry.getValue();
+                for (int i = 1; i < duplicates.size(); i++) {
+                    System.out.println("Deleting duplicate crew ID: " + duplicates.get(i).getId());
+                    crewRepository.delete(duplicates.get(i));
+                    deletedCount++;
+                }
+            }
+        }
+        
+        Map<String, Object> response = new java.util.HashMap<>();
+        response.put("message", "Cleanup complete");
+        response.put("deletedCount", deletedCount);
+        
+        return ResponseEntity.ok(response);
+    } catch (Exception e) {
+        e.printStackTrace();
+        Map<String, Object> error = new java.util.HashMap<>();
+        error.put("error", e.getMessage());
+        return ResponseEntity.status(500).body(error);
+    }
+}
 
     /* ---------- INNER CLASS ---------- */
 
@@ -174,7 +214,6 @@ public class CrewController {
         public void setUsername(String username) { this.username = username; }
     }
 }
-
 
 
 
