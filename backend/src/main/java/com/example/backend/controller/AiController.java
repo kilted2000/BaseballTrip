@@ -5,10 +5,12 @@ import java.util.stream.Collectors;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.reactive.function.client.WebClientRequestException;
 
 import com.example.backend.model.TubeyContext;
 import com.example.backend.service.AIService;
@@ -28,7 +30,7 @@ public class AiController {
     }
 
     @PostMapping("/query")
-    @Transactional(readOnly = true)  // ADD THIS ANNOTATION
+    @Transactional(readOnly = true)
     public ResponseEntity<String> getResponse(@RequestBody AiRequest request) {
         try {
             // Validate input
@@ -86,14 +88,21 @@ public class AiController {
             if (e.getMessage().contains("Crew not found")) {
                 return ResponseEntity.status(404).body("Error: User profile not found. Please create a profile first.");
             }
-            e.printStackTrace();  // Add this to see the full error
+            e.printStackTrace();
             return ResponseEntity.status(500).body("Error: " + e.getMessage());
         } catch (Exception e) {
-            e.printStackTrace();  // Add this to see the full error
+            e.printStackTrace();
             return ResponseEntity.status(500).body("Error: " + e.getMessage());
         }
     }
 
+    // ADD THIS EXCEPTION HANDLER
+    @ExceptionHandler(WebClientRequestException.class)
+    public ResponseEntity<String> handleOpenAiConnectionError(WebClientRequestException e) {
+        System.err.println("OpenAI connection error: " + e.getMessage());
+        return ResponseEntity.status(503)
+            .body("Error: Unable to connect to AI service. Please try again in a moment.");
+    }
    
     public static class AiRequest {
         private String clerkUserId;
