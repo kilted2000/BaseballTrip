@@ -154,6 +154,7 @@ const GameFinder = ({ setAiContext }) => {
               <option value="San Diego Padres"></option>
               <option value="San Francisco Giants"></option>
               <option value="Las Vegas Athletics"></option>
+              <option value="Tampa Bay Rays"></option>
             </datalist>
           </div>
 
