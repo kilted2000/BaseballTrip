@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useUser } from "@clerk/clerk-react"; 
+import { useUser } from "@clerk/clerk-react";
 
 export default function ChatBot({ search = null, games = [] }) {
   const [input, setInput] = useState("");
@@ -7,7 +7,7 @@ export default function ChatBot({ search = null, games = [] }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  const { user, isLoaded } = useUser(); 
+  const { user, isLoaded } = useUser();
   const clerkUserId = user?.id;
 
   // Debug: Log user info on mount
@@ -24,7 +24,7 @@ export default function ChatBot({ search = null, games = [] }) {
       setError("Please enter a question");
       return;
     }
-    
+
     if (!clerkUserId) {
       setError("User not authenticated");
       return;
@@ -36,7 +36,7 @@ export default function ChatBot({ search = null, games = [] }) {
 
     try {
       const payload = {
-        clerkUserId,       
+        clerkUserId,
         userQuestion: input
       };
 
@@ -55,7 +55,7 @@ export default function ChatBot({ search = null, games = [] }) {
 
       const aiReply = await res.text();
       console.log("Response body:", aiReply);
-      
+
       if (!res.ok) {
         throw new Error(aiReply || `Request failed with status ${res.status}`);
       }
@@ -66,7 +66,7 @@ export default function ChatBot({ search = null, games = [] }) {
       setError(err.message);
     } finally {
       setLoading(false);
-      setInput(""); 
+      setInput("");
     }
   };
 
@@ -95,8 +95,8 @@ export default function ChatBot({ search = null, games = [] }) {
     <div className="min-h-screen flex items-center justify-center p-4">
       <div className="p-6 max-w-2xl w-full mx-auto bg-emerald-900 text-white rounded-lg shadow-lg">
         <h2 className="text-2xl font-bold mb-4">Ask Tubey 🌭</h2>
-        
-      
+
+
 
         <div className="flex gap-2 mb-4">
           <input
@@ -105,7 +105,7 @@ export default function ChatBot({ search = null, games = [] }) {
             onChange={(e) => setInput(e.target.value)}
             onKeyPress={(e) => e.key === 'Enter' && !loading && handleSend()}
             placeholder="Type your question..."
-            className="flex-1 input input-bordered p-3 rounded text-white"
+            className="flex-1 input input-bordered p-3 rounded !text-white !bg-gray-800 !caret-white placeholder:!text-gray-400"
             disabled={loading}
           />
           <button
