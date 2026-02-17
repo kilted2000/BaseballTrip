@@ -81,7 +81,7 @@ export default function Results() {
 
   return (
     <div className="min-h-screen p-8">
-      <div className="bg-emerald-900 text-slate-400 rounded-lg overflow-x-auto w-full">
+      <div className="bg-emerald-900 text-white rounded-lg overflow-x-auto w-full">
         <div className="p-4 space-y-6">
           <div className="flex items-center gap-2">
             <input
@@ -104,7 +104,7 @@ export default function Results() {
     <tr>
       <th className="!text-slate-400"></th>
       {teams.map((team, i) => (
-        <th key={i} className="text-center !text-slate-400">
+        <th key={i} className="text-center !text-white">
           {team}
         </th>
       ))}
@@ -113,14 +113,14 @@ export default function Results() {
   <tbody>
     {uniqueDates.map((date, i) => (
       <tr key={i} className="hover">
-        <td className="font-bold !text-slate-400">{date}</td>
+        <td className="font-bold !text-white">{date}</td>
         {teams.map((team, j) => {
           const hasGame = results.some(
             (r) =>
               r.HomeTeam === team && formatDate(r.DateTime) === date
           );
           return (
-            <td key={j} className="text-center !text-slate-400">
+            <td key={j} className="text-center !text-white">
               {hasGame ? "🌭" : ""}
             </td>
           );
