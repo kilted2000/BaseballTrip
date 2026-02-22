@@ -1,0 +1,32 @@
+.scroll-wrapper {
+  position: relative;
+  display: inline-flex;
+  width: 100%;
+}
+
+.scroll {
+  height: 600px;
+  border: solid 2px black;
+  overflow-y: scroll;
+  flex: 1;
+  scrollbar-width: none; 
+}
+
+.scroll::-webkit-scrollbar {
+  display: none; 
+}
+
+.custom-track {
+  width: 20px;
+  height: 600px;
+  background: #595151;
+  position: relative;
+  flex-shrink: 0;
+}
+
+#hotdog {
+  width: 20px;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
