@@ -1,5 +1,7 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useUser } from "@clerk/clerk-react";
+import styles from "./chatbot.module.css";
+import hotdog from "../assets/hotscroll.jpeg"; 
 
 export default function ChatBot({ search = null, games = [] }) {
   const [input, setInput] = useState("");
@@ -10,59 +12,46 @@ export default function ChatBot({ search = null, games = [] }) {
   const { user, isLoaded } = useUser();
   const clerkUserId = user?.id;
 
-  // Debug: Log user info on mount
+  const replyBoxRef = useRef(null);
+  const hotdogRef = useRef(null);
+  const trackRef = useRef(null);
+
   useEffect(() => {
-    console.log("ChatBot mounted");
-    console.log("Clerk isLoaded:", isLoaded);
-    console.log("User object:", user);
-    console.log("ClerkUserId:", clerkUserId);
-    console.log("Backend URL:", import.meta.env.VITE_BACKEND_URL);
-  }, [user, isLoaded, clerkUserId]);
+    const box = replyBoxRef.current;
+    const img = hotdogRef.current;
+    const track = trackRef.current;
+
+    if (!box || !img || !track) return;
+
+    const handleScroll = () => {
+      const scrollRatio = box.scrollTop / (box.scrollHeight - box.clientHeight);
+      const maxTop = track.clientHeight - img.clientHeight;
+      img.style.top = (scrollRatio * maxTop) + "px";
+    };
+
+    box.addEventListener("scroll", handleScroll);
+    return () => box.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const handleSend = async () => {
-    if (!input.trim()) {
-      setError("Please enter a question");
-      return;
-    }
-
-    if (!clerkUserId) {
-      setError("User not authenticated");
-      return;
-    }
+    if (!input.trim()) { setError("Please enter a question"); return; }
+    if (!clerkUserId) { setError("User not authenticated"); return; }
 
     setLoading(true);
     setError("");
     setReply("");
 
     try {
-      const payload = {
-        clerkUserId,
-        userQuestion: input
-      };
-
-      console.log("=== SENDING REQUEST ===");
-      console.log("Payload:", payload);
-      console.log("URL:", `${import.meta.env.VITE_BACKEND_URL}/api/ai/query`);
-
       const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/ai/query`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
+        body: JSON.stringify({ clerkUserId, userQuestion: input }),
       });
 
-      console.log("Response status:", res.status);
-      console.log("Response ok:", res.ok);
-
       const aiReply = await res.text();
-      console.log("Response body:", aiReply);
-
-      if (!res.ok) {
-        throw new Error(aiReply || `Request failed with status ${res.status}`);
-      }
-
+      if (!res.ok) throw new Error(aiReply || `Request failed with status ${res.status}`);
       setReply(aiReply);
     } catch (err) {
-      console.error("ChatBot error:", err);
       setError(err.message);
     } finally {
       setLoading(false);
@@ -70,40 +59,33 @@ export default function ChatBot({ search = null, games = [] }) {
     }
   };
 
-  // Wait for Clerk to load
-  if (!isLoaded) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="p-8 max-w-xl mx-auto bg-emerald-900 text-white rounded-lg shadow-lg">
-          <p className="text-xl">Loading...</p>
-        </div>
+  if (!isLoaded) return (
+    <div className="min-h-screen flex items-center justify-center">
+      <div className="p-8 max-w-xl mx-auto bg-emerald-900 text-white rounded-lg shadow-lg">
+        <p className="text-xl">Loading...</p>
       </div>
-    );
-  }
+    </div>
+  );
 
-  if (!clerkUserId) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="p-8 max-w-xl mx-auto bg-emerald-900 text-white rounded-lg shadow-lg">
-          <p className="text-xl">Please sign in to use Tubey.</p>
-        </div>
+  if (!clerkUserId) return (
+    <div className="min-h-screen flex items-center justify-center">
+      <div className="p-8 max-w-xl mx-auto bg-emerald-900 text-white rounded-lg shadow-lg">
+        <p className="text-xl">Please sign in to use Tubey.</p>
       </div>
-    );
-  }
+    </div>
+  );
 
   return (
     <div className="min-h-screen flex items-center justify-center p-4">
       <div className="p-6 max-w-2xl w-full mx-auto bg-emerald-900 text-white rounded-lg shadow-lg">
         <h2 className="text-2xl font-bold mb-4">Ask Tubey 🌭</h2>
 
-
-
         <div className="flex gap-2 mb-4">
           <input
             type="text"
             value={input}
             onChange={(e) => setInput(e.target.value)}
-            onKeyPress={(e) => e.key === 'Enter' && !loading && handleSend()}
+            onKeyPress={(e) => e.key === "Enter" && !loading && handleSend()}
             placeholder="Type your question..."
             className="flex-1 input input-bordered p-3 rounded !text-white !bg-gray-800 !caret-white placeholder:!text-gray-400"
             disabled={loading}
@@ -124,9 +106,15 @@ export default function ChatBot({ search = null, games = [] }) {
           </p>
         )}
 
-        <div className="reply-box p-4 border border-emerald-700 rounded min-h-[15rem] bg-emerald-800 overflow-y-auto whitespace-pre-wrap">
-          {reply || (!loading && "Tubey's response will appear here.")}
+        <div className={styles.replyWrapper}>
+          <div ref={replyBoxRef} className={styles.replyBox}>
+            {reply || (!loading && "Tubey's response will appear here.")}
+          </div>
+          <div ref={trackRef} className={styles.customTrack}>
+            <img ref={hotdogRef} src={hotdog} className={styles.hotdog} alt="scroller" />
+          </div>
         </div>
+
       </div>
     </div>
   );
