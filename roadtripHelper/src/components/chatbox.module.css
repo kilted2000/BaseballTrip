@@ -38,4 +38,5 @@
   top: 0;
   left: 0;
   transition: top 0.05s linear;
+  display: block; 
 }

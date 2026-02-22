@@ -16,12 +16,16 @@ export default function ChatBot({ search = null, games = [] }) {
   const hotdogRef = useRef(null);
   const trackRef = useRef(null);
 
-  useEffect(() => {
+// change the useEffect dependency array from [] to [reply]
+useEffect(() => {
     const box = replyBoxRef.current;
     const img = hotdogRef.current;
     const track = trackRef.current;
 
     if (!box || !img || !track) return;
+
+    
+    img.style.top = "0px";
 
     const handleScroll = () => {
       const scrollRatio = box.scrollTop / (box.scrollHeight - box.clientHeight);
@@ -31,7 +35,7 @@ export default function ChatBot({ search = null, games = [] }) {
 
     box.addEventListener("scroll", handleScroll);
     return () => box.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [reply]); 
 
   const handleSend = async () => {
     if (!input.trim()) { setError("Please enter a question"); return; }
