@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { useUser } from "@clerk/clerk-react";
-import styles from "./chatbot.module.css";
+import styles from "./chatbox.module.css";
 import hotdog from "../assets/hotscroll.jpeg"; 
 
 export default function ChatBot({ search = null, games = [] }) {
