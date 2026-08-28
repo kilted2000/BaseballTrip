@@ -7,7 +7,7 @@ const LandingPage = () => {
       bg-center h-full m-auto overflow-x-hidden"
     >
       <div className="navbar bg-base-300">
-        <a className="btn btn-ghost font-bold ">Baseball Bucketlist</a>
+        <a className="btn btn-ghost font-bold ">MLB Roadtrip Helper</a>
         <SignInButton className="absolute top-0 right-0 mt-4 mr-4 text-sky-500" />
       </div>
       <div
@@ -83,7 +83,7 @@ const LandingPage = () => {
       </div> */}
       <div className="bg-blue-900 h-72 text-left p-8 text-white">
         <h3 className="text-sm md:text-2xl px-8 pt-8">
-          How Baseball Bucketlist will simplify your life:
+          How MLB Roadtrip Helper will simplify your life:
         </h3> 
         <p className="text-sm md:text-2xl p-8 leading-8">
           Stop having to check each team’s schedule individually, just type in
