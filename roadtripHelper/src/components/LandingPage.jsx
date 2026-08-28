@@ -21,7 +21,7 @@ const LandingPage = () => {
         </div>
       </div>
       <div>
-  <div className="hero flex flex-row flex-wrap justify-center gap-4 w-screen items-center">
+  {/* <div className="hero flex flex-row flex-wrap justify-center gap-4 w-screen items-center">
     <h4 className="text-white text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl">As Seen On:</h4>
     <img
       src="bbc.jpeg"
@@ -48,7 +48,7 @@ const LandingPage = () => {
       alt="rte logo"
       className="bg-base-100 size-12 sm:size-16 md:size-24 lg:size-36 xl:size-48"
     />
-  </div>
+  </div> */}
 </div>
 
       {/* <div>

@@ -6,7 +6,7 @@ const NavBar = () => {
     
     return (
         <div className="navbar navbar-center bg-base-300 mt-12 md:mt-0">
-            <a className="btn btn-ghost text-xl mx-4" href="/">Baseball Bucketlist</a>
+            <a className="btn btn-ghost text-xl mx-4" href="/">MLB Roadtrip Helper</a>
             <button
                 type="button"
                 onClick={() => navigate("/profile")}
